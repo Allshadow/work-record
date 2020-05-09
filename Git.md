@@ -2,6 +2,14 @@
 ![gitnew1](/Git/gitnew1.png)typora-root-url: assets
 ---
 
+# 常用命令
+
+1.批量添加文件到暂存区
+
+```bash
+$ git add -A
+```
+
 # 远程仓库
 
 ## 1.设置远程仓库
@@ -60,7 +68,12 @@ $ ssh-keygen -t rsa -C "youremail@example.com"
 1.在本地仓库运行命令
 
 ```bash
-$ git remote add origin https://github.com/Allshadow/WorkFile.git
+$ git remote add origin git@github.com:Allshadow/WorkFile.git //ssh传输
+
+$ git remote add origin https://github.com/Allshadow/WorkFile.git //此为https协议的链接，会不断重复输入密码...
+
+//此时，取消本地关联仓库，执行ssh传输
+1.git remote rm origin
 ```
 
 ### 推送远程仓库
