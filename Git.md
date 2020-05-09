@@ -1,8 +1,4 @@
----
-![gitnew1](/Git/gitnew1.png)typora-root-url: assets
----
-
-# 常用命令
+# 一、常用命令
 
 1.批量添加文件到暂存区
 
@@ -10,11 +6,11 @@
 $ git add -A
 ```
 
-# 远程仓库
+# 二、远程仓库
 
 ## 1.设置远程仓库
 
-### 设置ssh
+### 1.设置ssh
 
 判断本地是否存在.ssh目录
 
@@ -53,9 +49,9 @@ $ ssh-keygen -t rsa -C "youremail@example.com"
 4.保存即可
 ```
 
-### 添加远程仓库
+### 2.添加远程仓库
 
-1.点击右侧头像---yourRepositories-- new
+1.点击右侧头像---your Repositories-- new
 
 ![](E:\WorkFile\assets\Git\gitnew1.png)
 
@@ -63,7 +59,7 @@ $ ssh-keygen -t rsa -C "youremail@example.com"
 
 ![](E:\WorkFile\assets\Git\gitnew2.png)
 
-### 关联远程仓库
+### 3.关联远程仓库
 
 1.在本地仓库运行命令
 
@@ -76,7 +72,7 @@ $ git remote add origin https://github.com/Allshadow/WorkFile.git //此为https�
 1.git remote rm origin
 ```
 
-### 推送远程仓库
+### 4.推送远程仓库
 
 1.在本地仓库运行命令
 
