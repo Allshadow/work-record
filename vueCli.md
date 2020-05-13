@@ -28,3 +28,12 @@ yarn global add @vue/cli
 vue --version
 ```
 
+# 二、创建一个新项目
+
+```BASH
+//Windows 上通过 minTTY 使用 Git Bash，交互提示符并不工作
+$ winpty vue.cmd create [项目名称]
+OR
+$ vue create [项目名称]
+```
+
