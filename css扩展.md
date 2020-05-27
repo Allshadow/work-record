@@ -42,6 +42,30 @@ $highlight-border: 1px solid $highlight-color;
 https://www.sass.hk/guide/
 ```
 
+## 2、使用scss
+
+### 1）安装
+
+```
+npm i node-sass sass-loader style-loader -D
+```
+
+### 2）配置loder
+
+```bash
+{
+        test: /\.scss$/,
+        loader: 'sass-loader!style-loader!css-loader',
+}
+```
+
+### 3）使用
+
+```
+//在style标签使用
+<style lang="scss"></style>
+```
+
 # 二、less
 
 ## 1.webstorm配置 
