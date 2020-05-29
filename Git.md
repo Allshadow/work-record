@@ -74,7 +74,25 @@ $ git remote add origin https://github.com/Allshadow/WorkFile.git //此为https�
 
 ### 4.推送远程仓库
 
-1.在本地仓库运行命令
+1.初始化本地仓库
+
+```bash
+$ git init
+```
+
+2.提交文件到暂存区
+
+```bash
+$ git add -A
+```
+
+3.提交文件到版本库
+
+```bash
+$ git commit -m ''
+```
+
+4.在本地仓库运行命令
 
 ```bash
 $ git push -u origin master

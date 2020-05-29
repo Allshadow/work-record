@@ -102,6 +102,23 @@ data: {
 <div v-bind:class="[{ active: isActive }, errorClass]"></div>
 ```
 
+## 2、jsx
+
+### 1）什么是jsx
+
+```
+//jsx是javascript与XML结合的格式
+当遇到 <  jsx就当HTMEL解析， 遇到 ( 就当javascript解析
+```
+
+### 2）render函数使用jsx
+
+```
+https://www.cnblogs.com/amylis_chen/p/11320059.html
+```
+
+
+
 # 四、Api
 
 ## 1、$set
@@ -125,3 +142,35 @@ vue.set(obj, key, value)
 ### 4）存在案例
 
 elementUI select 使用了动态默认值，选择项目时，切换效果失效
+
+## 2、watch
+
+### 1）监听父组件props传入值
+
+```js
+props:{
+  localTime: null
+},
+
+data: {
+  return{
+      ownTime: ''
+  }
+}
+
+watch:{
+  localTime(newVal, oldVal){
+    this.ownTime = newVal;
+  }
+},
+```
+
+# 五、其他
+
+## 1、跳转外部链接
+
+```js
+let url = http://www.baidu.com
+window.location.href = url;
+```
+
