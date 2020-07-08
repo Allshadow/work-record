@@ -117,6 +117,89 @@ data: {
 https://www.cnblogs.com/amylis_chen/p/11320059.html
 ```
 
+## 3、:style
+
+### 1）使用对象语法
+
+```vue
+<div :style='{fontSize: '20px'}'></div>
+```
+
+### 2）使用数组语法符
+
+```vue
+<div 
+    :style="[{color: '#67C23A'},{fontSize:'20px'}]"</div>
+```
+
+### 3）使用三目运算符
+
+```vue
+//若只有单个样式
+<div>
+    :style="status==1? 'color: #67C23A', 'color: #F56C6C'"
+</div>
+//若存在多个样式
+<div>
+    :style="status==1? {color: '#67C23A'} : {color: '#F56C6C'}, {fontSize: '20px'}"
+</div>
+```
+
+## 4、插槽
+
+### 1）基本概念
+
+slot分发的内容，作用域是在父组件上
+
+### 2）单个slot
+
+```vue
+//子组件上,标签名为<text-slot>的组件
+<template>
+   <div>
+     <slot></slot>
+   </div>
+</template>
+
+//父组件上
+<template>
+  <div>
+    <text-slot>
+      <div>我是div或其他标签</div>
+    </text-slot>
+  </div>
+</template>
+
+//单个slot设置默认
+<template>
+  <div>
+    <slot>
+      <p>如果没插入任何内容，我将自动出现 </p>
+    </slot>
+  </div>
+</template>
+```
+
+### 3）具名slot
+
+```
+//子组件
+<slot name="header"></slot>
+//父组件，自2.6.0起，已废弃以下写法
+<h2 slot="header"></h2>
+//更新为,v-slot需要卸载template里面
+<template v-slot:header></template>
+>>OR
+<h2 #header></h2>
+```
+
+### 4）作用域插槽
+
+```
+//有时候让插槽内容能够访问子组件中才有得数据是很有用得
+
+```
+
 
 
 # 四、Api
@@ -165,6 +248,48 @@ watch:{
 },
 ```
 
+### 2）监听对象变化
+
+```js
+data: {
+  return{
+      ownTime: {}
+  }
+}
+
+watch:{
+  ownTime:{
+      handler(newVal, oldVal){
+          
+      },
+      deep: true  //是否深度监听
+      immediate: true //是否立即执行
+  }
+},
+```
+
+### 3）监听对象得某个属性变化
+
+```vue
+data: {
+　　obj: {
+　　　　age: 18
+　　}
+},
+computed: {
+　　isage(){
+　　　　return this.obj.age
+　　}
+},
+watch: {
+　　isage(){
+　　console.log('obj.age发生变化')
+　　}
+}
+```
+
+
+
 # 五、其他
 
 ## 1、跳转外部链接
@@ -172,5 +297,12 @@ watch:{
 ```js
 let url = http://www.baidu.com
 window.location.href = url;
+```
+
+## 2、异步获取数据时，子组件未接收到父组件得值
+
+```
+//使用 v-if 判断，等待有值时判断
+//使用监听器，监听到父组件的值
 ```
 
