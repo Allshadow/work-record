@@ -306,3 +306,36 @@ window.location.href = url;
 //使用监听器，监听到父组件的值
 ```
 
+# 六、组件通信
+
+## 1、props / $emit
+
+## 2、$attrs/ $listener
+
+### 1）$attrs
+
+#### 描述
+
+父作用域中不作为prop属性传入的参数（除class 和 style）,可以通过 v-bind="$attrs",传入内部组件
+
+#### 案例
+
+```
+v-bind="$attrs"
+//父组件
+
+```
+
+### 2）$listeners
+
+#### 描述
+
+包含了父作用域中的（不含.native 修饰器）v-on事件监听，可以通过 v-on='$listeners',传入内部组件
+
+#### 案例
+
+```
+v-on = '$listeners'
+//子组件使用this.$emit('changeValue', false)，触发父级的方法执行
+```
+
