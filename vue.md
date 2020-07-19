@@ -200,7 +200,44 @@ slot分发的内容，作用域是在父组件上
 
 ```
 
+## 5、props 数据验证
 
+```
+props: {
+		//必须是数字类型
+		propA: Number,
+		
+		// 必须是字符串或数字类型
+		propB: [String, Number],
+		
+		//布尔值，如果没有定义，默认为true
+		propC: {
+			type: Boolean,
+			default: true
+		},
+		
+		//数字，必传
+		propD: {
+			type: Number,
+			required: true
+		},
+		
+		//如果是数组或对象，默认值必须是一个函数来返回
+		propE: {
+			type: Array,
+			default: function(){
+				return[];
+			}
+		},
+		
+		//自定义一个验证函数
+		propF: {
+			validator : function(){
+				return value > 10;
+			}
+		}
+	}
+```
 
 # 四、Api
 
@@ -313,6 +350,38 @@ window.location.href = url;
 ```
 //使用 v-if 判断，等待有值时判断
 //使用监听器，监听到父组件的值
+```
+
+## 3、监听物理按键返回事件
+
+```
+/*
+*  mounted 为vue 的 mounted
+*  destroyed 为 vue 的 destroyed
+*  methods 为 vue 的 methods
+* */
+function mounted() {
+    // 如果支持 popstate 一般移动端都支持了
+    if (window.history && window.history.pushState) {
+        // 往历史记录里面添加一条新的当前页面的url //这个不用更改
+        history.pushState(null, null, document.URL);
+        // 给 popstate 绑定一个方法 监听页面刷新
+        window.addEventListener('popstate', this.backChange, false);//false阻止默认事件
+    }
+}
+
+//页面销毁时，取消监听。否则其他vue路由页面也会被监听
+function destroyed(){
+    window.removeEventListener('popstate', this.backChange, false);//false阻止默认事件
+}
+
+function methods(){
+    backChange() {
+        const that = this;
+        console.log("监听到了");
+    }
+}
+
 ```
 
 # 六、组件通信

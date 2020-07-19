@@ -96,6 +96,32 @@ Map 可以接受各种类型的值作为key, 为值-值对应
 
 2）Map 可以接受数组
 
+## 2、定义默认参数的方式
+
+```
+//以前javescript原先定义方式
+var link = function(height, color, url){
+  var height = height || 50;
+  var color = color || 'red';
+  var url = url || 'http://baidu.com'
+}
+
+//ES6中
+var link = function(height = 50, color = 'red', url = 'http://baidu.com'){
+
+}
+```
+
+## 3、模板文本
+
+```
+//ES6之前拼接字符串
+var name = 'your name is ' + first + ' ' + last + '';
+
+//ES6中使用${NAME}，并将其放在引号中
+var name = 'your name is ${first} ${last}';
+```
+
 # 三、其他
 
 ## 1、typeof
