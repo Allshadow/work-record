@@ -283,3 +283,32 @@ key: iy9uUKbS7pEZwE5hbHTGigOcu48TdY4JXWbJYHxXLuvAzRL8qmry9J2mS5wXO7y3
 百度网盘work目录下
 ```
 
+# 七、谷歌标签与github同步
+
+## 1.插件下载
+
+```
+百度网盘（work/谷歌插件/bookMark）
+```
+
+## 2.参考链接
+
+```
+https://www.cnblogs.com/gongkiro/p/13221739.html
+```
+
+# 八、Typora
+
+## 1.用途
+
+#基于MarkDown的文本编辑器
+
+## 2.下载
+
+```
+百度网盘（work/MarkDown）
+
+//导出特殊文档时需要使用,直接下载即可
+work/MarkDown/pandoc-2.10-windows-x86_64.msi
+```
+
