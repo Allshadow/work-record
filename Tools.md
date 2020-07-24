@@ -312,3 +312,39 @@ https://www.cnblogs.com/gongkiro/p/13221739.html
 work/MarkDown/pandoc-2.10-windows-x86_64.msi
 ```
 
+# 九、npm
+
+## 1.基础命令
+
+```
+//查看当前npm源
+npm config get registry
+```
+
+## 2.nrm管理npm源
+
+```
+//下载
+npm install -g nrm
+//添加npm源
+nrm add npm http://registry.npmjs.org
+nrm add taobao https://registry.npm.taobao.org
+//切换源地址
+nrm use npm
+nrm use taobao
+```
+
+## 3.phantomJs下载延时问题
+
+```
+//百度网盘
+work/phantomJs
+
+//下载地址(淘宝镜像)
+https://npm.taobao.org/mirrors/phantomjs?spm=a2c6h.14029880.0.0.735975d7cwFtK9
+
+//无需安装，解压即可，并配置环境变量
+//在path中添加：
+D:\Program Files\phantomjs-2.1.1-windows\bin
+```
+
