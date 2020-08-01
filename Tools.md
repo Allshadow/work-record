@@ -319,6 +319,12 @@ work/MarkDown/pandoc-2.10-windows-x86_64.msi
 ```
 //查看当前npm源
 npm config get registry
+
+//清除npm
+rm -rf node_modules
+rm package-lock.json
+npm cache clear --force
+npm install
 ```
 
 ## 2.nrm管理npm源

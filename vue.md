@@ -308,6 +308,21 @@ watch:{
 ### 3）监听对象得某个属性变化
 
 ```vue
+//方法一（推荐）
+data:{
+	obj: {
+		age: 18
+	}
+}
+watch: {
+	"obj.age":{
+		handler(newValue){
+　　			console.log('obj.age发生变化')
+		}
+	}
+}
+
+//方法二
 data: {
 　　obj: {
 　　　　age: 18
@@ -334,7 +349,27 @@ watch: {
 # 给组件绑定res,使用this.$res.xxx 获取的是当前组件对象
 ```
 
+## 4、computed
 
+### 1）计算属性的setter
+
+```vue
+//监听的值更新了，比如以下的fullName更新，setter就会被调用，若在setter下改变了getter方法计算的值，fullName，也会随着更新。
+vm.fullName = 'Job Work'
+
+computed: {
+	fullName:{
+		get(){
+			return this.firstName + this.lastName
+		},
+		set(newValue){ //newValue 为 fullName 的值
+			var name = new Value.split('')
+			this.firstName = name[0];
+			this.lastName = name[name.length -1]
+		}
+	}
+}
+```
 
 # 五、其他
 
