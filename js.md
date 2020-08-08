@@ -185,3 +185,9 @@ NP.round(0.105, 2);
 // = 0.11, not 0.1
 ```
 
+## 4、base64 图片引用
+
+```
+“data:image/jpg;base64,base64...."
+```
+

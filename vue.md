@@ -239,6 +239,41 @@ props: {
 	}
 ```
 
+## 7、img标签使用技巧
+
+### 1）onerror方法
+
+```vue
+//场景：
+	//当图片加载不了，使用默认代替，因此用到onerror方法
+//使用：
+/*
+	传统使用 onerror, vue中使用 @error
+	@error可以传递多个参数 onerror($event, index)	
+*/
+<img :src="item.picUrl"  alt="" @error="onerror($event, index)">
+
+methods:{
+	onerror(e, index){
+        let img = e.srcElement;
+		img.src = this.defaultImg;
+        img.onerror = null; //防止闪图
+	},
+}
+```
+
+### 2）src属性添加随机数
+
+```vue
+//场景：
+	//间隔1s时间来刷新图片，由于图片的请求路径是一样的，由于图片懒加机制，则不会重新请求，导致请求到的图是同一张。
+//使用：
+/*
+	src后面拼接随机的字符串，不会影响到图片请求
+**/
+<img :src="item.picUrl + '?time=' + Math.random()">
+```
+
 # 四、Api
 
 ## 1、$set
@@ -448,7 +483,9 @@ v-bind="$attrs"
 #### 案例
 
 ```
+//父组件使用
 v-on = '$listeners'
+
 //子组件使用this.$emit('changeValue', false)，触发父级的方法执行
 ```
 
