@@ -274,6 +274,29 @@ methods:{
 <img :src="item.picUrl + '?time=' + Math.random()">
 ```
 
+## 8、key
+
+```vue
+//场景：
+	// 当父组件更新数据时，子组件的数据没有被更新
+//使用：
+<the-dialog
+    title="监管配置设置"
+    :show-data.sync="isEditSetting"
+    :isReset="true"
+    @reset="resetForm"
+    @submit="submit"
+>
+    <the-setting-form
+        :data-list="dataObj"  //dataObj更新时，组件的数据未更新
+        ref="editForm"
+        :key="Math.random()"  //加上一个随机数的key
+     />
+</the-dialog>
+```
+
+
+
 # 四、Api
 
 ## 1、$set
