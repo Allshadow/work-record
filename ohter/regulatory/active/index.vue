@@ -25,8 +25,8 @@
 					<template slot-scope="scope">
 						<span @click="manageCount('count', scope.row)" class="oper-standard">场次管理</span>
 						<span @click="manageCount('site', scope.row)" class="oper-standard">场所管理</span>
-						<span @click="manageCount('student')" class="oper-standard">学员管理</span>
-						<span @click="manageCount('teacher')" class="oper-standard">监管老师管理</span>
+						<span @click="manageCount('student', scope.row)" class="oper-standard">学员管理</span>
+						<span @click="manageCount('teacher', scope.row)" class="oper-standard">监管老师管理</span>
 						<span class="oper-edit" @click="addActive(scope.row)">编辑活动</span>
 						<span class="oper-del" @click="deleteActive(scope.row.activeId)">删除</span>
 					</template>
@@ -123,17 +123,9 @@
 				switch (type) {
 					case 'count':
 						route = '/regulatory/active/manageCount';
-						params = {
-							title: obj.name,
-							activeId: obj.activeId
-						}
 						break;
 					case 'site':
 						route = '/regulatory/active/manageSite';
-						params = {
-							title: obj.name,
-							activeId: obj.activeId
-						}
 						break;
 					case 'student':
 						route = '/regulatory/active/manageStudent';
@@ -145,6 +137,10 @@
 						break;
 				}
 
+				params = {
+					title: obj.name,
+					activeId: obj.activeId
+				};
 				this.$router.push({
 					path: route,
 					query: params

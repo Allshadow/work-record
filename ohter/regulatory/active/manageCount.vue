@@ -18,7 +18,7 @@
 						<el-input clearable placeholder="搜索活动名称" v-model="filter.name" class="search" suffix-icon="iconfont icon-search"></el-input>
 					</el-col>
 					<el-col :span="12" style="text-align: right">
-						<el-button type="primary" @click="isEditSetting = true">新增场次</el-button>
+						<el-button type="primary" @click="editSite({})">新增场次</el-button>
 					</el-col>
 				</el-row>
 			</div>
@@ -49,19 +49,21 @@
 				</el-table-column>
 				<el-table-column prop="productName" min-width="100" label="订单内容" header-align="center" align="center" slot="operation">
 					<template slot-scope="scope">
-						<span class="oper-edit">编辑</span>
+						<span class="oper-edit" @click="editSite(scope.row)">编辑</span>
 						<span class="oper-del">删除</span>
 						<span class="oper-del">结束</span>
 					</template>
 				</el-table-column>
 			</base-table>
 		</div>
-		<the-dialog
-			:title="headTitle"
-			:show-data.sync="isEditSetting"
-			:is-reset="true"
-			@reset="resetForm('editForm')"
-			@submit="submit('editForm')"
+		<el-dialog
+			class="dialog-form c-m-live-room-form"
+			:title="title"
+			:visible.sync="isEditSetting"
+			:lock-scroll="false"
+			:close-on-click-modal="false"
+			width="800px"
+			@close="resetForm('editForm')"
 		>
 			<el-form :model="editForm" :rules="rules" ref="editForm" label-width="100px">
 				<el-form-item label="场次名称" prop="name">
@@ -83,7 +85,11 @@
 					</el-date-picker>
 				</el-form-item>
 			</el-form>
-		</the-dialog>
+			<div slot="footer" class="dialog-footer">
+				<el-button @click="isEditSetting = false">取 消</el-button>
+				<el-button type="primary" @click="submit('editForm')">确 定</el-button>
+			</div>
+		</el-dialog>
 	</div>
 </template>
 <script>
@@ -104,7 +110,7 @@ export default {
 			pageSize: 10,
 			total: 0,
 			isValue: true,
-			headTitle: '新增场次',
+			title: '新增场次',
 			editForm:{
 				name: '',
 				superviseLongTime: '',
@@ -171,6 +177,19 @@ export default {
 		this.getTableList();
 	},
 	methods: {
+		//编辑场所
+		editSite(row){
+			this.isEditSetting = true;
+			if(JSON.stringify(row) !== '{}'){
+				this.title = '编辑场次'
+				this.$nextTick(()=>{
+					this.editForm = {...row};
+				})
+			}else{
+				this.title = "新增场次"
+			}
+		},
+
 		//获取列表数据
 		async getTableList(){
 			try{
@@ -235,11 +254,10 @@ export default {
 		submit(formName) {
 			this.$refs[formName].validate((valid) => {
 				if (valid) {
-					let params = {...this.ruleForm};
-					params.superviseBeginTime = this.editForm.superviseTime[0];
-					params.superviseEndTime = this.editForm.superviseEndTime[1];
-					params.activeId = this.fatherData.activeId;
-					this.submitClose(this.editForm, params.id);
+					this.editForm.superviseBeginTime = this.editForm.superviseTime[0];
+					this.editForm.superviseEndTime = this.editForm.superviseTime[1];
+					this.editForm.activeId = this.fatherData.activeId;
+					this.submitClose(this.editForm, this.editForm.sessionId);
 				} else {
 					console.log('error submit!!');
 					return false;
@@ -249,7 +267,6 @@ export default {
 
 		//重置表单
 		resetForm(formName){
-			console.log('refs', this.$refs[formName]);
 			this.$refs[formName].resetFields();
 			this.isEditSetting = false;
 		}

@@ -5,38 +5,37 @@
 				<el-col :span="12">
 					<div class="panel-title">
 						<i class="iconfont icon-classify2"></i>
-						<span class="txt">监管老师管理——xxx</span>
+						<span class="txt">监管老师管理——{{$route.query.title}}</span>
 					</div>
 				</el-col>
 				<el-col :span="12" style="text-align: right">
 					<el-button @click="goBack">返回</el-button>
 				</el-col>
 			</el-row>
-			<div class="list-content">
-				<el-row :gutter="10" class="search-wrap">
-					<el-col :span="6">
-						<el-input clearable placeholder="搜索老师姓名" v-model="filter.idNumber" class="search" suffix-icon="iconfont icon-search"></el-input>
-					</el-col>
-					<el-col :span="3">
-						<el-select filterable v-model="filter.type" placeholder="场次筛选" @change="changeFilter" clearable>
-							<el-option v-for="item in orderType" :key="item.id" :label="item.name" :value="item.id"></el-option>
-						</el-select>
-					</el-col>
-					<el-col :span="3">
-						<el-select filterable v-model="filter.type" placeholder="场所筛选" @change="changeFilter" clearable>
-							<el-option v-for="item in orderType" :key="item.id" :label="item.name" :value="item.id"></el-option>
-						</el-select>
-					</el-col>
-					<el-col :span="3">
-						<el-select filterable v-model="filter.type" placeholder="场所状态" @change="changeFilter" clearable>
-							<el-option v-for="item in orderType" :key="item.id" :label="item.name" :value="item.id"></el-option>
-						</el-select>
-					</el-col>
-					<el-col :span="9" style="text-align: right">
-						<el-button type="primary" @click="isEditSetting = true">新增老师</el-button>
-					</el-col>
-				</el-row>
-			</div>
+			<el-row :gutter="20" class="search-wrap">
+				<el-col :span="16">
+					<el-input
+						clearable
+						placeholder="搜索场所名称"
+						v-model="filter.name"
+						class="search-input"
+						suffix-icon="iconfont icon-search"
+						@change="getTableList"
+					/>
+					<el-select filterable v-model="filter.type" placeholder="场次筛选" @change="changeFilter" clearable>
+						<el-option v-for="item in orderType" :key="item.id" :label="item.name" :value="item.id"></el-option>
+					</el-select>
+					<el-select filterable v-model="filter.type" placeholder="场所筛选" @change="changeFilter" clearable>
+						<el-option v-for="item in orderType" :key="item.id" :label="item.name" :value="item.id"></el-option>
+					</el-select>
+					<el-select filterable v-model="filter.type" placeholder="场所状态" @change="changeFilter" clearable>
+						<el-option v-for="item in orderType" :key="item.id" :label="item.name" :value="item.id"></el-option>
+					</el-select>
+				</el-col>
+				<el-col :span="8" style="text-align: right">
+					<el-button type="primary" @click="editSite">新增老师</el-button>
+				</el-col>
+			</el-row>
 			<base-table
 				:data-list="dataList"
 				:config="tableConfig"
@@ -46,16 +45,21 @@
 			>
 				<el-table-column prop="productName" min-width="100" label="订单内容" header-align="center" align="center" slot="operation">
 					<template slot-scope="scope">
-						<span>删除</span>
+						<span class="oper-del">删除</span>
 					</template>
 				</el-table-column>
 			</base-table>
 		</div>
-		<the-dialog
-			title="新增场所"
-			:show-data.sync="isEditSetting"
+		<el-dialog
+			class="dialog-form c-m-live-room-form"
+			:title="title"
+			:visible.sync="isEditSetting"
+			:lock-scroll="false"
+			:close-on-click-modal="false"
+			width="500px"
+			@close="resetForm('editForm')"
 		>
-			<el-form :model="editForm" :rules="rules" ref="editForm" label-width="100px">
+			<el-form :model="editForm" :rules="rules" ref="editForm" label-width="130px">
 				<el-form-item label="场次名称">
 					<el-select v-model="editForm.region" placeholder="请选择活动区域">
 						<el-option label="区域一" value="shanghai"></el-option>
@@ -79,7 +83,11 @@
 					</el-select>
 				</el-form-item>
 			</el-form>
-		</the-dialog>
+			<div slot="footer" class="dialog-footer">
+				<el-button @click="isEditSetting = false">取 消</el-button>
+				<el-button type="primary" @click="submit('editForm')">确 定</el-button>
+			</div>
+		</el-dialog>
 	</div>
 </template>
 <script>
@@ -97,6 +105,7 @@
 		data() {
 			return {
 				pageTitle: '监管老师管理',
+				title: '',
 				isValue: true,
 				editForm:{
 					name: '',
@@ -179,6 +188,12 @@
 		created() {
 		},
 		methods: {
+			//编辑老师
+			editSite(row){
+				this.isEditSetting = true;
+				this.title = "新增老师"
+			},
+
 			//返回
 			goBack(){
 				this.$router.go(-1);
@@ -198,12 +213,33 @@
 </script>
 
 <style scoped lang="scss">
-	.search{
-		width: 300px;
+	.search-wrap {
+		margin-top: 20px;
+		margin-bottom: 20px;
+		.search-input {
+			width: 300px;
+		}
 	}
 
-	.list-content{
-		margin: 20px 0;
+	@mixin basic {
+		padding-left: 5px;
+		padding-right: 5px;
+		cursor: pointer;
+	}
+
+	.oper-standard {
+		color: #67C23A;
+		@include basic;
+	}
+
+	.oper-edit {
+		@include basic;
+		color: #409EFF;
+	}
+
+	.oper-del {
+		@include basic;
+		color: #F56C6C;
 	}
 </style>
 

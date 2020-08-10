@@ -24,7 +24,7 @@
 					></el-input>
 				</el-col>
 				<el-col :span="12" style="text-align: right">
-					<el-button type="primary" @click="isEditSetting = true">新增场所</el-button>
+					<el-button type="primary" @click="editSite({})">新增场所</el-button>
 					<el-button type="primary" @click="showImport">导入场所</el-button>
 				</el-col>
 			</el-row>
@@ -37,14 +37,14 @@
 			>
 				<el-table-column prop="productName" min-width="100" label="操作" header-align="center" align="center" slot="operation">
 					<template slot-scope="scope">
-						<div v-if="scope.row.studentNum && scope.row.teacherNum">
+<!--						<div v-if="scope.row.studentNum && scope.row.teacherNum">-->
 							<span class="oper-edit" @click="editSite(scope.row)">编辑</span>
 							<span class="oper-del" @click="del(scope.row.roomId)">删除</span>
-						</div>
-						<div v-else>
-							<span style="padding-left: 5px; padding-right: 5px;">编辑</span>
-							<span style="padding-left: 5px; padding-right: 5px;">删除</span>
-						</div>
+<!--						</div>-->
+<!--						<div v-else>-->
+<!--							<span style="padding-left: 5px; padding-right: 5px;">编辑</span>-->
+<!--							<span style="padding-left: 5px; padding-right: 5px;">删除</span>-->
+<!--						</div>-->
 					</template>
 				</el-table-column>
 			</base-table>
@@ -67,7 +67,6 @@
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
-				<!--此处只能使用 dialogShow = false , 若使用close方法，会执行两次关闭方法-->
 				<el-button @click="isEditSetting = false">取 消</el-button>
 				<el-button type="primary" @click="submit('editForm')">确 定</el-button>
 			</div>
@@ -193,8 +192,15 @@
 
 			//编辑场所
 			editSite(row){
-				this.editForm = {...row};
 				this.isEditSetting = true;
+				if(JSON.stringify(row) !== '{}'){
+					this.title = '编辑场所'
+					this.$nextTick(()=>{
+						this.editForm = {...row};
+					})
+				}else{
+					this.title = "新增场所"
+				}
 			},
 
 			//获取表格数据
