@@ -8,7 +8,8 @@
 			:close-on-click-modal="false"
 			@closed="close"
 			:destroy-on-close="true"
-			:width="width">
+			:width="width"
+		>
 			<slot></slot>
 			<div slot="footer" class="dialog-footer">
 				<!--此处只能使用 dialogShow = false , 若使用close方法，会执行两次关闭方法-->
@@ -66,8 +67,10 @@
 		methods:{
 			close(){
 				if(this.isReset){
+					console.log('我执行了');
 					this.$emit('reset', false);
 				}else{
+					console.log('我是二次执行');
 					this.$emit('update:showData', false);
 				}
 			},

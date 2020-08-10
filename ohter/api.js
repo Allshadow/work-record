@@ -673,7 +673,18 @@ let APIS = /* <encrypt> */{
 		sview: 'POST:/sView/api',
 		getConfig: 'GET:/superviseConfig/getConfig', //监管配置 - 获取部门监管配置
 		addOrUpdate: 'POST:/superviseConfig/addOrUpdate',  //监管配置 - 监管配置添加或更新
-		getActivityPage: 'POST:/activity/getActivityPage'  //监管活动 - 获取监管活动列表信息
+		getActivityPage: 'GET:/activity/getActivityPage',  //监管活动 - 获取监管活动列表信息
+		activityAdd: 'POST:/activity/add', //监管活动 - 添加活动
+		activityUpdate: 'POST:/activity/update', //监管活动 - 添加活动
+		getActivityInfo: 'GET:/activity/getActivityInfo', //监管活动 - 获取活动详情
+		getActivityDel: 'POST:/activity/delete', //监管活动 - 获取活动详情
+		supervisepage: 'GET:/superviseSessions/getSuperviseSessionsPage', //监管活动 - 获取监管场次列表
+		superviseAdd: 'POST:/superviseSessions/add', //监管活动 - 添加监管场次信息
+		superviseUpdate: 'POST:/superviseSessions/update', //监管活动 - 添加监管场次信息
+		addRoom: 'POST:/superviseRoom/addRoom',	//监管场地 - 添加监管场地
+		getRoonPage: 'POST:/superviseRoom/getRoomPage', //监管场地 - 获取监管场地分页列表
+		deleteRoom:'POST:/superviseRoom/deleteRoomInfo', //监管场地 - 删除监管场地
+		uploadRoom: 'POST:/superviseRoom/roomData' //监管场地 - 监管场地批量导入
 	}
 };/* </encrypt> */
 

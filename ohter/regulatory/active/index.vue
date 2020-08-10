@@ -8,10 +8,10 @@
 			<el-row :gutter="20" class="search-wrap">
 				<el-col :span="12">
 					<el-input clearable placeholder="搜索活动名称" v-model="filter.name" class="search-input"
-							  suffix-icon="iconfont icon-search"></el-input>
+							  suffix-icon="iconfont icon-search" @change="getTableList"></el-input>
 				</el-col>
 				<el-col :span="12" style="text-align: right">
-					<el-button type="primary" @click="addActive">新增活动</el-button>
+					<el-button type="primary" @click="addActive({})">新增活动</el-button>
 				</el-col>
 			</el-row>
 			<base-table
@@ -23,21 +23,22 @@
 			>
 				<el-table-column prop="productName" label="操作" slot="operation" min-width="200">
 					<template slot-scope="scope">
-						<span @click="manageCount('count')" class="oper-standard">场次管理</span>
-						<span @click="manageCount('site')" class="oper-standard">场所管理</span>
+						<span @click="manageCount('count', scope.row)" class="oper-standard">场次管理</span>
+						<span @click="manageCount('site', scope.row)" class="oper-standard">场所管理</span>
 						<span @click="manageCount('student')" class="oper-standard">学员管理</span>
 						<span @click="manageCount('teacher')" class="oper-standard">监管老师管理</span>
-						<span class="oper-edit">编辑活动</span>
-						<span class="oper-del">删除</span>
+						<span class="oper-edit" @click="addActive(scope.row)">编辑活动</span>
+						<span class="oper-del" @click="deleteActive(scope.row.activeId)">删除</span>
 					</template>
 				</el-table-column>
 			</base-table>
 		</div>
 		<the-dialog
-			title="新增活动"
+			:title="headTitle"
 			:show-data.sync="isEditSetting"
+			@submit="submit"
 		>
-			<the-active-dialog/>
+			<the-active-dialog ref="editForm" :key="Math.random()" :id="dataId"/>
 		</the-dialog>
 	</div>
 </template>
@@ -55,6 +56,7 @@
 				pageNum: '1',
 				pageSize: '10',
 				total: 0,
+				headTitle: '',
 				dataList: [],
 				tableConfig: [
 					{
@@ -64,22 +66,22 @@
 					},
 					{
 						label: '场所数量',
-						prop: 'count',
+						prop: 'roomNum',
 						width: '150'
 					},
 					{
 						label: '场次数量',
-						prop: 'count',
+						prop: 'sessionNum',
 						width: '150'
 					},
 					{
 						label: '学员数量',
-						prop: 'count',
+						prop: 'studentNum',
 						width: '150'
 					},
 					{
 						label: '退出密码',
-						prop: 'count',
+						prop: 'exitPws',
 						width: '150'
 					},
 					{
@@ -89,7 +91,8 @@
 				isEditSetting: false,
 				filter: {
 					name: ''
-				}
+				},
+				dataId: ''
 			};
 		},
 		components: {
@@ -108,20 +111,29 @@
 				}
 				const res = await this.$api(`${this.$cfg.API.regulatory.getActivityPage}?pageNum=${this.pageNum}&pageSize=${this.pageSize}`, params);
 				if(res){
-					this.dataList = res.result;
-					this.total = res.total;
+					this.dataList = res.result.records;
+					this.total = res.result.total;
 				}
 			},
 
 			//场次管理
-			manageCount(type) {
-				let route;
+			manageCount(type, obj) {
+				let route,
+					params;
 				switch (type) {
 					case 'count':
 						route = '/regulatory/active/manageCount';
+						params = {
+							title: obj.name,
+							activeId: obj.activeId
+						}
 						break;
 					case 'site':
 						route = '/regulatory/active/manageSite';
+						params = {
+							title: obj.name,
+							activeId: obj.activeId
+						}
 						break;
 					case 'student':
 						route = '/regulatory/active/manageStudent';
@@ -135,31 +147,98 @@
 
 				this.$router.push({
 					path: route,
-					query: ''
+					query: params
 				});
 			},
 
-			addActive(){
-				this.isEditSetting = true;
+
+			//删除
+			deleteActive(activeId){
+				this.$confirm('确定删除该活动吗，删除该活动将删除该活动的监管数据，可先前往下载后在删除?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.$api(this.$cfg.API.regulatory.getActivityDel, {activeId: activeId})
+						.then(() =>{
+							this.$message({
+								type: 'success',
+								message: '删除成功!'
+							});
+							this.getTableList();
+						})
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消删除'
+					});
+				});
+			},
+
+			//新增/编辑
+			addActive(row){
+				if(JSON.stringify(row) != '{}'){
+					this.headTitle = '编辑场次';
+					this.dataId = row.activeId;
+					this.isEditSetting = true;
+				}else{
+					this.headTitle = '新增场次';
+					this.dataId = '';
+					this.isEditSetting = true;
+				}
+
+			},
+
+			//提交数据接口
+			async submitClose(val, id) {
+				if(id){
+					const res = await this.$api(this.$cfg.API.regulatory.activityUpdate, val);
+				}else{
+					const res = await this.$api(this.$cfg.API.regulatory.activityAdd, val);
+				}
+				this.isEditSetting = false;
+				this.$message({
+					message: '操作成功',
+					type: 'success'
+				});
+				this.filter.name = '';
+				this.getTableList();
+			},
+
+			//提交表单
+			submit(){
+				this.$refs.editForm.$refs['activeForm'].validate((valid) => {
+					if (valid) {
+						let data = {};
+						const val = this.$refs.editForm.activeForm;
+						const _val = this.$refs.editForm.ruleForm;
+						data = {...val, ..._val}
+						this.submitClose(data, this.$refs.editForm.id);
+					} else {
+						console.log('error submit!!');
+						return false;
+					}
+				});
+			},
+
+			//重置按钮
+			resetForm() {
+				console.log('wo');
+				this.$refs.editForm.$refs['activeForm'].resetFields();
+				this.$refs.editForm.$refs['ruleForm'].resetFields();
+				this.isEditSetting = false;
 			},
 
 			//行变化
 			handleSizeChange(val) {
-				console.log('我执行了');
+				this.pageSize = val;
+				this.getTableList();
 			},
 
 			//列变化
 			handleCurrentChange(val) {
-				console.log('我执行了');
-			},
-
-			priceFormatter(row, column, cellValue, index) {
-				return cellValue / 100 || 0;
-			},
-			changeFilter() {
-				this.fetchDataHandle(false, {
-					pageNum: 1
-				});
+				this.pageNum = val;
+				this.getTableList();
 			}
 		}
 	};
@@ -167,7 +246,6 @@
 <style scoped lang="scss">
 	.search-wrap {
 		margin-bottom: 20px;
-
 		.search-input {
 			width: 300px;
 		}
