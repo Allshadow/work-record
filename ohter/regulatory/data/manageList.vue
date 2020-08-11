@@ -24,9 +24,13 @@
 				<base-table
 					:data-list="dataList"
 					:config="tableConfig"
-					:total="20"
-					:current="2"
+					:is-pagination="false"
 				>
+					<el-table-column prop="productName" label="场次状态" slot="status">
+						<template slot-scope="scope">
+							<span>{{scope.row.status | formatStatus}}</span>
+						</template>
+					</el-table-column>
 				</base-table>
 			</div>
 			<div class="site-info">
@@ -39,172 +43,96 @@
 					</el-col>
 				</el-row>
 
-				<el-row :gutter="20" class="search-bar">
-					<el-col :span="6">
-						<el-input clearable placeholder="搜索学员姓名" v-model="filter.idNumber" class="search" suffix-icon="iconfont icon-search"></el-input>
-					</el-col>
-					<el-col :span="3">
-						<el-select filterable v-model="filter.type" placeholder="已到/未到筛选" @change="changeFilter" clearable>
-							<el-option v-for="item in orderType" :key="item.id" :label="item.name" :value="item.id"></el-option>
-						</el-select>
+				<el-row :gutter="20" class="search-wrap">
+					<el-col :span="9">
+						<el-input clearable placeholder="搜索学员姓名" v-model="filter.name" class="search-input" suffix-icon="iconfont icon-search"></el-input>
 					</el-col>
 					<el-col :span="15" style="text-align: right">
-						<el-button type="primary" @click="isEditSetting = true">导出</el-button>
+						<el-button type="primary" @click="exportData">导出</el-button>
 					</el-col>
 				</el-row>
 				<base-table
-					:data-list="dataList"
+					:data-list="detailList"
 					:config="tableListConfig"
-					:total="20"
-					:current="2"
+					:total="total"
+					@handleSizeChange="handleSizeChange"
+					@handleCurrentChange="handleCurrentChange"
 				>
 					<el-table-column prop="productName" min-width="100" label="订单内容" header-align="center" align="center" slot="operation">
 						<template slot-scope="scope">
-							<span>登录详情</span>
-							<span @click="manageCount">人脸识别</span>
+							<span class="oper-standard">去监管</span>
+							<span class="oper-standard" @click="manageCount(scope.row)">学员详情</span>
 						</template>
 					</el-table-column>
 				</base-table>
 			</div>
 		</div>
-		<the-dialog
-			title="登录详情"
-			:show-data.sync="isEditSetting"
-			width="300px"
-		>
-			<el-form :model="editForm" :rules="rules" ref="editForm" label-width="100px">
-				<el-form-item label="场次名称" prop="name">
-					<el-input v-model="editForm.name"></el-input>
-				</el-form-item>
-				<el-form-item label="活动形式">
-					<el-input type="textarea" v-model="editForm.desc"></el-input>
-				</el-form-item>
-			</el-form>
-		</the-dialog>
 	</div>
 </template>
 <script>
 
+	import { url as _url } from 'zy-utils';
+
 	const CODE = 'res_manage_regulatory_manageList';
 
-	import TheDialog from '../components/TheDialog';
 	import BaseTable from '../components/BaseTable';
-	import TheActiveDialog from '../components/TheActiveDialog';
-
 
 	export default {
-		name: 'manageCount',
+		name: 'manageList',
 		code: CODE,
 		data() {
 			return {
 				pageTitle: '场所管理',
-				placeholder: '搜索场所名称',
-				isValue: true,
-				editForm:{
-					name: '',
-					desc: ''
-				},
-				rules:{
-					name: [
-						{ required: true, message: '请输入活动名称', trigger: 'blur' },
-						{ min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-					],
-				},
-				dataList: [
-					{
-						name: '123',
-						count: '233'
-					},
-					{
-						name: '123',
-						count: '233'
-					}
-				],
+				total: 0,
+				pageNum: 1,
+				pageSize: 10,
+				dataList: [],
 				tableConfig:[
 					{
 						label: '监管活动',
-						prop: 'name',
-						width: '',
-						minWidth: '',
+						prop: 'activityName'
 					},
 					{
 						label: '监管场次',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						prop: 'sessionName'
 					},
 					{
 						label: '监管时间',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						prop: 'superviseTime'
 					},
 					{
-						label: '监管时长',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						label: '监管时长(分钟)',
+						prop: 'superviseLongTime'
 					},
 					{
-						label: '场次状态',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						slot: 'status'
 					},
 					{
 						label: '实到：应到学员',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						prop: 'studentNum'
 					},
 					{
-						label: '老师姓名',
-						prop: 'count',
-						width: '',
-						minWidth: '',
-					},
-
+						label: '监管老师',
+						prop: 'teacherNum'
+					}
 				],
-
+				detailList:[],
 				tableListConfig:[
 					{
-						type: 'selection'
+						label: '场所名称',
+						prop: 'roomName'
 					},
 					{
-						label: '学院姓名',
-						prop: 'name',
-						width: '',
-						minWidth: '',
+						label: '场所备注',
+						prop: 'remark'
 					},
 					{
-						label: '准考证号',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						label: '实到：应到学员',
+						prop: 'studentNum'
 					},
 					{
-						label: '身份证号',
-						prop: 'count',
-						width: '',
-						minWidth: '',
-					},
-					{
-						label: '出席状态',
-						prop: 'count',
-						width: '',
-						minWidth: '',
-					},
-					{
-						label: '登录次数',
-						prop: 'count',
-						width: '',
-						minWidth: '',
-					},
-					{
-						label: '人脸识别次数',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						label: '监管老师',
+						prop: 'teacherNum'
 					},
 					{
 						slot: 'operation'
@@ -213,26 +141,50 @@
 				],
 				isEditSetting: false,
 				filter: {
-					keyWord: '', //课程名称,课程代码或创建者模糊查询
-					beginTime: '',
-					endTime: '',
-					type: ''
-				}
+					name: ''
+				},
+				fatherData: {}
 			};
 		},
 		components: {
-			TheDialog,
-			BaseTable,
-			TheActiveDialog
+			BaseTable
 		},
 		created() {
+			this.fatherData = JSON.parse(this.$route.query.data);
+			this.dataList = [...this.fatherData];
+			this.getTableList();
+
 		},
 		methods: {
+			//导出
+			exportData(){
+				if(!this.detailList.length){
+					return this.$message({
+						message: '暂无可导出项',
+						type: 'warning'
+					})
+				}
+				//todo: 接口地址未修改
+				let URL = _url.completion(this.$cfg.API.regulatory.excelRoomData, {activeId: this.filter.activeId, name: this.filter.name, status: this.filter.status});
+				window.location.href = URL;
+			},
+
+			//获取表格数据
+			async getTableList(){
+				const res = await this.$api(`${this.$cfg.API.regulatory.superviseRoomData}?pageNum=${this.pageNum}&pageSize=${this.pageSize}`, {activeId: this.fatherData.activeId, sessionId: this.fatherData.sessionId, name: this.filter.name});
+				if(res){
+					this.detailList = res.result.records;
+					this.total = res.result.total;
+				}
+			},
+
 			manageCount(type){
 				let route = '/regulatory/data/manageDetail';
 				this.$router.push({
 					path: route,
-					query: ''
+					query: {
+						data: JSON.stringify(type)
+					}
 				})
 			},
 			//返回
@@ -242,12 +194,30 @@
 
 			//行变化
 			handleSizeChange(val){
-				console.log('我执行了');
+				this.pageSize = val;
+				this.getTableList();
 			},
 
 			//列变化
 			handleCurrentChange(val){
-				console.log('我执行了');
+				this.pageNum = val;
+				this.getTableList();
+			},
+		},
+		filters:{
+			formatStatus(val){
+				if(val || val == 0){
+					switch (val) {
+						case 0:
+							return '未开始';
+						case 1:
+							return '监管中';
+						case 2:
+							return '已结束'
+						default:
+							return ''
+					}
+				}
 			}
 		}
 	};
@@ -262,12 +232,33 @@
 		}
 	}
 
-	.search{
-		width: 300px;
+	.search-wrap {
+		margin-top: 20px;
+		margin-bottom: 20px;
+		.search-input {
+			width: 300px;
+		}
 	}
 
-	.list-content{
-		margin: 20px 0;
+	@mixin basic {
+		padding-left: 5px;
+		padding-right: 5px;
+		cursor: pointer;
+	}
+
+	.oper-standard {
+		color: #67C23A;
+		@include basic;
+	}
+
+	.oper-edit {
+		@include basic;
+		color: #409EFF;
+	}
+
+	.oper-del {
+		@include basic;
+		color: #F56C6C;
 	}
 </style>
 

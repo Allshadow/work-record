@@ -5,214 +5,231 @@
 				<i class="iconfont icon-classify2"></i>
 				<span class="txt">监管数据</span>
 			</div>
-			<div class="list-content">
-				<el-row :gutter="20" class="search-wrap">
-					<el-col :span="6">
-						<el-input clearable placeholder="搜索老师名称" v-model="filter.idNumber" class="search" suffix-icon="iconfont icon-search"></el-input>
-					</el-col>
-					<el-col :span="3">
-						<el-select filterable v-model="filter.type" placeholder="监管活动筛选" @change="changeFilter" clearable>
-							<el-option v-for="item in orderType" :key="item.id" :label="item.name" :value="item.id"></el-option>
-						</el-select>
-					</el-col>
-					<el-col :span="3">
-						<el-select filterable v-model="filter.type" placeholder="监管活动筛选" @change="changeFilter" clearable>
-							<el-option v-for="item in orderType" :key="item.id" :label="item.name" :value="item.id"></el-option>
-						</el-select>
-					</el-col>
-					<el-col :span="12" style="text-align: right">
-						<el-button type="primary" @click="isEditSetting = true">导出</el-button>
-					</el-col>
-				</el-row>
-			</div>
+			<el-row :gutter="20" class="search-wrap">
+				<el-col :span="16">
+					<el-input
+						clearable
+						placeholder="搜索场次名称"
+						v-model="filter.name"
+						class="search-input"
+						suffix-icon="iconfont icon-search"
+						@change="getTableList"
+					/>
+					<el-select filterable v-model="filter.activeId" placeholder="监管活动筛选" @change="getTableList" clearable>
+						<el-option v-for="item in activeList" :key="item.value" :label="item.label" :value="item.value"></el-option>
+					</el-select>
+					<el-select filterable v-model="filter.status" placeholder="场所状态筛选" @change="getTableList" clearable>
+						<el-option v-for="item in siteStatus" :key="item.value" :label="item.label" :value="item.value"></el-option>
+					</el-select>
+				</el-col>
+				<el-col :span="8" style="text-align: right">
+					<el-button type="primary" @click="exportData">导出</el-button>
+				</el-col>
+			</el-row>
 			<base-table
 				:data-list="dataList"
 				:config="tableConfig"
-				:total="20"
-				:current="2"
-				@handleSelectionChange="handleSelectionChange"
+				:total="total"
+				@handleSizeChange="handleSizeChange"
+				@handleCurrentChange="handleCurrentChange"
 			>
-				<el-table-column prop="productName" min-width="100" label="订单内容" header-align="center" align="center" slot="operation">
+				<el-table-column prop="productName" label="场次状态" slot="status">
 					<template slot-scope="scope">
-						<span @click="manageCount">分场所列表</span>
+						<span>{{scope.row.status | formatStatus}}</span>
+					</template>
+				</el-table-column>
+				<el-table-column prop="productName" min-width="100" label="操作" slot="operation">
+					<template slot-scope="scope">
+						<span class="oper-standard" @click="manageCount(scope.row)">分场所列表</span>
 					</template>
 				</el-table-column>
 			</base-table>
 		</div>
-		<the-dialog
-			title="新增活动"
-			:show-data.sync="isEditSetting"
-		>
-			<the-active-dialog />
-		</the-dialog>
 	</div>
 </template>
 <script>
 	const CODE = 'res_manage_regulatory_data';
 
-	import TheDialog from '../components/TheDialog';
 	import BaseTable from '../components/BaseTable';
-	import TheActiveDialog from '../components/TheActiveDialog';
-
 	import { url as _url } from 'zy-utils';
+
 	export default {
 		code: CODE,
 		data() {
 			return {
 				pageTitle: '监管活动',
-				placeholder: '请输入课程名,购买用户名或订单号',
-				dataList: [
-					{
-						name: '123',
-						count: '233'
-					},
-					{
-						name: '123',
-						count: '233'
-					}
-				],
+				dataList: [],
+				total: 0,
+				pageNum: 1,
+				pageSize: 10,
 				tableConfig:[
 					{
-						type: 'selection'
-					},
-					{
 						label: '监管活动',
-						prop: 'name',
-						width: '',
-						minWidth: '',
+						prop: 'activityName',
 					},
 					{
 						label: '监管场次',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						prop: 'sessionName'
 					},
 					{
 						label: '监管时间',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						prop: 'superviseTime'
 					},
 					{
-						label: '监管时长',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						label: '监管时长(分钟)',
+						prop: 'superviseLongTime'
 					},
 					{
-						label: '场次状态',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						slot: 'status'
 					},
 					{
 						label: '实到：应到学员',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						prop: 'studentNum'
 					},
 					{
 						label: '监管老师',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						prop: 'teacherNum'
 					},
 					{
 						slot: 'operation'
 					}
 				],
-				isEditSetting: false,
-				TABLE_CONFIG: {
-					field: {
-						id: 'subjectId'
+				siteStatus: [
+					{
+						label: '未开始',
+						value: 0,
 					},
-
-					api: {
-						query: this.$cfg.API.order.queryAdmin
-					}
-				},
-				orderType:[{
-					id:1,
-					name:'课程订单'
-				},{
-					id:2,
-					name:'vip订单'
-				},{
-					id:3,
-					name:'商品订单'
-				}],
-
+					{
+						label: '监管中',
+						value: 1,
+					},
+					{
+						label: '已结束',
+						value: 2,
+					},
+				],
+				isEditSetting: false,
+				activeList: [],
 				filter: {
-					keyWord: '', //课程名称,课程代码或创建者模糊查询
-					beginTime: '',
-					endTime: '',
-					type: ''
+					name: '',
+					activeId: '',
+					status: ''
 				}
 			};
 		},
 		components: {
-			TheDialog,
-			BaseTable,
-			TheActiveDialog
+			BaseTable
 		},
 		created() {
 			// this.fetchDataHandle = debounce(this.fetchData, 200);
+			this.getTableList();
+			this.getRoomList();
 		},
 		methods: {
+			//获取活动名称
+			async getRoomList(){
+				const res = await this.$api(this.$cfg.API.regulatory.superviseData);
+				if(res){
+					this.activeList = [];
+					res.result.forEach((ele) =>{
+						this.activeList.push({
+							label: ele.name,
+							value: ele.activeId
+						})
+					})
+				}
+			},
+			//获取表格数据
+			async getTableList(){
+				const res = await this.$api(`${this.$cfg.API.regulatory.dataListPage}?pageNum=${this.pageNum}&pageSize=${this.pageSize}`, {activeId: this.filter.activeId, name: this.filter.name, status: this.filter.status});
+				if(res){
+					this.dataList = res.result.records;
+					this.total = res.result.total;
+				}
+			},
+
+			//导出
+			exportData(){
+				if(!this.dataList.length){
+					return this.$message({
+						message: '暂无可导出项',
+						type: 'warning'
+					})
+				}
+
+				let URL = _url.completion(this.$cfg.API.regulatory.dataExportList, {activeId: this.filter.activeId, name: this.filter.name, status: this.filter.status});
+				window.location.href = URL;
+			},
+
+			//行变化
+			handleSizeChange(val){
+				this.pageSize = val;
+				this.getTableList();
+			},
+
+			//列变化
+			handleCurrentChange(val){
+				this.pageNum = val;
+				this.getTableList();
+			},
+
 			//场次管理
 			manageCount(type){
 				let route = '/regulatory/data/manageList';
 				this.$router.push({
 					path: route,
-					query: ''
+					query: {
+						data: JSON.stringify(type)
+					}
 				})
-			},
-
-			//选中行变化
-			handleSelectionChange(val){
-				console.log('我触发了');
-			},
-
-			//行变化
-			handleSizeChange(val){
-				console.log('我执行了');
-			},
-
-			//列变化
-			handleCurrentChange(val){
-				console.log('我执行了');
-			},
-
-			priceFormatter(row, column, cellValue, index) {
-				return cellValue / 100 || 0;
-			},
-			changeFilter() {
-				this.fetchDataHandle(false, {
-					pageNum: 1
-				});
-			},
-			downLoad() {
-				let vm = this;
-				if (vm.listData.length == 0) {
-					vm.$message({
-						message: '无符合条件的数据',
-						type: 'warning'
-					});
-					return false;
+			}
+		},
+		filters:{
+			formatStatus(val){
+				if(val || val == 0){
+					switch (val) {
+						case 0:
+							return '未开始';
+						case 1:
+							return '监管中';
+						case 2:
+							return '已结束'
+						default:
+							return ''
+					}
 				}
-				let URL = _url.completion(vm.$cfg.API.order.download, {
-					keyWord: vm.filter.keyWord,
-					beginTime: vm.filter.beginTime,
-					endTime: vm.filter.endTime
-				});
-				window.location.href = URL;
 			}
 		}
 	};
 </script>
 <style scoped lang="scss">
-	.search-wrap{
+	.search-wrap {
+		margin-top: 20px;
 		margin-bottom: 20px;
+		.search-input {
+			width: 300px;
+		}
+	}
+
+	@mixin basic {
+		padding-left: 5px;
+		padding-right: 5px;
+		cursor: pointer;
+	}
+
+	.oper-standard {
+		color: #67C23A;
+		@include basic;
+	}
+
+	.oper-edit {
+		@include basic;
+		color: #409EFF;
+	}
+
+	.oper-del {
+		@include basic;
+		color: #F56C6C;
 	}
 </style>
 

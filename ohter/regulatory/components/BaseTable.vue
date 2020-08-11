@@ -23,7 +23,7 @@
 				/>
 			</template>
 		</el-table>
-		<div class="pagination skin-pagination">
+		<div class="pagination skin-pagination" v-if="isPagination">
 			<el-pagination
 				@size-change="handleSizeChange"
 				@current-change="handleCurrentChange"
@@ -65,6 +65,10 @@
 			},
 			pageCount:{
 				type: Number,
+			},
+			isPagination:{
+				type: Boolean,
+				default: true
 			}
 		},
 		data(){

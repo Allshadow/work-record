@@ -22,14 +22,14 @@
 						suffix-icon="iconfont icon-search"
 						@change="getTableList"
 					/>
-					<el-select filterable v-model="filter.type" placeholder="场次筛选" @change="changeFilter" clearable>
-						<el-option v-for="item in orderType" :key="item.id" :label="item.name" :value="item.id"></el-option>
+					<el-select filterable v-model="filter.sessionId" placeholder="场次筛选" @change="getTableList" clearable>
+						<el-option v-for="item in siteList" :key="item.value" :label="item.label" :value="item.value"></el-option>
 					</el-select>
-					<el-select filterable v-model="filter.type" placeholder="场所筛选" @change="changeFilter" clearable>
-						<el-option v-for="item in orderType" :key="item.id" :label="item.name" :value="item.id"></el-option>
+					<el-select filterable v-model="filter.roomId" placeholder="场所筛选" @change="getTableList" clearable>
+						<el-option v-for="item in roomList" :key="item.value" :label="item.label" :value="item.value"></el-option>
 					</el-select>
-					<el-select filterable v-model="filter.type" placeholder="场所状态" @change="changeFilter" clearable>
-						<el-option v-for="item in orderType" :key="item.id" :label="item.name" :value="item.id"></el-option>
+					<el-select filterable v-model="filter.status" placeholder="场所状态筛选" @change="getTableList" clearable>
+						<el-option v-for="item in siteStatus" :key="item.value" :label="item.label" :value="item.value"></el-option>
 					</el-select>
 				</el-col>
 				<el-col :span="8" style="text-align: right">
@@ -39,13 +39,23 @@
 			<base-table
 				:data-list="dataList"
 				:config="tableConfig"
-				v-on="$listeners"
-				:total="20"
-				:current="2"
+				:total="total"
+				@handleSizeChange="handleSizeChange"
+				@handleCurrentChange="handleCurrentChange"
 			>
-				<el-table-column prop="productName" min-width="100" label="订单内容" header-align="center" align="center" slot="operation">
+				<el-table-column prop="productName" min-width="100" label="监管时间" slot="time">
 					<template slot-scope="scope">
-						<span class="oper-del">删除</span>
+						<span>{{scope.row.superviseBeginTime}}——{{scope.row.superviseEndTime}}</span>
+					</template>
+				</el-table-column>
+				<el-table-column prop="productName" min-width="100" label="场次状态" slot="status">
+					<template slot-scope="scope">
+						<span>{{scope.row.status | formatStatus}}</span>
+					</template>
+				</el-table-column>
+				<el-table-column prop="productName" min-width="100" label="操作" slot="operation">
+					<template slot-scope="scope">
+						<span class="oper-del" @click="deleteActive(scope.row.teacherId)">删除</span>
 					</template>
 				</el-table-column>
 			</base-table>
@@ -60,25 +70,23 @@
 			@close="resetForm('editForm')"
 		>
 			<el-form :model="editForm" :rules="rules" ref="editForm" label-width="130px">
-				<el-form-item label="场次名称">
-					<el-select v-model="editForm.region" placeholder="请选择活动区域">
-						<el-option label="区域一" value="shanghai"></el-option>
-						<el-option label="区域二" value="beijing"></el-option>
+				<el-form-item label="场次名称" prop="sessionId">
+					<el-select v-model="editForm.sessionId" placeholder="请选择场次名称">
+						<el-option v-for="item in siteList" :key="item.value" :label="item.label" :value="item.value"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="场所名称">
-					<el-select v-model="editForm.region" placeholder="请选择活动区域">
-						<el-option label="区域一" value="shanghai"></el-option>
-						<el-option label="区域二" value="beijing"></el-option>
+				<el-form-item label="场所名称" prop="roomId">
+					<el-select v-model="editForm.roomId" placeholder="请选择场所名称">
+						<el-option v-for="item in roomList" :key="item.value" :label="item.label" :value="item.value"></el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="姓名">
-					<el-select v-model="editForm.value" filterable placeholder="请选择" multiple>
+				<el-form-item label="姓名" prop="userIds">
+					<el-select v-model="editForm.userIds" filterable placeholder="请选择姓名" multiple>
 						<el-option
-							v-for="item in options"
-							:key="item.value"
-							:label="item.label"
-							:value="item.value">
+							v-for="item in teacherList"
+							:key="item.id"
+							:label="item.name"
+							:value="item.id">
 						</el-option>
 					</el-select>
 				</el-form-item>
@@ -94,84 +102,78 @@
 
 	const CODE = 'res_manage_regulatory_manageTeacher';
 
-	import TheDialog from '../components/TheDialog';
 	import BaseTable from '../components/BaseTable';
-	import TheActiveDialog from '../components/TheActiveDialog';
 
 
 	export default {
-		name: 'manageCount',
+		name: 'manageTeacher',
 		code: CODE,
 		data() {
 			return {
 				pageTitle: '监管老师管理',
 				title: '',
+				total: 0,
+				pageNum: 1,
+				pageSize: 10,
 				isValue: true,
 				editForm:{
-					name: '',
-					region: '',
-					cardName: '',
-					desc: '',
-					value: ''
+					sessionId: '',
+					roomId:'',
+					userIds: ''
 				},
 				rules:{
-					name: [
-						{ required: true, message: '请输入活动名称', trigger: 'blur' },
-						{ min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+					sessionId: [
+						{ required: true, message: '请选择场次名称', trigger: 'blur' }
+					],
+					roomId: [
+						{ required: true, message: '请选择场所名称', trigger: 'blur' }
+					],
+					userIds: [
+						{ required: true, message: '请选择姓名', trigger: 'blur' }
 					],
 				},
-				dataList: [
-					{
-						name: '123',
-						count: '233'
-					},
-					{
-						name: '123',
-						count: '233'
-					}
-				],
+				dataList: [],
 				tableConfig:[
 					{
 						label: '场次名称',
-						prop: 'name',
-						width: '',
-						minWidth: '',
+						prop: 'sessionName'
 					},
 					{
 						label: '场所名称',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						prop: 'roomName'
 					},
 					{
-						label: '监管时间',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						slot: 'time'
 					},
 					{
 						label: '老师姓名',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						prop: 'name'
 					},
 					{
-						label: '部门',
-						prop: 'count',
-						width: '',
-						minWidth: '',
-					},
-					{
-						label: '场次状态',
-						prop: 'count',
-						width: '',
-						minWidth: '',
+						slot: 'status'
 					},
 					{
 						slot: 'operation'
 					}
 				],
 				isEditSetting: false,
+				siteList:[],
+				roomList: [],
+				siteStatus: [
+					{
+						label: '未开始',
+						value: 0,
+					},
+					{
+						label: '监管中',
+						value: 1,
+					},
+					{
+						label: '已结束',
+						value: 2,
+					},
+				],
+				teacherList: [],
 				filter: {
 					keyWord: '', //课程名称,课程代码或创建者模糊查询
 					beginTime: '',
@@ -181,17 +183,127 @@
 			};
 		},
 		components: {
-			TheDialog,
 			BaseTable,
-			TheActiveDialog
 		},
 		created() {
+			this.fatherData = this.$route.query;
+			this.getTableList();
+			this.getRoomList();
+			this.getSiteList();
+			this.getTeacherList();
 		},
 		methods: {
+			//删除老师
+			deleteActive(val){
+				this.$confirm('确定删除该老师吗?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.$api(this.$cfg.API.regulatory.teacherId, {teacherId: val})
+						.then(() =>{
+							this.$message({
+								type: 'success',
+								message: '删除成功!'
+							});
+							this.getTableList();
+						})
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消删除'
+					});
+				});
+			},
+
+			//获取老师名称
+			async getTeacherList(){
+				const res = await this.$api(this.$cfg.API.regulatory.teacherList, {activeId: this.fatherData.activeId});
+				if(res){
+					this.teacherList = res.result;
+				}
+			},
+
+			//提交表单
+			submit(formName) {
+				this.$refs[formName].validate((valid) => {
+					if (valid) {
+						let params = {...this.editForm}
+						params.userIds = params.userIds.join(',');
+						params.activeId = this.fatherData.activeId;
+						this.submitClose(params, params.studentId);
+					} else {
+						console.log('error submit!!');
+						return false;
+					}
+				});
+			},
+
+			//保存数据接口
+			async submitClose(val, id) {
+				try{
+					const res = await this.$api(this.$cfg.API.regulatory.taacherAdd, val);
+					this.$message({
+						message: '操作成功',
+						type: 'success'
+					});
+					this.isEditSetting = false;
+					this.getTableList();
+				}catch (e) {
+					this.$message({
+						message: e.data.message,
+						type: 'error'
+					});
+				}
+			},
+
+			//获取场次名称
+			async getSiteList(){
+				const res = await this.$api(this.$cfg.API.regulatory.sessionList, {activeId: this.fatherData.activeId});
+				if(res){
+					this.siteList = [];
+					res.result.forEach((ele) =>{
+						this.siteList.push({
+							label: ele.name,
+							value: ele.sessionId
+						})
+					})
+				}
+			},
+
+			//获取场所名称
+			async getRoomList(){
+				const res = await this.$api(this.$cfg.API.regulatory.getRoomList, {activeId: this.fatherData.activeId});
+				if(res){
+					this.roomList = [];
+					res.result.forEach((ele) =>{
+						this.roomList.push({
+							label: ele.name,
+							value: ele.roomId
+						})
+					})
+				}
+			},
+
+			//获取表格数据
+			async getTableList(){
+				const res = await this.$api(`${this.$cfg.API.regulatory.teacherPage}?pageNum=${this.pageNum}&pageSize=${this.pageSize}`, {activeId: this.fatherData.activeId, name: this.filter.name, sessionId: this.filter.sessionId, roomId: this.filter.roomId, status: this.filter.status});
+				if(res){
+					this.dataList = res.result.records;
+					this.total = res.result.total;
+				}
+			},
+
 			//编辑老师
-			editSite(row){
+			editSite(){
 				this.isEditSetting = true;
 				this.title = "新增老师"
+			},
+
+			//重置表单
+			resetForm(formName){
+				this.$refs[formName].resetFields();
+				this.isEditSetting = false;
 			},
 
 			//返回
@@ -201,12 +313,30 @@
 
 			//行变化
 			handleSizeChange(val){
-				console.log('我执行了');
+				this.pageSize = val;
+				this.getTableList();
 			},
 
 			//列变化
 			handleCurrentChange(val){
-				console.log('我执行了');
+				this.pageNum = val;
+				this.getTableList();
+			},
+		},
+		filters:{
+			formatStatus(val){
+				if(val || val == 0){
+					switch (val) {
+						case 0:
+							return '未开始';
+						case 1:
+							return '监管中';
+						case 2:
+							return '已结束'
+						default:
+							return ''
+					}
+				}
 			}
 		}
 	};

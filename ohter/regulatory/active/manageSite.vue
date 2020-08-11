@@ -193,6 +193,7 @@
 			//编辑场所
 			editSite(row){
 				this.isEditSetting = true;
+				console.log(this.editForm);
 				if(JSON.stringify(row) !== '{}'){
 					this.title = '编辑场所'
 					this.$nextTick(()=>{
@@ -248,6 +249,7 @@
 
 			//重置表单
 			resetForm(formName){
+				this.editForm = {};
 				this.$refs[formName].resetFields();
 				this.isEditSetting = false;
 			},
