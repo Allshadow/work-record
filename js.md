@@ -188,6 +188,6 @@ NP.round(0.105, 2);
 ## 4、base64 图片引用
 
 ```
-“data:image/jpg;base64,base64...."
+“data:image/jpg;base64,...."
 ```
 

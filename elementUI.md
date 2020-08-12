@@ -1,3 +1,91 @@
+# el-switch
+
+## (1) 基本结构
+
+```vue
+//默认以左边为关闭，右侧为打开
+<el-switch
+  v-model="value"
+  active-color="#13ce66"
+  inactive-color="#ff4949">
+</el-switch>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: true
+      }
+    }
+  };
+</script>
+```
+
+## (2) 相关需求
+
+- 赋值
+
+  ```vue
+  v-model="value" //为el-switch绑定值，当切换时，值也会相应变化
+  ```
+
+- 修改开关背景颜色
+
+  ```vue
+  active-color="#13ce66" //打开时的背景色
+  inactive-color="#ff4949" //关闭时的背景色
+  ```
+
+- 设置开关左右的文本描述
+
+  ```vue
+  active-text="否"  //打开时的文字描述
+  inactive-text="是" //关闭时的文字描述
+  
+  #关于文本样式默认为蓝色，暂时还未遇到要修改颜色需求，以后添加
+  ```
+
+- 禁用开关
+
+  ```vue
+  disabled  //true为禁用
+  ```
+
+- change事件
+
+  ```vue
+  <el-switch
+    v-model="value"
+    @change="handelChange"
+  >
+  </el-switch>
+  
+  <script>
+    export default {
+      data() {
+        return {
+          value: true
+        }
+      },
+      methods:{
+        handelChange(val){
+            console.log(val) //val 为改变后的状态值
+        }  
+      }
+    };
+  </script>
+  ```
+
+## (3) 具体需求
+
+- 表格中实现el-switch改值,并提示问题，且状态成功了进行切换
+
+  ```vue
+  demo 请看个人网站，目前还未编写
+  ```
+
+
+
 # 需求：
 
 ## #表格中显示单选按钮,并切换
