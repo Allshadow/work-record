@@ -191,3 +191,15 @@ NP.round(0.105, 2);
 “data:image/jpg;base64,...."
 ```
 
+## （5）下载视频
+
+```js
+//此为简单视频下载功能，url为下载视频路径
+downLoad(url){
+	let a = document.createElement('a');
+	a.href = url;
+	a.click();
+	a = null;
+}
+```
+

@@ -407,6 +407,26 @@ watch: {
 # 给组件绑定res,使用this.$res.xxx 获取的是当前组件对象
 ```
 
+### （2）动态添加ref
+
+```vue
+<li 
+    v-for="(item,index) in listData" 
+    :key="index" 
+    :ref="`list${index}`"
+    @click="toUse"
+>
+</li>
+
+<script>
+	methods:{
+        toUse(){
+        	this.$refs[`list${index}`][0] //由于取出来的li是数组，所以会加[0] 
+        }
+    }
+</script>	
+```
+
 ## 4、computed
 
 ### 1）计算属性的setter
@@ -512,3 +532,6 @@ v-on = '$listeners'
 //子组件使用this.$emit('changeValue', false)，触发父级的方法执行
 ```
 
+# 七、vuex
+
+## 1、state

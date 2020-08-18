@@ -84,7 +84,20 @@
   demo 请看个人网站，目前还未编写
   ```
 
+# el-dialog
 
+## (1) 问题解决记录
+
+- 当存在定位是，遮罩层会悬浮在弹窗之上
+
+  ```vue
+  //使用el-dialog以下属性
+  	//遮罩层默认插入至Dialog的父元素上，设置modal-append-to-body，将插入到body中
+  <el-dialog
+      :modal-append-to-body="false"
+  >
+  </el-dialog>
+  ```
 
 # 需求：
 
