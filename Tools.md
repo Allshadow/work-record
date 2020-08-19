@@ -354,3 +354,12 @@ https://npm.taobao.org/mirrors/phantomjs?spm=a2c6h.14029880.0.0.735975d7cwFtK9
 D:\Program Files\phantomjs-2.1.1-windows\bin
 ```
 
+## （4) gyp ERR! build error 
+
+- windows平台缺少编译环境
+
+- 解决方案
+
+  ```bash
+  npm install -g node-gyp
+  ```
