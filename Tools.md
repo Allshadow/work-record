@@ -283,6 +283,13 @@ key: iy9uUKbS7pEZwE5hbHTGigOcu48TdY4JXWbJYHxXLuvAzRL8qmry9J2mS5wXO7y3
 百度网盘work目录下
 ```
 
+## 4.axure谷歌插件
+
+```
+//百度网盘
+/work/Axure 9 pro/Axure插件
+```
+
 # 七、谷歌标签与github同步
 
 ## 1.插件下载
