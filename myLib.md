@@ -1,4 +1,4 @@
-# 日期
+# 一、日期
 
 ```js
 //在月份、日期、小时等小于10时前面补0
@@ -196,13 +196,13 @@ $m.getWeek = function (value) {
 }
 ```
 
-# 验证
+# 二、验证
 
 ## 判断手机号
 
 ```js
 var checkPhone = function(value){
-    var pattern = /^1[34578]\d{9}$/;
+    var pattern = /^1[345789]\d{9}$/;
     if (pattern.test(value)){
         return true;
     }
@@ -210,7 +210,7 @@ var checkPhone = function(value){
 }
 ```
 
-# 封装函数
+# 三、封装函数
 
 ## 兼容性的事件处理函数
 
