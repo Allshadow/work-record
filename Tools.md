@@ -304,6 +304,12 @@ key: iy9uUKbS7pEZwE5hbHTGigOcu48TdY4JXWbJYHxXLuvAzRL8qmry9J2mS5wXO7y3
 https://www.cnblogs.com/gongkiro/p/13221739.html
 ```
 
+### 3.码云token
+
+```
+15a6b5b6080d5a934b99e7fa7a57c537
+```
+
 # 八、Typora
 
 ## 1.用途
