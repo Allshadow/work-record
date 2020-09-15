@@ -61,3 +61,30 @@ https://www.jb51.net/article/160146.htm
 2、config配置
 
 https://juejin.im/post/5bd02f98e51d457a944b634f
+
+# vue.config.js (cli4)
+
+## 1. 取消eslint
+
+```js
+module.export = {
+    lintOnSave: false, //配置eslint，不生效
+    devServer: {
+        overlay: {
+            warning: false, //配置eslint，不生效
+            errors: false //配置eslint，不生效
+        }
+    },
+}
+```
+
+## 2. 自动打开浏览器
+
+```js
+module.exports = {
+  devServer: {
+    open: true, 
+  }
+}
+```
+
