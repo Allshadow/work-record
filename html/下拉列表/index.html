@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>下拉列表</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .select-wrap{
+            position: relative;
+            width: 200px;
+            height: 30px;
+            background-color: #e5e5e5;
+            border-radius: 10px;
+        }
+        .select-wrap .select-none{
+            width: 60%;
+            height: 30px;
+            margin-left: 10px;
+            line-height: 30px;
+        }
+        .select-wrap .select-icon{
+            position: absolute;
+            right: 10px;
+            top: 5px;  /*根据父级高度*/
+            width: 20px;
+            height: 20px;
+        }
+        .select-wrap .select-icon img{
+            width: 100%;
+            height: 100%;
+        }
+
+        .select-wrap .select-content{
+            background-color: #333;
+            display: none;
+
+        }
+        .select-wrap .select-content .select-item{
+            margin-left: 10px;
+            color: #fff;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .select-wrap .select-content .select-item:hover{
+            color: #aa88ff;
+        }
+    </style>
+</head>
+<body onclick="seletcNone(event)">
+    <div class="select-wrap">
+        <div class="select-none">请选择</div>
+        <ul class="select-content" onclick="selectChild(event)">
+            <li class="select-item">馒头</li>
+            <li class="select-item">包子</li>
+            <li class="select-item">煎饺</li>
+            <li class="select-item">烧麦</li>
+            <li class="select-item">油条</li>
+        </ul>
+        <div class="select-icon" onclick="showSelect()">
+            <img class="icon" src="./img/select-down.png">
+        </div>
+    </div>
+
+    <script>
+        var flag = false;
+        var selContent = document.getElementsByClassName('select-content')[0];
+        var selNone = document.getElementsByClassName('select-none')[0];
+        //显示或隐藏下拉列表
+        function showSelect(){
+            flag = !flag;
+            if(flag){
+                selContent.style.display = 'block';
+            }else{
+                selContent.style.display = 'none';
+            }
+        }
+
+        //选择下拉的内容
+        function selectChild(e){
+            var em = e || window.event;
+            var target = em.target || em.srcElement
+            if(target && target.nodeName == 'LI'){
+                selNone.innerText = target.innerText;
+                selContent.style.display = 'none';
+                flag = false;
+            }
+        }
+
+        //若未选择，点击空白处，下拉框收起
+        function seletcNone(e) {
+            var em = e || window.event;
+            var target = em.target || em.srcElement;
+            if(target && target.className != 'select-icon' && target.className != 'icon'){
+                selContent.style.display = 'none';
+                flag = false;
+            } else {
+                return false;
+            }
+
+            if (e && e.stopPropagation) {//阻止冒泡
+                e.stopPropagation();
+            } else {
+                window.event.cancelBubble = true;
+            }
+        }
+    </script>
+</body>
+</html>
