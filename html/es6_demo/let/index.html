@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点击改变颜色</title>
+    <style>
+        .item{
+            width: 100px;
+            height: 50px;
+            border-radius: 5px;
+            border: 1px solid #20a0ff;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>点击以下框框改变颜色</h1>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <script>
+        let arr = document.getElementsByClassName('item');
+
+        //使用var
+        // 因为var 没有块级作用域，i是在全局当中存在的。所以等i遍历完，会自增为3
+        /*for(var i = 0; i < arr.length; i++){
+            arr[i].onclick = function () {
+                // this.style.background = 'pink'; //正确
+               // arr[i].style.background = 'pink'; //报错
+            }
+        }*/
+        //使用let
+        for(let i = 0; i < arr.length; i++){
+            arr[i].onclick = function () {
+                 this.style.background = 'pink'; //正确
+                //arr[i].style.background = 'pink';//正确
+            }
+        }
+
+    </script>
+</body>
+</html>
