@@ -203,3 +203,10 @@ downLoad(url){
 }
 ```
 
+## （6）下载视频变为打开
+
+```
+在下载视频的url后拼接 
+?response-content-disposition=attachment
+```
+

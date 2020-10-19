@@ -1,16 +1,18 @@
-# 一、安装
+# js-cookie
+
+## 安装
 
 ```
 npm install js-cookie --save
 ```
 
-# 二、引用
+## 引用
 
 ```
 import Cookies from 'js-cookie'
 ```
 
-# 三、使用
+## 使用
 
 ```js
 //保存到cookie
@@ -42,7 +44,7 @@ Cookies.remove('name'); // fail!
 Cookies.remove('name', { path: '' }); // removed!
 ```
 
-# 五、特殊使用
+## 特殊使用
 
 ```js
 //跟一般使用不同的是，从Cookie中取出的时候，要从字符串转换成json格式：
@@ -52,5 +54,33 @@ const user = {
 }
 Cookies.set('user', user)
 const liaUser = JSON.parse(Cookies.get('user'))
+```
+
+## 设置cookies过期时间
+
+1）参考链接
+
+https://github.com/js-cookie/js-cookie/wiki/Frequently-Asked-Questions#expire-cookies-in-less-than-a-day
+
+2）从现在开始15分钟后过期
+
+```js
+var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+Cookies.set('foo', 'bar', {
+    expires: inFifteenMinutes
+});
+```
+
+## 删除所有cookie
+
+```js
+Object.keys(Cookies.get()).forEach(
+    function(cookieName) {
+  		var neededAttributes = {
+    		// Here you pass the same attributes that were used when the cookie was created
+    		// and are required when removing the cookie
+  };
+  Cookies.remove(cookieName, neededAttributes);
+});
 ```
 
