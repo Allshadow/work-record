@@ -157,26 +157,6 @@ key: iy9uUKbS7pEZwE5hbHTGigOcu48TdY4JXWbJYHxXLuvAzRL8qmry9J2mS5wXO7y3
 /work/Axure 9 pro/Axure插件
 ```
 
-# 七、谷歌标签与github同步
-
-## 1.插件下载
-
-```
-百度网盘（work/谷歌插件/bookMark）
-```
-
-## 2.参考链接
-
-```
-https://www.cnblogs.com/gongkiro/p/13221739.html
-```
-
-### 3.码云token
-
-```
-15a6b5b6080d5a934b99e7fa7a57c537
-```
-
 # 八、Typora
 
 ## 1.用途

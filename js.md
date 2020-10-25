@@ -115,11 +115,7 @@ var link = function(height = 50, color = 'red', url = 'http://baidu.com'){
 ## 3、模板文本
 
 ```
-//ES6之前拼接字符串
-var name = 'your name is ' + first + ' ' + last + '';
 
-//ES6中使用${NAME}，并将其放在引号中
-var name = 'your name is ${first} ${last}';
 ```
 
 # 三、其他
