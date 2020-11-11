@@ -1,6 +1,6 @@
-# 一、变量声明及申明特性
+## 变量声明及申明特性
 
-## 1. let
+###  let
 
 ```js
 //特性
@@ -45,7 +45,7 @@ var a = '111';
 }
 ```
 
-## 2. const
+### const
 
 ```js
 1) 常量一定要赋初始值
@@ -66,13 +66,13 @@ ARR = '123' //报错
 总结： 声明数组或对象时使用 const 比较稳妥
 ```
 
-# 二、变量的解构赋值
+## 变量的解构赋值
 
-## 1.定义
+### 定义
 
 允许按照一定模式从数组和对象中提取值，对变量进行赋值
 
-## 2.数组解构
+### 数组解构
 
 ```js
 const F4 = ['小沈阳', '刘能', '李四'];
@@ -80,7 +80,7 @@ let [xiao, liu, zhao] = F4;
 console.log(xiao)
 ```
 
-## 3.对象的解构
+### 对象的解构
 
 ```js
 1) 对象的解构
@@ -99,7 +99,7 @@ hasn(); //方法正常调用
 let {name: myName, hasn: nyHasn} = OBJ;
 ```
 
-# 三、模板字符串
+## 模板字符串
 
 ```js
 1) 声明
@@ -120,7 +120,7 @@ let name = 'your name is ${first} ${last}';
 let name = 'your name is ' + first + ' ' + last + '';
 ```
 
-# 四、对象的简化写法
+## 对象的简化写法
 
 ```js
 1) 允许在大括号里面直接写入变量和函数，作为对象的属性和人方法
@@ -139,7 +139,7 @@ const OBJ = {
 console.log(OBJ) // {name: 'chen', change: f, inprove: f}
 ```
 
-# 五、箭头函数
+## 箭头函数
 
 ```js
 1) 使用箭头（=>）定义函数
@@ -179,15 +179,15 @@ let Person = (name, age) =>{
 let me = new Person('xiao', 30) //报错
 ```
 
-# 六、promise
+## promise
 
-## 1.定义
+### 定义
 
 ```
 es6中异步编程的解决方案，promise是一个构造函数
 ```
 
-## 2.实例化 Promise 对象
+### 实例化 Promise 对象
 
 ```
 const p = new Promise(function(resolve, reject){
