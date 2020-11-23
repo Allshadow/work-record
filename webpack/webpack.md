@@ -59,6 +59,7 @@ npm install --global webpack
 ```
 	webpack
 	|- package.json
+	|- webpack.config.js
    +|- /dist
    +	|- index.html
    +|- /src
@@ -85,5 +86,21 @@ npx webpack --config webpack.config.js
  },
  
  使用 npm run build 來代替 npx 命令
+```
+
+## 管理资源
+
+### 加载css
+
+为了从 javascript 模块中 import 一个 CSS 文件，需要在 module 配置中 安装并添加 style-loader 和 css-loader
+
+```
+npm install --save-dev style-loader css-loader
+```
+
+### 加载图片
+
+```
+npm install --save-dev file-loader
 ```
 
