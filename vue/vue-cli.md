@@ -32,3 +32,54 @@ data(){
 	// '/' 表示根路径，此路径是在 public/img 下
 }
 ```
+
+## 引入src/assets图片
+
+### 使用相对路径引入
+
+```
+ <img src="../assets/images/temp_1_1.png" alt="">
+```
+
+### 使用 require
+
+```
+require('@/assets/images/demo.png')
+```
+
+## 设置浏览器标题
+
+### 页面设置标题相同
+
+```
+<head>
+	<title>我是标题</title>
+</head>
+```
+
+### 页面设置标题不同
+
+```
+router - index.js
+
+// 路由中定义路由元信息
+const router = new Router({
+	routes: [
+		{
+			path: 'index',
+			meta:{
+				title: '首页' //在此处设置标题
+			}
+		}
+	]
+})
+
+// 在路由的全局前置守卫进行拦截
+main.js
+
+router.beforeEach((to, from, next) =>{
+	document.title = to.meta.title
+})
+
+```
+

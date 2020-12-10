@@ -1,13 +1,13 @@
 ## 插件
 
 ```
-1、Bracket Pair Colorizer 2 //括号变颜色，左侧会vue显示节点
-2、Live Sass Compiler //将sass or scss 实时编译为 css
-3、minapp //支持小程序标签
-4、wechat-snippet //小程序功能辅助
-5、wxml //wxml高亮显示
-6、open in broswer //在浏览器窗口打开
-7、Live Server //监听页面实时刷新
+Bracket Pair Colorizer 2 //括号变颜色，左侧会vue显示节点
+Live Sass Compiler //将sass or scss 实时编译为 css
+minapp //支持小程序标签
+wechat-snippet //小程序功能辅助
+wxml //wxml高亮显示
+Live Server //监听页面实时刷新
+code settings sync //同步码云插件
 ```
 
 ## 快捷键
@@ -16,7 +16,77 @@
 1、ctrl + enter //换行
 ```
 
-## 同步vscode插件
+## vscode配置同步码云
+
+国内github gist 仓库经常连接不上，于是选择码云来存放
+
+### 设置码云
+
+1）点击 '发布代码片段' 填写如下信息
+
+![image-20201210113210091](vscode.assets/image-20201210113210091.png)
+
+2）获取GiteeId
+
+点击上图发布后，跳转的页面获取
+
+GiteeId:  jmsodp1q74u8wlebk95tx84
+
+![image-20201210140419246](vscode.assets/image-20201210140419246.png)
+
+3）点击 “设置”， 在设置中创建私人令牌
+
+![image-20201210141837945](vscode.assets/image-20201210141837945.png)
+
+令牌只展示一次，要保存，如果丢失了要重新创建
+
+![image-20201210142051044](vscode.assets/image-20201210142051044.png)
+
+私人令牌：d891c1f9f2c29039585adc63bd31ae71
+
+### 设置vscode
+
+1）安装 code setting sync
+
+2）进入setting.json 配置文件
+
+```
+快捷键打开命令面板： ctrl + shift + p
+输入： settings
+选择： Preferences: Open Settings (JSON) 进入
+```
+
+3）json中添加，GiteeId，私人令牌
+
+```
+{
+	"gitee.gist": "jmsodp1q74u8wlebk95tx84" //这是本人id
+	"gitee.access_token": "48bd77cc246dbd4723860d283cb77ce2"//本人令牌
+}
+```
+
+4）上传配置
+
+```
+命令面板： ctrl + shift + p
+输入： upload setting
+如控制台有输出：
+    finished zip
+    settings.json
+    syncGitee.lock
+    extensions.json
+    snippets.zip
+即为成功
+```
+
+5）同步配置
+
+```
+命令面板： ctrl + shift + p
+输入： download setting //下载命令
+```
+
+## 同步vscode插件（已经不用了）
 
 1）安装 Setting Sync 插件
 
@@ -51,6 +121,12 @@ Gist ID:13dbf9bdc6bb7796aa17f214a2d2eb23。
 
 ```
 文件- 首选项 - 设置，然后输入 Sync 进行搜索
+```
+
+6） 登录时token
+
+```
+vscode://vscode.github-authentication/did-authenticate?windowid=1&code=3706608dce2f93cf4b87&state=82e56548-fe77-4c32-ac62-0264bb152011
 ```
 
 ## 去除Teleport Ultra冗余代码
