@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* 清除默认样式 */
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      /* 令html和body全屏显示, 并有一个灰色背景 */
+      html,
+      body {
+        /* height: 100%; */
+        background: gray;
+      }
+
+      /* 找到直接父元素 */
+      body {
+        /* 显示为弹性盒子 */
+        display: flex;
+
+        /* 令其子元素在水平方向上均匀分布 */
+        justify-content: space-between;
+
+        align-items: center;
+        
+        flex-wrap: wrap;
+        padding: 10px;
+      }
+
+     
+      div {
+        /* 这里类似于width: 48% */
+        flex-basis: 48%;
+
+        /* 给个高度 */
+        /* height: 100%; */
+        height: 50px;
+
+        /* 白色背景 */
+        background: white;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </body>
+</html>
