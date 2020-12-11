@@ -503,24 +503,14 @@ let url = http://www.baidu.com
 window.location.href = url;
 ```
 
-## 2、组件内部跳转新窗口
-
-```
-let url = this.$router.resolve({
-	path: '/videoPlayer',
-	url: ''
-})
-window.open(url.href, '_blank');
-```
-
-## 3、异步获取数据时，子组件未接收到父组件得值
+## 2、异步获取数据时，子组件未接收到父组件得值
 
 ```
 //使用 v-if 判断，等待有值时判断
 //使用监听器，监听到父组件的值
 ```
 
-## 4、监听物理按键返回事件
+## 3、监听物理按键返回事件
 
 ```
 /*
@@ -587,6 +577,3 @@ v-on = '$listeners'
 //子组件使用this.$emit('changeValue', false)，触发父级的方法执行
 ```
 
-# 七、vuex
-
-## 1、state

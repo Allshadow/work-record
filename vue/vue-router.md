@@ -37,3 +37,14 @@ this.$router.replace({
 })
 ```
 
+## 组件内部跳转新窗口
+
+```
+let url = this.$router.resolve({
+	path: '/videoPlayer',
+	url: ''
+})
+window.open(url.href, '_blank');
+```
+
+## 

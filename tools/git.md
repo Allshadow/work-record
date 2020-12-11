@@ -167,3 +167,19 @@ git reset --hard origin/branch/hotfix/V5.0.10.16_GPX_200313
 git reset --soft HEAD^
 ```
 
+## 常见错误
+
+### Sourcetree
+
+git status失败 错误代码128：error :bad signature 0x0000000
+
+```bash
+//打开 git bash
+
+//1.删除 index
+rm -f .git/index
+
+//2.重新创建（可以使用如下命令，不用质疑）
+git reset
+```
+
