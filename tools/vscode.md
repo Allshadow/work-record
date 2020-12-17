@@ -16,7 +16,18 @@ code settings sync //同步码云插件
 1、ctrl + enter //换行
 ```
 
-## vscode配置同步码云
+## 配置文件
+
+```
+//settings.json
+//进入命令 ctrl + shift + p -- preferences: Open Sttings(JSON)
+
+{
+	"editor.tabSize": 2 //tab 大小为两个空格
+}
+```
+
+## 配置同步码云
 
 国内github gist 仓库经常连接不上，于是选择码云来存放
 
@@ -84,49 +95,6 @@ GiteeId:  jmsodp1q74u8wlebk95tx84
 ```
 命令面板： ctrl + shift + p
 输入： download setting //下载命令
-```
-
-## 同步vscode插件（已经不用了）
-
-1）安装 Setting Sync 插件
-
-2）登录github操作
-
-```bash
-1. setting - Developer setting - personal access tokens - generate new token 
-2. 输入名称，勾选Gist, 提交
-3. github token: 81496edd0d856f99aba8caa86926200cf7b0e845
-```
-
-3）配置 access token
-
-```bash
-1. ctrl + shift + P 
-2. 输入 sync
-3. 选择 sync: Advanced Options
-4. sync:编辑本地扩展设置
-5. 在 json 中找到 token,并填入
-```
-
-4）保存 Gist ID
-
-```bash
-1. Crtl + Shift + p 打开命令面板
-2. 输入sync,找到 update/upload settings 这个选项
-3. 上传成功后会返回Gist ID,保存此Gist ID
-Gist ID:13dbf9bdc6bb7796aa17f214a2d2eb23。
-```
-
-5）找到 Gist ID
-
-```
-文件- 首选项 - 设置，然后输入 Sync 进行搜索
-```
-
-6） 登录时token
-
-```
-vscode://vscode.github-authentication/did-authenticate?windowid=1&code=3706608dce2f93cf4b87&state=82e56548-fe77-4c32-ac62-0264bb152011
 ```
 
 ## 去除Teleport Ultra冗余代码

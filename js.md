@@ -254,3 +254,17 @@ downLoad(url){
 ?response-content-disposition=attachment
 ```
 
+## 监听滚动条滚动
+
+```js
+<script>
+    window.onscroll = funciton(){
+    	let scor = document.documentElement.scrollTop
+	}
+
+	or
+    
+    window.addEventListener('scroll', function(){})
+</script>
+```
+
