@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>左侧导航菜单</title>
+    <script>
+      function getObject(objectId) {
+        if(document.getElementById && document.getElementById(objectId)) {
+          return document.getElementById(objectId);
+        }
+        else if (document.all && document.all(objectId)) {
+          return document.all(objectId);
+        }
+        else if (document.layers && document.layers[objectId]) {
+          return document.layers[objectId];
+        }
+        else {
+          return false;
+        }
+      }
+      function showHide(e,objname){
+        var obj = getObject(objname);
+        if(obj.style.display == "none"){
+          obj.style.display = "block";
+          e.className="xias";
+        }else{
+          obj.style.display = "none";
+          e.className="rights";
+        }
+      }
+    </script>
+    <style type="text/css">
+        body { font-size:12px; margin:20px; padding:0; text-align:left;}
+        dl,dt,dd,ul,ol,li,p,div,input,h1,h2,h3,h4,h5,h6 { margin:0; padding:0;}
+        li { list-style:none;}
+        h2 { font-family:"黑体"; font-size:24px; text-align:center; line-height:32px;}
+        h5 { font-size:12px; text-align:center; font-weight:normal; color:#666; line-height:28px;}
+        .libiao_menu { margin-bottom:15px;}
+        .libiao_menu h3 a { margin-top:15px; margin-bottom:15px; display:block; background:url(../picture/user_11.gif) no-repeat 20px 0; width:130px; height:28px; font-size:14px; text-align:left; padding-left:65px; padding-top:13px; color:#0066cc;}
+        .libiao_menu dl { margin-left:30px; margin-top:5px;}
+        .libiao_menu dl dt { font-size:14px; line-height:24px;}
+        .libiao_menu dl dt a { padding-left:13px; color:#333;}
+        .libiao_menu dl dt a.rights { background:url(/demo/img/1.gif) no-repeat 0 3px;}
+        .libiao_menu dl dt a.xias { background:url(/demo/img/1.gif) no-repeat 0 -41px;}
+        .libiao_menu dl dd { padding-left:20px;}
+        .libiao_menu dl dd ul {}
+        .libiao_menu dl dd ul li { font-size:14px; line-height:24px;}
+        .libiao_menu dl dd ul li a { color:#06c;}
+    </style>
+</head>
+<body>
+<div class="libiao_menu">
+    <dl>
+        <dt><a href="#" class="xias" onclick="showHide(this,'items0');">我的订单</a></dt>
+        <dd id="items0" style="display: block;">
+            <ul>
+                <li><a href="#">所有订单</a></li>
+                <li><a href="#">需要支付的订单</a></li>
+                <li><a href="#">处理中的订单</a></li>
+                <li><a href="#">需要确认收货的订单</a></li>
+            </ul>
+        </dd>
+    </dl>
+    <dl>
+        <dt><a href="#" class="xias" onclick="showHide(this,'items1');">帐户管理</a></dt>
+        <dd id="items1" style="display: block;">
+            <ul>
+                <li><a href="#">我的积分</a></li>
+                <li><a href="#">管理收货地址</a></li>
+            </ul>
+        </dd>
+    </dl>
+    <dl>
+        <dt><a href="#" class="xias" onclick="showHide(this,'items2');">我的</a></dt>
+        <dd id="items2" style="display: block;">
+            <ul>
+                <li><a href="#">我的收藏</a></li>
+                <li><a href="#">我的评论</a></li>
+            </ul>
+        </dd>
+    </dl>
+    <dl>
+        <dt><a href="#" class="xias" onclick="showHide(this,'items3');">个人信息管理</a></dt>
+        <dd id="items3" style="display: block;">
+            <ul>
+                <li><a href="#">编辑个人档案</a></li>
+                <li><a href="#">修改密码</a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+</body>
+</html>

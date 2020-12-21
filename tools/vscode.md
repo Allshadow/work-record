@@ -57,7 +57,7 @@ GiteeId:  jmsodp1q74u8wlebk95tx84
 
 ### 设置vscode
 
-1）安装 code setting sync
+1）安装 code settings sync
 
 2）进入setting.json 配置文件
 
