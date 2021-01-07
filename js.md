@@ -48,46 +48,6 @@ https://juejin.im/post/6889327058158092302#heading-13
 
 # 一、数组
 
-## 1、splice
-
-### 1）定义
-
-```
-//splice 向/从数组中添加/删除项目，然后返回被删除得项目
-//arr.splice(index, howmany, item1,item2,)
---index 从哪个位置开始， 为数组的索引值
---howmany 删除数组的数目，从索引开始，删除后面几个，0 表示不删除
---item,为从这个数组中添加的值
-```
-
-### 2）应用
-
-```js
-//删除一行
-this.angentData.forEach((ele, index) =>{
-    if(ele.id == id){
-        this.angentData.splice(index, 1) //
-    }
-})
-
-//删除多行
-let ag = this.angentData;
-    let ch = this.changeRuleValue;
-    for(let i= 0; i < ag.length; i++){
-        for(let j = 0; j < ch.length; j++){
-            if(ag[i].id == ch[j].id){
-                ag.splice(ag[i], 1);
-            }
-        }
-    }
-}
-
-//获取删除得项目
-function getArrDelete() {
-    var newArr = arr.splice(type, 1);
-}
-```
-
 ## 2、reduce
 
 ```js
