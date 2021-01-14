@@ -82,6 +82,15 @@ mounted(){
 }
 ```
 
+关于样式
+
+```
+.pdf-wrap {
+    width: 740px; //个人感觉 pdf 这个宽度挺好的 
+    margin: 0 auto;
+}
+```
+
 ### 实际效果
 
 本人依据 vue-pdf,  以及借鉴  \<el-image-viewer> 实现了一个可以切换不同 .pdf 的 url 的组件
