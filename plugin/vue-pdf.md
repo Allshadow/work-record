@@ -92,5 +92,5 @@ mounted(){
 
 #### demo
 
-demo 将放在 github 上， 点击 [demo-03](https://github.com/Allshadow/vue-no-webpack/tree/master/demo-03) 查看
+demo 放在 github 上， 点击 [demo-03](https://github.com/Allshadow/vue-no-webpack/tree/master/demo-03) 查看
 
