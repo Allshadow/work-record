@@ -1,6 +1,6 @@
-# vue-cli安装
+### vue-cli安装
 
-## 1. 卸载旧版
+#### 卸载旧版
 
 1）如果有全局安装了旧版本vue-cli (1.x 或者 2.x)，使用以下命令卸载
 
@@ -10,7 +10,7 @@ npm uninstall vue-cli -g
 yarn global remove vue-cli
 ```
 
-## 2. 安装
+#### 安装
 
 1）使用如下命令安装新的包
 
@@ -20,7 +20,7 @@ npm install -g @vue/cli
 yarn global add @vue/cli
 ```
 
-## 3. 检查
+####  检查
 
 1）使用一下命令检查安装版本是否正确
 
@@ -28,9 +28,9 @@ yarn global add @vue/cli
 vue --version
 ```
 
-# 创建项目
+### 创建项目
 
-## 1. vue create
+#### vue create
 
 ```
 //Windows 上通过 minTTY 使用 Git Bash，交互提示符并不工作
@@ -39,15 +39,15 @@ OR
 $ vue create [项目名称]
 ```
 
-## 2.  自定义选择
+#### 自定义选择
 
 #使用回车确定
 
 #使用空格选择
 
-![image-20200714164855092](assets/vue/config.png)
+![](搭建整套vue体系.assets/config.png)
 
-## 3. 启动服务
+#### 启动服务
 
 ```
 cd [项目名称]
@@ -62,9 +62,9 @@ https://www.jb51.net/article/160146.htm
 
 https://juejin.im/post/5bd02f98e51d457a944b634f
 
-# vue.config.js (cli4)
+### vue.config.js (cli4)
 
-## 1. 取消eslint
+####  取消eslint
 
 ```js
 module.export = {
@@ -78,7 +78,7 @@ module.export = {
 }
 ```
 
-## 2. 自动打开浏览器
+#### 自动打开浏览器
 
 ```js
 module.exports = {
