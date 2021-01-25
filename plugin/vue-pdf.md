@@ -6,21 +6,21 @@ vue 使用 vue-pdf 来实现预览 pdf 的功能感觉是最简单的解决方�
 
 #### 安装
 
-```
+```bash
 npm install --save vue-pdf
-or
+//or
 yarn add vue-pdf
 ```
 
 #### 引入
 
-```
+```vue
 import pdf from 'vue-pdf'
 ```
 
 #### 注册组件
 
-```
+```vue
 components: {
 	pdf
 },
@@ -30,7 +30,7 @@ components: {
 
 基本引入
 
-```
+```vue
 <pdf ref="pdf" :src="pdfUrl"></pdf>
 ```
 
@@ -38,7 +38,7 @@ components: {
 
 目前的需求是直接展示滚动条滚动页面，如果需要分页滚动，以后还会继续添加
 
-```
+```vue
 <pdf
     v-for="item in numPages"
     :key="item"
@@ -47,14 +47,14 @@ components: {
     class="pdf-wrap"
 />
 
-几个属性的说明
+// 几个属性的说明
 // src   pdf 的链接，可以是相对或者绝对地址，也可是一个 pdf 的加载任务
 // page  需要展示 pdf 的第几页
 ```
 
 执行以下方法， url 为 pdf 地址
 
-```
+```vue
 data() {
     return {
         numPages: '',
@@ -74,7 +74,7 @@ methods：{
     },
 }
 
-几个方法的说明
+// 几个方法的说明
 // createLoadingTask(src) 这个方法创建一个当前 pdf 的加载任务，可以作为 :src 使用或者公开的获取当前 pdf 的页面总数
 
 mounted(){
@@ -84,7 +84,7 @@ mounted(){
 
 关于样式
 
-```
+```vue
 .pdf-wrap {
     width: 740px; //个人感觉 pdf 这个宽度挺好的 
     margin: 0 auto;
