@@ -48,17 +48,6 @@ https://juejin.im/post/6889327058158092302#heading-13
 
 # 一、数组
 
-## 2、reduce
-
-```js
-//数组去重 data为需要去重得数组
-let hash = {}; 
-data = data.reduce((preVal, curVal) => {
-	hash[curVal.id] ? '' : hash[curVal.id] = true && preVal.push(curVal); 
-	return preVal 
-}, [])
-```
-
 ## 3、map
 
 ### 1）定义
