@@ -1,3 +1,15 @@
+### video 获取视频时长
+
+```
+let video = document.createElement('video')
+let duration = 0
+video.src = res.result.filePath
+video.play()
+video.addEventListener("loadedmetadata", function (_event) {
+	duration = video.duration;
+})
+```
+
 ## 数组的拷贝
 
 ### 浅拷贝

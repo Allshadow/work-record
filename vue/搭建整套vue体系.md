@@ -39,6 +39,10 @@ OR
 $ vue create [项目名称]
 ```
 
+#### 预设选择
+
+![image-20210215151425560](搭建整套vue体系.assets/image-20210215151425560.png)
+
 #### 自定义选择
 
 #使用回车确定
@@ -62,7 +66,9 @@ https://www.jb51.net/article/160146.htm
 
 https://juejin.im/post/5bd02f98e51d457a944b634f
 
-### vue.config.js (cli4)
+### 新建 vue.config.js 
+
+以下为 vue-cli 4 配置
 
 ####  取消eslint
 
@@ -83,7 +89,41 @@ module.export = {
 ```js
 module.exports = {
   devServer: {
-    open: true, 
+    open: true,  //自动开启浏览器
+    port：8099 //配置端口号
+  }
+}
+```
+
+#### 配置 source map
+
+```
+module.exports = {
+  // 不需要生产环境的 source map
+  productionSourceMap: false,
+}
+```
+
+#### 清除 dist 文件
+
+使用到 clean-webpack-plugin 插件
+
+**安装**
+
+```
+yarn add --dev clean-webpack-plugin
+```
+
+**配置**
+
+```
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
+module.exports = {
+  configureWebpack: {
+    plugins: [
+        new CleanWebpackPlugin()
+    ],
   }
 }
 ```
