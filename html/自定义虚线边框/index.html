@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>自定义虚线边框</title>
+    <style>
+      .zebra-crossing {
+        margin: 10px;
+        border: 5px dashed transparent;
+        background: linear-gradient(white, white) padding-box,
+          repeating-linear-gradient(
+            -45deg,
+            #ffff00 0,
+            #ffff00 3px,
+            #000 0,
+            #000 7px
+          );
+        font-size: 12px;
+        box-sizing: border-box;
+        border-radius: 4px;
+      }
+      .content {
+        padding: 10px;
+        color: red;
+        background: rgb(237, 240, 241);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="zebra-crossing">
+      <div class="content">
+        <p class="color-sp">特别注意：</p>
+        <p class="color-sp">
+          实操课每学时（45分钟为1个学时）需拍摄不低于1分钟的连续广角录像。即：每45分钟为1节课，每节课需拍摄1分钟视频。（例如：上午9点到12点，授课时间为180分钟，即为4个学时，需要分4节课，拍摄共计4个1分钟的视频）
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
