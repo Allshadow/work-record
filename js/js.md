@@ -1,3 +1,18 @@
+### 监听滚动条滚动到最底部
+
+```js
+// 变量 vDom 可以是 window 或者 是其他的 dom 对象
+let vDom = this.$refs.course; //这里指vue 中的 dom 元素
+vDom.addEventListener('scroll', () =>{
+	let courseHeight = vDom.clientHeight, //元素可视区的高度，元素的实际高度
+		scrollTop = vDom.scrollTop, //滚动条距离顶部的距离
+		scrollHeight = vDom.scrollHeight; //滚动条的总高度，其实感觉就是内容的高度
+    if(scrollTop + courseHeight == scrollHeight){
+    	console.log('滚动到最底部了')
+    }
+})
+```
+
 ### video 获取视频时长
 
 ```
