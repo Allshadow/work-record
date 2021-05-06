@@ -1,3 +1,28 @@
+node-sass 安装不下来
+
+https://blog.csdn.net/qq_35430000/article/details/115422182
+
+整理下nrm
+
+
+
+resource 常用方法
+
+```
+async getChangeInfo(){
+    try {
+    	let res = await this.$api(
+    		this.$cfg.API.studentState.getRollWorkSubmit,
+    		data
+    	);
+    } catch (e) {
+    	this.$message.error(e.message)
+    }
+},
+```
+
+
+
 ### input 监听是否已经获取焦点
 
 #### 认识 activeElement 属性
