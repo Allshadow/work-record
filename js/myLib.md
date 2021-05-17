@@ -232,4 +232,3 @@ var addEvent = function (ele, type, handle) {
     }
 }
 ```
-
