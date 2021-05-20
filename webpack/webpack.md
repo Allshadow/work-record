@@ -104,3 +104,38 @@ npm install --save-dev style-loader css-loader
 npm install --save-dev file-loader
 ```
 
+## 插件
+
+#### 清理 /dist 文件夹
+
+在 webpack 4 中使用 clean-webpack-plugin 来清除
+
+```
+npm install --save-dev clean-webpack-plugin
+```
+
+webpack.config.js 中配置
+
+```
+  const path = require('path');
+  const HtmlWebpackPlugin = require('html-webpack-plugin');
++ const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+  module.exports = {
+    entry: {
+      app: './src/index.js',
+      print: './src/print.js'
+    },
+    plugins: [
++     new CleanWebpackPlugin(),
+      new HtmlWebpackPlugin({
+        title: '管理输出'
+      })
+    ],
+    output: {
+      filename: '[name].bundle.js',
+      path: path.resolve(__dirname, 'dist')
+    }
+  };
+```
+
