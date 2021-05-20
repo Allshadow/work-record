@@ -1,11 +1,3 @@
-node-sass 安装不下来
-
-https://blog.csdn.net/qq_35430000/article/details/115422182
-
-整理下nrm
-
-
-
 resource 常用方法
 
 ```
