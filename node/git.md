@@ -16,7 +16,7 @@ git pull
 2）把本地的develop分支强制（-f）推送到远程仓库master
 
 ```bash
-git push origin develop:master -f
+git push origin develop:master -f (develop:master 为当前分支名称：需要覆盖的分支名称)
 ```
 
 3）切换到旧分支
