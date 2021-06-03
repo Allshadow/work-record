@@ -1,4 +1,48 @@
-resource 常用方法
+### 标准弹窗模板
+
+```
+<template>
+  <base-dialog
+    :isShow.sync="show"
+    title=""
+    width="963px"
+    :isShowFooter="false"
+    :appendToBody="true"
+  >
+    
+  </base-dialog>
+</template>
+
+<script>
+import BaseDialog from '@/components/common/BaseDialog'
+
+export default {
+  
+  components: {
+    BaseDialog
+  },
+	data() {
+		return {
+      show: false,
+    };
+	},
+	computed: {
+    
+  },
+	watch: {
+    
+  },
+	methods: {
+    
+  },
+};
+</script>
+<style scoped lang="scss">
+  
+</style>
+```
+
+### resource 常用方法
 
 ```
 async getChangeInfo(){

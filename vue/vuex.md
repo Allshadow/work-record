@@ -1,9 +1,3 @@
-###  分享
-
-今天已经是2021年，时间一晃而过，祝大家新年快乐
-
-新的开始也不能懈怠，记录一下关于 vuex 在日常使用时的一些总结，方便自己复制即用
-
 ### 什么是 vuex ?
 
 #### 官网
@@ -56,4 +50,20 @@ new Vue({
 ### 核心概念
 
 #### Module
+
+### 实用技巧
+
+未使用命名空间时读取 vuex 中的数据
+
+```
+// 实用 mapstate 辅助函数
+import { mapState } from 'vuex';
+
+computed: {// info 为 info.js 文件下的 vuex state
+	...mapState('info',{
+		common: 'common',
+	})
+},
+
+```
 

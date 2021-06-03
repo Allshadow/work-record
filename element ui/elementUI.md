@@ -236,19 +236,3 @@ methods:{
 }
 
 ```
-
-# 三、Form表单
-
-## 1）校验单个项目名称
-
-```js
-//formName <el-form>上得 ref值
-//prop <el-form-item>上得prop校验值, prop 为 string
-this.$refs[formName].validateField(prop, getError => { //验证手机号码是否正确
-  if (!getError) {//如果正确得话，执行里面得代码
-    
-  } else {
-    return false;
-  }
-});
-```

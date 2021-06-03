@@ -1,3 +1,9 @@
+### .sync 修饰符 与 $emit(update: xxx) 
+
+```
+https://blog.csdn.net/weixin_42776111/article/details/108979101
+```
+
 ### 监听页面刷新后,回到主页
 
 ```
@@ -516,6 +522,8 @@ function methods(){
 v-bind="$attrs"
 //父组件
 
+子组件取值
+this.$attrs.xxx
 ```
 
 ### 2）$listeners
