@@ -51,3 +51,17 @@ nrm use npm
 nrm use taobao
 ```
 
+#### 查看当前源地址
+
+```
+nrm ls
+```
+
+### .npmignore
+
+#### 设置白名单
+
+```
+!dist/file.js
+```
+

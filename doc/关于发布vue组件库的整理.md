@@ -1,5 +1,7 @@
 ### 起步
 
+使用 gitbash 命令行进行操作
+
 #### 安装 vue-cli
 
 ```
@@ -12,23 +14,25 @@ npm install -g @vue/cli
 winpty vue.cmd create aw-view
 ```
 
-#### 下载依赖
+#### 进入目录
 
 ```
-yarn
+cd aw-view
 ```
 
 #### 运行项目
 
 ```
-npm run dev
+yarn serve
 ```
 
-### 开始编码
+### 组件代码
 
-#### 新建目录
+#### 目录结构
 
-1）在 src 目录下新建 packages 文件夹，文件夹结构如下
+在 aw-view 目录下新建 packages 文件夹
+
+由于打包发布与非打包发布组件代码一致，所以单独提取出来
 
 ```
 packages
@@ -39,7 +43,9 @@ packages
 	|-- index.js
 ```
 
-2）packages 目录下的 index.js
+#### 相应代码
+
+1）packages 目录下的 index.js 代码如下:
 
 ```
 // 若使用 ui 框架的 css 必须在此引入
@@ -72,7 +78,7 @@ export default {
 }
 ```
 
-3）aw-demo 目录 src 目录下  index.vue
+2）aw-demo 目录 src 目录下  index.vue
 
 ```
 <template>
@@ -80,6 +86,7 @@ export default {
 </template>
 <script>
 export default {
+  <!-- name 必须写 -->
   name: 'aw-demo'
 }
 </script>
@@ -98,42 +105,25 @@ awDemo.install = function (Vue) {
 export default awDemo
 ```
 
-#### 引用方式
-
-1）全局引用
-
-在 main.js 中引入 
+### 配置 package.json
 
 ```
-import awView from 'aw-view/package'
-
-Vue.use(awView)
-```
-
-2）按需引用
-
-在 main.js 中引入 
-
-```
-import { awDemo } from 'aw-view/package'
-
-Vue.use(awDemo)
-```
-
-3）组件引用
-
-在页面中引用
-
-```
-import awDemo from 'aw-view/package/aw-demo'
-
-// 引入组件
-components: {
-   awDemo
+"scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint --fix",
+    // 新增 npm script 
+    "lib": "vue-cli-service build --target lib ./packages/index.js --name aw-view --dest lib"
 },
+
+--target lib xxx // 指定打包的目录
+--name // 打包后的文件名称
+--dest // 打包后文件夹名称
 ```
 
 ### 配置 vue.config.js
+
+新建 vue.config.js 文件 
 
 ```
 module.exports = {
@@ -170,13 +160,78 @@ module.exports = {
 }
 ```
 
-### 配置 package.json
+### 构建
+
+```
+npm run lib
+```
+
+### 打包发布
+
+#### 新建目录
+
+在 aw-view 下新建 res 目录
+
+#### 复制文件
+
+将 lib 目录下的 aw-view.umd.min.js 复制到 res 目录下
+
+若有 css 也需要复制过来
+
+#### 创建package.json
+
+在  res 目录下执行：
+
+```
+cd res
+
+yarn init -y
+```
+
+#### 配置package.json
+
+目前仅列出需要的配置参数，其他的需要自行添加
+
+```
+{
+  "name": "aw-view",
+  "version": "1.0.0",
+  "main": "index.js", //入口文件为 aw-view.umd.min.js，也能将其重命名 index.js
+  "license": "MIT"
+}
+```
+
+### 非打包发布
+
+#### 配置 package.json
+
+package.json
 
 ```
 "name": "aw-view", // 包的名称，引入时使用
 "version": "0.1.0", // 发布的时候版本号不能重复，呈叠加形式
 "private": false, // 这个要改为 false
-"main": "aw-view/package", //组件库的主入口地址(在使用组件时引入的地址)
+"main": "aw-view/packages", //组件库的主入口地址(在使用组件时引入的地址)
+"description": "aw common components", // 描述
+"main": "lib/aw-view.common.js", // 入口文件（要 npm run lib 后）
+```
+
+#### 配置 .npmignore
+
+新建  .npmignore 文件，可以忽略提交一些文件
+
+```
+# 忽略目录
+lib/
+!lib/aw-view.common.js  // 设置白名单 这个好像没作用
+src/
+#packages/
+public/
+
+# 忽略指定文件
+vue.config.js
+babel.config.js
+*.map
 ```
 
 ### 发布到 npm 
@@ -227,16 +282,65 @@ npm unpublish guitest@1.0.1 //指定版本号
 npm deprecate //某些情况
 ```
 
+### 使用
+
+#### 下载
+
+```
+yarn add aw-view
+```
+
+#### 全局引用
+
+在 main.js 中引入 
+
+```
+import awView from 'aw-view'
+//import 'aw-view/aw-view.css' 若存在css则引入
+
+Vue.use(awView)
+```
+
+在组件中引用
+
+```
+<aw-demo></aw-demo>
+```
+
+#### 按需引用
+
+在 main.js 中引入 
+
+```
+import { awDemo } from 'aw-view'
+
+Vue.use(awDemo)
+```
+
+#### 组件引用
+
+在页面中引用
+
+```
+import awDemo from 'aw-view/aw-demo'
+
+// 引入组件
+components: {
+   awDemo
+},
+```
+
+### 参考地址
+
+```
 https://zhuanlan.zhihu.com/p/146328240
-
-
 
 https://www.cnblogs.com/max-tlp/p/9338855.html
 
-
-
 https://www.yuque.com/homacheuk/dmqta3/mbro9z
 
-
-
 https://www.yuque.com/homacheuk/dmqta3/mbro9z 语雀
+
+https://www.cnblogs.com/qianxiaox/p/13826344.html?ivk_sa=1024320u
+```
+
