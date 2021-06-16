@@ -1,3 +1,19 @@
+### 异步编程获取接口
+
+```js
+//标准模板
+async getEditType(){
+    try{
+        const params = {
+            applyId: this.id
+        }
+        const res = await publishList(params);
+    }catch (e) {
+        this.$message.error(e.message)
+    }
+},
+```
+
 ### 标准弹窗模板
 
 ```
