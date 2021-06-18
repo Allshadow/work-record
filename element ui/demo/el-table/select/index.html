@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>elementUi</title>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+  <div id="app">
+    <!-- https://blog.csdn.net/jerrica/article/details/80804854 -->
+    
+    <el-table
+      ref="multipleTable"
+      :data="tableData"
+    >
+      <el-table-column label="选择" width="100">
+        <template slot-scope="scope">
+          <el-radio 
+            v-model="radio" 
+            :label="scope.row.name"
+            @change.native="handleSelectRow(scope.row, scope.$index)"
+          ></el-radio>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="日期"
+        width="120"
+      >
+        <template slot-scope="scope">{{ scope.row.date }}</template>
+      </el-table-column>
+    </el-table>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          tableData: [
+            {
+              date: '2016-05-03',
+              name: '1',
+              address: '上海市普陀区金沙江路 1518 弄'
+            }, 
+            {
+              date: '2016-05-02',
+              name: '2',
+              address: '上海市普陀区金沙江路 1518 弄'
+            }, 
+            {
+              date: '2016-05-04',
+              name: '3',
+              address: '上海市普陀区金沙江路 1518 弄'
+            }, 
+            {
+              date: '2016-05-01',
+              name: '4',
+              address: '上海市普陀区金沙江路 1518 弄'
+            }
+          ],
+          radio: ''
+        }
+      },
+      methods: {
+        handleSelectRow(row, index){
+          console.log('row', row)
+          console.log('index', index)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

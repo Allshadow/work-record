@@ -1,8 +1,18 @@
+### 防抖和节流
+
+https://segmentfault.com/a/1190000018428170
+
+### 闭包
+
+http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html
+
 ### 木及简历
 
 https://resume.mdedit.online/
 
+### 命名规范
 
+https://www.zoo.team/article/good-name
 
 # 教程网站
 
