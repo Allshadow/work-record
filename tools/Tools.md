@@ -1,3 +1,24 @@
+#### vue-devtools
+
+1）谷歌浏览器版本
+
+```
+版本号：5.3.3
+网盘所属：本人
+下载地址：链接：https://pan.baidu.com/s/12wdwFgMv4SDXHL4EkxSvYg 
+提取码：z14g 
+```
+
+2）使用方法
+
+使用谷歌浏览器访问： [chrome://extensions/](chrome://extensions/)
+
+打开右侧的开发者模式，并且点击 '加载已解压的扩展程序'，选取文件
+
+![image-20210621110717783](Tools.assets/image-20210621110717783.png)
+
+3）弹出的选择文件弹窗，选择文件加压后的 ‘E:\project\vue-devtools-dev\packages\shell-chrome’，点选择文件夹即可
+
 # 二、webstorm
 
 ## 1.安装包位置

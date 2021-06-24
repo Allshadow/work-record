@@ -1,10 +1,44 @@
-### 实现单选操作
+#### 布局错乱
 
-#### 示例
+1）原因： 使用动态布局或使用 fixed 定位造成以下问题
+
+![image-20210622173304014](el-table.assets/image-20210622173304014.png)
+
+2）解决： 重新计算布局
+
+```js
+this.$nextTick(() =>{
+	this.$refs.dataTable.doLayout() // el-table 标签上的 ref 属性
+})
+```
+
+3）案例代码
+
+```vue
+// 因为我是在 el-select 改变时改变布局，则
+<el-select 
+	v-model="custom" 
+	@change="handleTableColumn"
+>
+	...
+</el-select>
+
+methods: {
+	handleTableColumn(){
+		this.$nextTick(() =>{
+			this.$refs.dataTable.doLayout()
+		})
+	},
+}
+```
+
+#### 实现单选操作
+
+1）示例
 
 ![image-20210618160611077](el-table.assets/image-20210618160611077.png)
 
-#### 实现
+2）实现
 
 ```
 <template>
@@ -66,13 +100,13 @@ methods: {
 </script>
 ```
 
-#### demo
+3）demo
 
 ```
 ./demo/el-table/select 
 ```
 
-### 校验表格中必填项
+#### 校验表格中必填项
 
 ```
 <template>
@@ -118,15 +152,15 @@ export default {
 </script>
 ```
 
-### 默认选中
+#### 默认选中
 
-#### 单选框默认选中
+1）单选框默认选中
 
 ```
 this.$refs['singleTable'].setCurrentRow(row, true)
 ```
 
-#### 多选框默认选中
+2）多选框默认选中
 
 ```
 this.$refs['multipleTable'].toggleRowSelection(row, true)

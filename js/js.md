@@ -1,3 +1,47 @@
+### 每隔几个字符串添加入符号
+
+```
+/**
+* @param {string} str   需要插入的字符（串）
+* @param {int} length   间隔几个字符
+*/
+function strInsert(str, length) {
+   let reg = new RegExp("\\d{1," + length + "}", "g");
+   let ma = str.match(reg);
+   return ma.join("^_^") + "^_^"; //最后面不要"^_^" 就去掉( + "^_^")
+}
+
+
+console.log(strInsert("111222333", 3));
+```
+
+### 身份证号校验性别
+
+```
+sex = parseInt(this.basicForm.idNumber.substr(16, 1)) % 2 == 1 ? '男' : ‘女’
+```
+
+### 移动端不允许缩放
+
+```
+<meta 
+	name="viewport" 
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+> 
+
+width // viewport的宽度 height - viewport的高度
+initial-scale // 初始的缩放比例
+minimum-scale // 允许用户缩放到的最小比例
+maximum-scale // 允许用户缩放到的最大比例
+user-scalable // 用户是否可以手动缩放
+```
+
+### 标签 js 不允许跳转
+
+```
+<a href="javascript:void(0);">xxx</a>
+```
+
 ### 监听滚动条滚动到最底部
 
 ```js
