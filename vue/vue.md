@@ -209,6 +209,21 @@ https://www.cnblogs.com/amylis_chen/p/11320059.html
 </div>
 ```
 
+#### 4）使用 计算属性
+
+```js
+//html
+<div :style="styles"></div>
+//scrip
+computed:{
+  styles(){
+    return{
+      height: 100 +"px"
+    } //78
+  },
+},
+```
+
 ## 5、props 数据验证
 
 ```
@@ -453,6 +468,20 @@ computed: {
 			this.lastName = name[name.length -1]
 		}
 	}
+}
+```
+
+#### 传参
+
+```js
+:data="computedData(123)"
+computed:{
+    computedData(val){
+        return function(val){
+            /** do something */
+            retrun val
+        }
+    }
 }
 ```
 
