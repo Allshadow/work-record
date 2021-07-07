@@ -19,13 +19,13 @@
 
 3）弹出的选择文件弹窗，选择文件加压后的 ‘E:\project\vue-devtools-dev\packages\shell-chrome’，点选择文件夹即可
 
-# 二、webstorm
+#### webstorm
 
-## 1.安装包位置
+##### 安装包位置
 
 #百度网盘（work 目录下）
 
-## 2.基础设置
+##### 基础设置
 
 #启动时不默认打开工程
 
@@ -40,7 +40,7 @@ File --> Settings --> Appearance & Behavior --> System Settings
 File --> Settings --> Editor --> Live Templates
 ```
 
-## 2.激活码激活网址
+##### 激活码激活网址
 
 ```
 //激活码激活易过期，并且作者并不会直接更新
@@ -50,7 +50,7 @@ http://lookdiv.com/  钥匙：lookdiv
 https://niceyoo.lanzous.com/icd3rkf
 ```
 
-## 3.永久激活方法
+##### 永久激活方法
 
 ```
 //更新于2020-05-13
@@ -78,7 +78,7 @@ https://macstore.info/a/Jetbrainscrack.html
 6.重启你的IDE。
 ```
 
-## 4.常用快捷键
+##### 常用快捷键
 
 ```
 Ctrl + Alt + L //格式化代码
@@ -99,43 +99,43 @@ alt + 左键  //切换标签（切换编辑区的窗口）
 Shift + L  //删除行
 ```
 
-## 5.支持jsx语法
+##### 支持jsx语法
 
 ```
 路径： File | Settings | Languages & Frameworks | JavaScript 
 修改： javaScript language version 选择 jsx
 ```
 
-# 三、.md
+#### .md
 
-## 1.目录结构生成器
+##### 目录结构生成器
 
 ```
 npm install mddir -g //下载目录结构生成器
 ```
 
-## 2.使用
+##### 使用
 
 ```bash
 // 进入文件目录 
 mmdir //在文件目录下会生成一个directoryList.md文件
 ```
 
-# 四、Mark Man
+#### Mark Man
 
-## 1.下载地址
+##### 下载地址
 
 ```
 http://www.getmarkman.com/ //官网目前可以免费使用
 ```
 
-## 2.在用版本
+##### 在用版本
 
 ```
 v2.7.21
 ```
 
-## 3.网盘下载
+##### 网盘下载
 
 ```
 //如果下载得.air文件无法双击安装，需要下载Adobe AIR
@@ -144,47 +144,41 @@ Adobe AIR 下载地址： https://get.adobe.com/cn/air/
 //百度网盘（work目录下）
 ```
 
-# 五、vue-devtools
+#### Axure9
 
-## 1.下载地址
-
-
-
-# 六、Axure9
-
-## 1.激活码链接
+##### 激活码链接
 
 ```
 https://www.chinavid.com/axure-authorizationcode.html
 ```
 
-## 2.可用信息
+##### 可用信息
 
 ```
 License： AX9001
 key: iy9uUKbS7pEZwE5hbHTGigOcu48TdY4JXWbJYHxXLuvAzRL8qmry9J2mS5wXO7y3
 ```
 
-## 3.下载地址
+##### 下载地址
 
 ```
 百度网盘work目录下
 ```
 
-## 4.axure谷歌插件
+#### Axure谷歌插件
 
 ```
 //百度网盘
 /work/Axure 9 pro/Axure插件
 ```
 
-# 八、Typora
+#### Typora
 
-## 1.用途
+##### 用途
 
 #基于MarkDown的文本编辑器
 
-## 2.下载
+##### 下载
 
 ```
 百度网盘（work/MarkDown）
@@ -193,14 +187,25 @@ key: iy9uUKbS7pEZwE5hbHTGigOcu48TdY4JXWbJYHxXLuvAzRL8qmry9J2mS5wXO7y3
 work/MarkDown/pandoc-2.10-windows-x86_64.msi
 ```
 
-# 九、svn
+#### Svn
 
-## 1.下载地址
+##### 下载地址
 
 ```
 //百度网盘
 work/svn
 ```
 
+#### PDF Xchange Viewer
 
+##### 官网下载
 
+```
+https://www.tracker-software.com/product/pdf-xchange-viewer
+```
+
+##### 网盘下载
+
+```
+/work/PDF Viewer/PDFXVwer.zip
+```

@@ -16,10 +16,6 @@ npm i miniapp-router -S
 
 注意 slot 需和路由定义中的 component 对应
 
-
-
-
-
 page.axml
 
 ```
