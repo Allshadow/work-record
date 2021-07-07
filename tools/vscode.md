@@ -10,6 +10,21 @@ Live Server //监听页面实时刷新
 code settings sync //同步码云插件
 ```
 
+### Live Scss Compiler
+
+```
+{
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".css",  // 解析文件类型
+      "savePath": "/css" // 保存路径，默认 null
+    }
+  ],
+  "liveSassCompile.settings.generateMap": false //不添加map文件
+}
+```
+
 ### 快捷键
 
 ```
