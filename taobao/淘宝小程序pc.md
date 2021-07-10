@@ -102,3 +102,9 @@ https://miniapp.open.taobao.com/docV3.htm?docId=1805&docType=20&source=search
 https://f2.antv.vision/zh/examples/gallery
 ```
 
+图片裁剪
+
+```
+https://github.com/we-plugin/we-cropper
+```
+
