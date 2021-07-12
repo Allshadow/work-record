@@ -1,3 +1,29 @@
+#### 基础实现
+
+##### class 使用
+
+```
+class="'demo' {{isKnow? 'active' : '' }}"
+```
+
+##### 绑定数组
+
+```
+data:{
+	return {
+		arrList: []
+	}
+}
+
+changeArr(e){
+	let arr = this.data.arrList // 获取原始数组值
+	arr[0] = 1
+	this.setData({
+		arrList: arr
+	})
+}
+```
+
 #### miniapp-router
 
 ##### 简介
@@ -72,7 +98,7 @@ export default {
 };
 ```
 
-#### 路由
+#### 组件
 
 如果为组件必须在 json 中声明 
 
@@ -101,10 +127,3 @@ https://miniapp.open.taobao.com/docV3.htm?docId=1805&docType=20&source=search
 ```
 https://f2.antv.vision/zh/examples/gallery
 ```
-
-图片裁剪
-
-```
-https://github.com/we-plugin/we-cropper
-```
-
