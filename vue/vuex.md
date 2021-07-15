@@ -1,57 +1,136 @@
-### 什么是 vuex ?
+#### 安装
 
-#### 官网
+##### 选择安装
 
-vuex 是一个专为 vue.js 应用程序开发的状态管理模式。
+vue-cli 如需要使用 vuex，在创建时选择选项即可。
 
-#### 自己的理解
+##### 手动安装
 
-vuex 像一个全局的值管理器，不同组件间通过一个公共的地方，来响应式得改变数据流。更新视图。
+1） yarn
 
-### 创建基础 store
+```
+yarn add vuex
+```
 
-本项目是基于vue-cli4 创建，所以 demo 也以此进一步改造，@ 为 src 目录
-
-#### 基本结构
-
-@/store/index.js
+2）在一个模块化的打包系统中，您必须显式地通过 `Vue.use()` 来安装 Vuex：
 
 ```
 import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
+```
 
-export default new Vuex.Store({
+#### State
+
+##### 获取状态值
+
+使用计算属性获取 state 中的某个状态
+
+```
+computed:{
+	count(){
+		return this.$store.state.count
+	}
+}
+```
+
+##### `mapState` 辅助函数
+
+使用 mapState 辅助函数简化取值
+
+```
+import { mapState } from 'Vuex'
+
+computed: mapState({
+	// 箭头函数可使代码更简练
+	count: state => state.count,
+	
+	// 传字符串参数 'count' 等同于 'state = > state.count'
+	countAlias: 'count', // 类似使用别名
+	
+	// 映射 this.count 为 store.state.count
+	// 计算属性名称 与 子节点名称相同时
+	'count',
+	
+	// mapState 把 computed 直接赋值为对象，则为了使用局部函数
+	countPlusLocalState (state) {
+      return state.count + this.localCount
+    }
+})
+```
+
+##### `...mapState` （推荐）
+
+使用 `...mapState ` 对象展开符，可以将 mapState 与
+
+```
+computed: {
+  localComputed () { /* ... */ },
+  // 使用对象展开运算符将此对象混入到外部对象中
+  ...mapState({
+    // ...
+  })
+}
+```
+
+#### Getter
+
+相当于全局的计算属性，使用公共的方法处理 state, 供全局使用
+
+Getter 接受 state 作为其第一个参数：
+
+```
+const store = new Vuex.Store({
   state: {
+    todos: [
+      { id: 1, text: '...', done: true },
+      { id: 2, text: '...', done: false }
+    ]
   },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
+  getters: {
+    doneTodos: state => {
+      return state.todos.filter(todo => todo.done)
+    }
   }
 })
 ```
 
-main.js
+#### Actions
+
+Action 提交的是 mutation, 而不是直接变更状态
+
+Action 可以包含任意异步操作
+
+##### 注册
 
 ```
-import Vue from 'vue'
-import App from './App.vue'
-import store from './store'
-
-new Vue({
-  store,
-  render: h => h(App)
-}).$mount('#app')
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment (state) {
+      state.count++
+    }
+  },
+  actions: {
+  	// 基础的 context
+    increment (context) {
+      context.commit('increment')
+    }
+    
+    // 使用解构的方法简化代码
+    increment ({ commit }){
+		commit('increment')
+	}
+  }
+})
 ```
 
-### 核心概念
+
 
 #### Module
-
-### 实用技巧
 
 未使用命名空间时读取 vuex 中的数据
 
