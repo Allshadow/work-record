@@ -502,29 +502,6 @@ const actions = {
 
 ##### 基础 module 
 
-目录结构
-
-```
-store
-	|-- index.js  # 我们组装模块并导出 store 的地方
-	|-- actions.js # 根级别的 action
-	|-- mutations.js # 根级别的 mutation
-	|-- modules
-		|-- user.js # 用户模块
-		|-- cart.js # 购物车模块
-```
-
-在 main.js 中引用
-
-```
-import store from './store' # 此引入的是 store 文件夹下的 index.js
-
-new Vue({
-	el: '#app',
-	store
-})
-```
-
 store/index.js
 
 ```
