@@ -524,13 +524,26 @@ store/modules/cart.js
 
 ```
 const state = () =>({
-	item: []
+	friutList: [
+    {
+      label: '苹果',
+      value: 1
+    },
+    {
+      label: '香蕉',
+      value: 2
+    },
+    {
+      label: '葡萄',
+      value: 3
+    }
+  ]
 })
 
 const getters = {
-	cartProducts: (state, getters, rootState) =>{
-		
-	}
+	cartProducts: (state, getters, rootState) => {
+        return rootState.count
+    }
 }
 
 const actions = {
@@ -542,7 +555,7 @@ const mutations = {
 }
 
 export default {
-	namespaced: true # 是否使用命名空间
+	// namespaced: true   是否使用命名空间
 	state，
 	getters,
 	actions,
@@ -550,11 +563,50 @@ export default {
 }
 ```
 
-取值
+##### 取值
 
 ```
-store.state.user // user 的状态
-store.state.cart // cart 的状态
+// state
+computed: {
+    fruitList () {
+      return this.$store.state.cart.friutList
+    },
+}
+
+// gettres
+doGetter () {
+	return this.$store.getters.cartProducts // 与全局getters 同一级
+},
+
+```
+
+##### 获取根节点的 `state`
+
+```
+// actions
+const actions = {
+  incrementRoot ({ state, commit, rootState }) { // rootState 为根节点 state
+    
+  }
+}
+
+// getters
+const getters = {
+  cartProducts: (state, getters, rootState) => { // rootState 为根节点 state
+    
+  }
+}
+```
+
+##### 模块命名空间
+
+```
+使用上述 namespaced: true,
+
+state 不会受影响
+
+它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名
+
 ```
 
 未使用命名空间时读取 vuex 中的数据
