@@ -500,6 +500,10 @@ const actions = {
 
 #### Module
 
+##### 简述
+
+vuex 允许将 store 分割成模块，每个模块拥有自己的 state、mutation、action、getter 甚至是嵌套子模块
+
 ##### 基础 module 
 
 store/index.js
@@ -563,6 +567,69 @@ export default {
 }
 ```
 
+##### 模块局部状态(官网示例)
+
+对于模块内部的 mutation 和 getter, 接收的第一个参数是模块的局部状态对象
+
+```
+const moduleA = {
+  state: () => ({
+    count: 0
+  }),
+  mutations: {
+    increment (state) {
+      // 这里的 `state` 对象是模块的局部状态
+      state.count++
+    }
+  },
+
+  getters: {
+    doubleCount (state) {
+      return state.count * 2
+    }
+  }
+}
+```
+
+对于模块内部的 action，局部状态通过 `context.state` 暴露出来，根节点状态则为 `context.rootState`
+
+```
+const moduleA = {
+  // ...
+  actions: {
+    incrementIfOddOnRootSum ({ state, commit, rootState }) {
+      if ((state.count + rootState.count) % 2 === 1) {
+        commit('increment')
+      }
+    }
+  }
+}
+```
+
+对于模块内部的 getter，根节点状态会作为第三个参数暴露出来：
+
+```
+const moduleA = {
+  // ...
+  getters: {
+    sumWithRootCount (state, getters, rootState) {
+      return state.count + rootState.count
+    }
+  }
+}
+```
+
+##### 模块命名空间
+
+```
+使用上述 namespaced: true,
+
+state 不会受影响
+
+它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名
+
+```
+
 ##### 取值
 
 ```
@@ -580,36 +647,7 @@ doGetter () {
 
 ```
 
-##### 获取根节点的 `state`
-
-```
-// actions
-const actions = {
-  incrementRoot ({ state, commit, rootState }) { // rootState 为根节点 state
-    
-  }
-}
-
-// getters
-const getters = {
-  cartProducts: (state, getters, rootState) => { // rootState 为根节点 state
-    
-  }
-}
-```
-
-##### 模块命名空间
-
-```
-使用上述 namespaced: true,
-
-state 不会受影响
-
-它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名
-
-```
-
-未使用命名空间时读取 vuex 中的数据
+##### 辅助函数
 
 ```
 // 实用 mapstate 辅助函数
@@ -619,7 +657,5 @@ computed: {// info 为 info.js 文件下的 vuex state
 	...mapState('info',{
 		common: 'common',
 	})
-},
-
+}
 ```
-
