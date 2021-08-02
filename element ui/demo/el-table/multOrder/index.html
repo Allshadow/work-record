@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>elementUi</title>
+    <!-- 引入样式 -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+  </head>
+  <body>
+    <!-- date 值变化 -->
+    <div id="app">
+      <el-table :data="tableData" border style="width: 100%" :header-cell-class-name="handleHeaderCellClass" @sort-change="handleSortChange">
+        <el-table-column fixed prop="date" label="日期" width="150" sortable="custom">
+        </el-table-column>
+        <el-table-column prop="name" label="姓名" width="120" sortable="custom">
+        </el-table-column>
+        <el-table-column prop="province" label="省份" width="120">
+        </el-table-column>
+        <el-table-column prop="city" label="市区" width="120">
+        </el-table-column>
+        <el-table-column prop="address" label="地址" width="300">
+        </el-table-column>
+        <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
+        <el-table-column fixed="right" label="操作" width="100">
+          <template slot-scope="scope">
+            <el-button @click="handleClick(scope.row)" type="text" size="small"
+              >查看</el-button
+            >
+            <el-button type="text" size="small">编辑</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            tableData: [],
+            orderArray: []
+          };
+        },
+        methods: {
+          handleClick(row) {
+            console.log(row);
+          },
+          handleHeaderCellClass({row, column, rowIndex, columnIndex}){
+            console.log('row',row ,'column',column);
+            this.orderArray.forEach(element => {
+                if (column.property===element.prop) {
+                  column.order=element.order
+                }
+              });
+          },
+          handleSortChange( {column, prop, order} ){
+            console.log('column',column, 'prop',prop, 'order',order);
+            //取消order是null
+            if (order) {
+              //order为ascending、descending 时
+              // 1、该字段原本就在orderArray,2、该字段原本不在orderArray
+              let flagIsHave=false
+              this.orderArray.forEach(element => {
+                if (element.prop === prop) {
+                  element.order=order
+                  flagIsHave=true
+                }
+              });
+              if (!flagIsHave) {
+                this.orderArray.push({
+                  prop:prop,
+                  order:order
+                })
+              }
+            }else{
+              //order为null时，该字段原本一定在orderArray，去掉即可
+              let orderIndex=0
+              this.orderArray.forEach((element,index) => {
+                if (element.prop === prop) {
+                  orderIndex=index
+                }
+              });
+                this.orderArray.splice(orderIndex,1)
+            }
+          },
+
+        },
+        computed: {},
+      });
+    </script>
+  </body>
+</html>
