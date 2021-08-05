@@ -166,3 +166,10 @@ this.$refs['singleTable'].setCurrentRow(row, true)
 this.$refs['multipleTable'].toggleRowSelection(row, true)
 ```
 
+#### 多选排序
+
+1）例子
+
+```
+./demo/el-table/multOrder
+```

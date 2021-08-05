@@ -1,3 +1,31 @@
+#### 文件下载
+
+##### \<a> 标签
+
+直接下载
+
+```
+<a href="https://www.juejin.com/测试.xls" download="测试.xls">EXCEL</a>
+```
+
+动态下载
+
+```
+/*
+* url 需要下载的 url
+* name 文件名称
+* 文件类型 例如 ‘.xls’
+*/
+const downLoad = (url, name, type) =>{
+	let a = document.createElement("a");
+    a.href = url
+    a.download = `${name}${type}`
+    //以下这段为了兼容火狐
+    a.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true, view: window}))
+    a = null;
+}
+```
+
 ### 每隔几个字符串添加入符号
 
 ```
