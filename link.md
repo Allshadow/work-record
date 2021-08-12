@@ -14,12 +14,6 @@ https://resume.mdedit.online/
 
 https://www.zoo.team/article/good-name
 
-# 教程网站
-
-```
-https://devopen.club/
-```
-
 # Linux
 
 ```

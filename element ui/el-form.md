@@ -1,3 +1,102 @@
+### \<el-input>
+
+#### 从服务端搜索数据
+
+```
+<template>
+    <el-autocomplete
+        v-model="ruleForm.name"
+        :fetch-suggestions="querySearchAsync" // 筛选的步骤
+        placeholder="请输入xxx"
+        @select="handleSelect" // 选择后触发
+        style="width: 100%"
+    >
+    </el-autocomplete>
+</template>
+
+<script>
+// ...
+methods:{
+	// 选择后触发
+	handleSelect(item){
+		// item 的值为 {value:'xxx', key: xxx}
+    },
+    
+	// 搜索函数
+	querySearchAsync(queryString, cb){
+        // 由于我请求使用的是 await/async 所以返回的为promise
+        this.getCourseName(queryString).then(res =>{
+            // res 是数组对象，且这个参数必须有 value例如
+            // res = [{value: 'xxx', key: 1}]
+            cb(res);
+        })
+	},
+	
+	// 获取接口参数
+	async getCourseName(name){
+      const data = {
+        name
+      }
+
+      let res = await this.$api(this.$cfg.API.all.queryLikeByName, data)
+      const resList = res.result? res.result : []
+      const arr = []
+      resList.forEach((ele, index) => {
+        arr.push({
+          value: ele, // 
+          key: index
+        })
+      })
+      return arr
+    }
+}
+
+</script>
+
+```
+
+### \<el-input-number>
+
+#### 输入整数包含小数
+
+```
+<el-form>
+	<el-form-item label="xxx" prop="xxx">
+        <el-input-number 
+        	v-model="ruleForm.xxx" 
+        	:controls="false"
+        	:min="0"
+        	class="num"
+        	placeholder="请输入专业选修课学分"
+        >
+        </el-input-number>
+	</el-form-item>
+</el-form>
+
+// el-input-number 默认会出现一个默认值，去掉默认值，将默认参数定义成 undefined 即可
+
+<script>
+data() {
+	return {
+        ruleForm: {
+            xxx: undefined, //设置为 undefined
+        },
+	};
+},
+</script>
+
+<style>
+.el-input-number.num{
+  width: 100%;
+  .el-input{
+    input{
+      text-align: left; // 将居中的文本置为左边
+    }
+  }
+}
+</style>
+```
+
 #### 移除表单校验结果
 
 同一个输入框的有时候需要校验，有时候不需要校验。
