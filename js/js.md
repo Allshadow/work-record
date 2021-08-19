@@ -1,6 +1,6 @@
-#### 文件下载
+### 文件下载
 
-##### \<a> 标签
+#### \<a> 标签
 
 直接下载
 
@@ -145,41 +145,6 @@ JSON.parse(JSON.stringify)
 
 https://juejin.im/post/6889327058158092302#heading-13
 
-# 一、数组
-
-## 3、map
-
-### 1）定义
-
-map方法将数组得所有成员依次传入参数函数，然后把每一次执行得结果组成一个新数组返回
-
-### 2）举例
-
-```js
-var numbers = [1, 2, 3];
-
-var arr = numbers.map(function (n){
-    return n + 1;
-})
-// arr  [2, 3, 4]
-// numbers [1, 2, 3]
-```
-
-### 3）应用
-
-```js
-// 1、取出数组对象得某个指
-var arr = [
-    {id: 1, name: '我'}, 
-    {id:2, name: '你'},
-    {id: 3, name: '他'}
-]
-let newArr = arr.map(ele => ele.id)
-// newArr [1, 2, 3]
-```
-
-
-
 # 二、ES6
 
 ## 1、Map数据结构
@@ -206,12 +171,6 @@ var link = function(height, color, url){
 var link = function(height = 50, color = 'red', url = 'http://baidu.com'){
 
 }
-```
-
-## 3、模板文本
-
-```
-
 ```
 
 # 三、其他
