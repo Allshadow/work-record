@@ -64,6 +64,12 @@ nvm use 版本号
 nvm install 版本号
 ```
 
+##### 卸载
+
+```
+nvm uninstall 版本号
+```
+
 #### 问题解决
 
 问题： node -v 不是内部命令或外部命令
