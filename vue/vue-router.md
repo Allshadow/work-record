@@ -1,6 +1,4 @@
-# vue-router
-
-## 路由类型
+#### 路由类型
 
 1）声明式
 
@@ -14,7 +12,7 @@
 router.push(...)
 ```
 
-## 禁止回退上一步
+#### 禁止回退上一步
 
 1）声明式路由
 
@@ -37,7 +35,7 @@ this.$router.replace({
 })
 ```
 
-## 组件内部跳转新窗口
+#### 组件内部跳转新窗口
 
 ```
 let url = this.$router.resolve({
@@ -46,5 +44,3 @@ let url = this.$router.resolve({
 })
 window.open(url.href, '_blank');
 ```
-
-## 
