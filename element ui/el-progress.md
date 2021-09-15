@@ -11,6 +11,7 @@
 
 /deep/ .el-progress{
 	width:100%;
+	white-space: nowrap; // 实现文字与进度条不换行
 	.el-progress-bar__inner{ // 修改进度条渐变色
 		background-color: unset;
 		background-image: linear-gradient(to right, #5573F6 , #23CEE7);

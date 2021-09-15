@@ -34,3 +34,12 @@ console.log('setArr', setArr)
 //setArr (2) ["陈", "王"]
 ```
 
+## Map
+
+1) Map 与 Object(对象)的区别
+
+Object 只接受 key 为 字符串，为 字符串-值对应
+
+Map 可以接受各种类型的值作为key, 为值-值对应
+
+2）Map 可以接受数组

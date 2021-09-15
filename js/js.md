@@ -1,3 +1,61 @@
+### 监听浏览器事件
+
+#### 监听滚动条滚动
+
+```
+<script>
+    window.onscroll = funciton(){
+    	let scor = document.documentElement.scrollTop
+	}
+
+	or
+    
+    window.addEventListener('scroll', function(){})
+</script>
+```
+
+#### 监听滚动条滚动到最底部
+
+```
+// 变量 vDom 可以是 window 或者 是其他的 dom 对象
+let vDom = this.$refs.course; //这里指vue 中的 dom 元素
+vDom.addEventListener('scroll', () =>{
+	let courseHeight = vDom.clientHeight, //元素可视区的高度，元素的实际高度
+		scrollTop = vDom.scrollTop, //滚动条距离顶部的距离
+		scrollHeight = vDom.scrollHeight; //滚动条的总高度，其实感觉就是内容的高度
+    if(scrollTop + courseHeight == scrollHeight){
+    	console.log('滚动到最底部了')
+    }
+})
+```
+
+#### 监听页面（刷新或关闭）
+
+```
+// 当离开页面以后执行的操作
+// 监听
+window.addEventListener('beforeunload', e => {})
+
+// 移除监听
+window.removeEventListener('beforeunload', e => {})
+```
+
+##### 判断刷新或关闭
+
+1. 判断鼠标是否点击关闭
+
+2. 是否按了 ALT + F4
+
+```
+window.onbeforeunload = function () {
+  if (event.clientX > document.body.clientWidth && event.clientY < 0 || event.altKey) {
+    alert ("你关闭了浏览器");
+  } else {
+    alert ("你正在刷新页面");
+  }
+}
+```
+
 ### 文件下载
 
 #### \<a> 标签
@@ -70,21 +128,6 @@ user-scalable // 用户是否可以手动缩放
 <a href="javascript:void(0);">xxx</a>
 ```
 
-### 监听滚动条滚动到最底部
-
-```js
-// 变量 vDom 可以是 window 或者 是其他的 dom 对象
-let vDom = this.$refs.course; //这里指vue 中的 dom 元素
-vDom.addEventListener('scroll', () =>{
-	let courseHeight = vDom.clientHeight, //元素可视区的高度，元素的实际高度
-		scrollTop = vDom.scrollTop, //滚动条距离顶部的距离
-		scrollHeight = vDom.scrollHeight; //滚动条的总高度，其实感觉就是内容的高度
-    if(scrollTop + courseHeight == scrollHeight){
-    	console.log('滚动到最底部了')
-    }
-})
-```
-
 ### video 获取视频时长
 
 ```
@@ -97,9 +140,9 @@ video.addEventListener("loadedmetadata", function (_event) {
 })
 ```
 
-## 数组的拷贝
+### 数组的拷贝
 
-### 浅拷贝
+#### 浅拷贝
 
 1）定义
 
@@ -120,7 +163,7 @@ obj2.id = 3;
 console.log(obj.id);   // 3
 ```
 
-### 深拷贝
+#### 深拷贝
 
 1）定义
 
@@ -144,34 +187,6 @@ JSON.parse(JSON.stringify)
 3）参考文章（数组深拷贝）
 
 https://juejin.im/post/6889327058158092302#heading-13
-
-# 二、ES6
-
-## 1、Map数据结构
-
-1) Map 与 Object(对象)的区别
-
-Object 只接受 key 为 字符串，为 字符串-值对应
-
-Map 可以接受各种类型的值作为key, 为值-值对应
-
-2）Map 可以接受数组
-
-## 2、定义默认参数的方式
-
-```
-//以前javescript原先定义方式
-var link = function(height, color, url){
-  var height = height || 50;
-  var color = color || 'red';
-  var url = url || 'http://baidu.com'
-}
-
-//ES6中
-var link = function(height = 50, color = 'red', url = 'http://baidu.com'){
-
-}
-```
 
 # 三、其他
 
@@ -260,18 +275,3 @@ downLoad(url){
 在下载视频的url后拼接 
 ?response-content-disposition=attachment
 ```
-
-### 监听滚动条滚动
-
-```
-<script>
-    window.onscroll = funciton(){
-    	let scor = document.documentElement.scrollTop
-	}
-
-	or
-    
-    window.addEventListener('scroll', function(){})
-</script>
-```
-
