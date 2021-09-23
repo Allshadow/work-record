@@ -14,7 +14,14 @@
   <body>
     <!-- date 值变化 -->
     <div id="app">
-      <el-table :data="tableData" border style="width: 100%" :header-cell-class-name="handleHeaderCellClass" @sort-change="handleSortChange">
+      <el-table 
+        :data="tableData" 
+        border 
+        style="width: 100%" 
+        :header-cell-class-name="handleHeaderCellClass"
+        @sort-change="handleSortChange"
+        ref="tableRef"
+      >
         <el-table-column fixed prop="date" label="日期" width="150" sortable="custom">
         </el-table-column>
         <el-table-column prop="name" label="姓名" width="120" sortable="custom">
@@ -90,6 +97,13 @@
                 this.orderArray.splice(orderIndex,1)
             }
           },
+
+          // 清除排序
+          clearOrder(){
+            this.$refs.tableRef.columns.forEach(item => {
+              item.order = ''
+            })
+          }
 
         },
         computed: {},
