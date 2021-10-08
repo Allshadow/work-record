@@ -21,6 +21,17 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 ```
 
+#### 基本使用
+
+##### 命名空间使用
+
+使用 `mutations`
+
+```
+// ‘teacher/SET_DATA_LIST’ teacher 是命名空间名称， SET_DATA_LIST 是 mutations 中方法
+this.$store.commit('teacher/SET_DATA_LIST', newVal)
+```
+
 #### 基础语法
 
 ##### 目录结构及代码

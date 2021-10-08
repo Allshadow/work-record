@@ -1,4 +1,30 @@
-### \<el-input>
+### `<el-form>`
+
+#### label 文字对齐方式
+
+##### 默认规则设置
+
+```
+label-position="left/right/top"
+// 文字内容左对齐, 或者在内容上方
+// 如果设置 left/right 要设置 label-width="110px"
+```
+
+##### label 单独换行设置
+
+![image-20210927160545932](el-form.assets/image-20210927160545932.png)
+
+```html
+<style>
+.label-top{
+	/deep/ .el-form-item__content{ 
+      margin-left: 0!important;
+    }
+}
+</style>
+```
+
+### `<el-input>`
 
 #### 从服务端搜索数据
 

@@ -1,3 +1,39 @@
+#### 分页多选
+
+使用 `row-key` 和 `reserve-selection`
+
+```
+<el-table row-key="id">
+  <el-table-column 
+  	type="selection" 
+  	reserve-selection
+  >
+  </el-table-column>
+</el-table>
+```
+
+##### 常见问题
+
+`row-key` 中可以使用 `String`  或者 `Function` 传参
+
+错误用法 一
+
+```
+// 使用 string 时 使用 :row-key="id"  // 这个不生效的
+```
+
+错误用法 二
+
+```
+// row-key   需要绑定数据的唯一值，不然不生效
+```
+
+错误用法 三
+
+```
+使用 function 语法时， reserve-selection 要绑定在 type="selection" 的列中
+```
+
 #### 布局错乱
 
 1）原因： 使用动态布局或使用 fixed 定位造成以下问题
@@ -164,6 +200,12 @@ this.$refs['singleTable'].setCurrentRow(row, true)
 
 ```
 this.$refs['multipleTable'].toggleRowSelection(row, true)
+```
+
+#### 清除选中
+
+```
+this.$refs['singleTable'].clearSelection();
 ```
 
 #### 多选排序
