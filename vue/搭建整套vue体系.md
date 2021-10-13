@@ -1,4 +1,4 @@
-### vue-cli安装
+#### vue-cli安装
 
 #### 卸载旧版
 
@@ -69,6 +69,36 @@ https://juejin.im/post/5bd02f98e51d457a944b634f
 ### 新建 vue.config.js 
 
 以下为 vue-cli 4 配置
+
+##### 反向代理配置
+
+```
+// vue.config.js 配置
+
+module.export = {
+  devServer: {
+		proxy: {
+			'/djapi': { // 将以 /djapi 开头的请求转发到 https://danjuanapp.com 底下
+        target: 'https://danjuanapp.com',
+        changeOrigin: true,
+        secure: false,
+        // rewrite: (path) => path.replace(/^\/api/, '')
+      },
+		}
+  },
+}
+
+// index.vue 使用
+<script>
+	import axios from 'axios'
+	export default {
+		mounted(){
+			// 发送 axios 请求
+      axios.get('/djapi/v3/filter/fund?type=1&order_by=1m&size=10&page=1')
+    }
+	}
+</script>
+```
 
 ####  取消eslint
 
