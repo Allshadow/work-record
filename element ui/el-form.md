@@ -1,8 +1,8 @@
-### `<el-form>`
+#### `el-form`
 
-#### label 文字对齐方式
+##### label 文字对齐方式
 
-##### 默认规则设置
+1）默认规则设置
 
 ```
 label-position="left/right/top"
@@ -10,7 +10,7 @@ label-position="left/right/top"
 // 如果设置 left/right 要设置 label-width="110px"
 ```
 
-##### label 单独换行设置
+2）label 单独换行设置
 
 ![image-20210927160545932](el-form.assets/image-20210927160545932.png)
 
@@ -24,9 +24,31 @@ label-position="left/right/top"
 </style>
 ```
 
-### `<el-input>`
+#### `el-checkbox`
 
-#### 从服务端搜索数据
+##### 实现值与展示不同
+
+```
+<el-checkbox-group 
+	v-model="ruleForm.check"
+>
+	<!-- label 为 传入的值, 客观题为展示的值 -->
+	<el-checkbox :label="1">客观题</el-checkbox>
+	<el-checkbox :label="2">主观题</el-checkbox>
+</el-checkbox-group>
+
+export default{
+	data(){
+		return {
+			check: []
+		}
+	}
+}
+```
+
+#### `el-input`
+
+##### 从服务端搜索数据
 
 ```
 <template>
@@ -81,9 +103,9 @@ methods:{
 
 ```
 
-### \<el-input-number>
+#### `el-input-number`
 
-#### 输入整数包含小数
+##### 输入整数包含小数
 
 ```
 <el-form>

@@ -1,12 +1,12 @@
-### v-model
+#### v-model
 
-#### 基础
+##### 基础
 
-##### 定义
+定义
 
 v-model 指令在表单 \<input>、\<textarea>、\<select> 元素上创建双向数据绑定。
 
-##### 实现
+实现
 
 ```
 <input v-model="sth" />
@@ -22,9 +22,9 @@ v-model 指令在表单 \<input>、\<textarea>、\<select> 元素上创建双向
 | checkbox 和 radio | checked        | change |
 | select            | value          | change |
 
-#### 自定义组件
+##### 自定义组件
 
-##### 默认
+默认
 
 一个组件上的`v-model`默认会利用名为 `value` 的 prop 和名为 `input` 的事件
 
@@ -52,7 +52,7 @@ v-model 指令在表单 \<input>、\<textarea>、\<select> 元素上创建双向
 此时，组件中的 value 值为 text 传入的值，当 value 值改变时， text 值也会变化
 ```
 
-##### 改变默认属性
+改变默认属性
 
 使用 `model` 选项修改默认的值
 
@@ -81,9 +81,9 @@ v-model 指令在表单 \<input>、\<textarea>、\<select> 元素上创建双向
 <base-text v-model="text" @input="handleInput"></base-text>
 ```
 
-### 计算属性
+#### 计算属性
 
-#### setter
+##### setter
 
 ```vue
 //监听的值更新了，比如以下的fullName更新，setter就会被调用，若在setter下改变了getter方法计算的值，fullName，也会随着更新。
@@ -103,7 +103,7 @@ computed: {
 }
 ```
 
-#### 传参
+##### 传参
 
 ```js
 :data="computedData(123)"
@@ -117,7 +117,7 @@ computed:{
 }
 ```
 
-#### 返回对象
+##### 返回对象
 
 有时候需要在计算属性中返回对象，适用以下写法
 
@@ -138,6 +138,34 @@ comArray(){
 			code: code        
 		}
 	}
+}
+```
+
+#### 常见问题
+
+##### 监听关闭
+
+使用 `beforeDestroy` 生命周期
+
+```
+// 结合监听来使用可以使窗口关闭操作生效
+mounted() {
+	window.addEventListener('beforeunload', e => this.cancelSave(e))
+},
+
+method:{
+	async cancelSave(){
+    ...关闭内容
+    // const data ={
+    //	 exerciseId: this.exerciseId
+    // }
+    // let res = await this.$api(this.$cfg.API.teacher.exerciseCanel, data)
+  }
+}，
+
+beforeDestroy(){
+	this.cancelSave()
+	window.removeEventListener('beforeunload', e => this.cancelSave(e))
 }
 ```
 

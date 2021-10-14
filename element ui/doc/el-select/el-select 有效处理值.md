@@ -69,16 +69,12 @@ export default{
   	comOption(){
   		// val 是匹配值, list 是 option 的 列表， listOpt 是匹配 el-select 的 key,value
       return (val, list, listOpt = {label: 'label', value: 'value'}) =>{
-        if(val || val == 0){
-          const arr = list.map(ele => {
-            if(ele[listOpt.value] == val){
-              return ele[listOpt.label];
-            }
-          })
-          return arr[0]
-        }else{
-          return ''
-        }
+        if (val || val == 0) {
+          const arr = list.filter((ele) => ele[listOpt.value] == val);
+					return arr[0][listOpt.label];
+				} else {
+					return '';
+				}
       }
     }
   }

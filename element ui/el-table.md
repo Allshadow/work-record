@@ -1,3 +1,13 @@
+#### 超出隐藏并 hover 提示
+
+```
+// 在 item 中使用
+<el-table-column
+	:show-overflow-tooltip="true || false"   // true 是生效 false 不生效
+>
+</el-table-column>
+```
+
 #### 分页多选
 
 使用 `row-key` 和 `reserve-selection`
