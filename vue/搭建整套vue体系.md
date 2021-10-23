@@ -172,3 +172,15 @@ module.exports = {
 https://www.jianshu.com/p/c8dc12afb5ce
 ```
 
+#### `package.json`配置
+
+1）配置局域网访问变量
+
+```
+"scripts": {
+	// --host 后面为 ip 地址 
+	//--port 端口号，可以不用配置，默认端口号
+	"dev": "vue-cli-service serve --host 192.168.199.126" --port 9082,
+}
+```
+

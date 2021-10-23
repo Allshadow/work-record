@@ -1,3 +1,16 @@
+#### 模快化使用
+
+```
+// 安裝
+npm install vue-router
+
+// 明确安装路由功能
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+```
+
 #### 路由类型
 
 1）声明式

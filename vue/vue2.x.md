@@ -169,3 +169,36 @@ beforeDestroy(){
 }
 ```
 
+##### 实现置顶功能
+
+1）简介
+
+`scrollIntoView()` 方法将调用它的元素滚动到浏览器窗口的可见区域
+
+根据其他元素的布局，元素可能无法滚动到顶部或底部。（例如：该元素已经是原素的最底部）
+
+页面可滚动时才有用
+
+2）使用
+
+```
+// 正常使用
+var element = document.getElementById("box");
+
+element.scrollIntoView();
+
+// vue 中使用
+this.$nextTick(() => {
+  this.$refs.item.$el.scrollIntoView({
+  	behavior: 'smooth' 
+  })
+})
+```
+
+3）参考链接
+
+```
+// 参数详见百度
+https://blog.csdn.net/learn8more/article/details/108047794
+```
+

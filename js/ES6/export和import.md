@@ -72,3 +72,41 @@ function setName(element) {
 }
 ```
 
+##### 模块整体加载
+
+```
+// util.js
+export function area(radius) {
+  return Math.PI * radius * radius;
+}
+
+export function circumference(radius) {
+  return 2 * Math.PI * radius;
+}
+
+// main.js
+import * as circle from './circle';
+
+console.log('圆面积：' + circle.area(4));
+console.log('圆周长：' + circle.circumference(14));
+
+// 下面两行都是不允许的
+circle.foo = 'hello';
+circle.area = function () {};
+```
+
+#### `export default`
+
+##### 简介
+
+使用 `export default` 时 `import` 是不用花括号导出
+
+```
+// export-default.js
+export default function () {
+  console.log('foo');
+}
+
+import customName from './export-default';
+```
+
