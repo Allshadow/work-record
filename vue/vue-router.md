@@ -57,3 +57,37 @@ let url = this.$router.resolve({
 })
 window.open(url.href, '_blank');
 ```
+
+#### 导航守卫
+
+##### 全局前置守卫
+
+1）基础用法
+
+```
+const router = new VueRouter({ ... })
+
+router.beforeEach((to, from, next) => {
+  // ...
+})
+```
+
+2）跳转路径
+
+```
+router.beforeEach((to, from, next) =>{
+  // 这个是判断是否是移动端的方法    
+  if(Device.isMobile){
+  	next();
+  }else{
+  	// 如果没将 '/usephone' 放行，会造成死循环，控制台会报以下错误
+  	// RangeError: Maximum call stack size exceeded
+    if(to.path == '/usephone'){
+    	next()
+    }else{
+    	next({path: '/usephone'})
+    }
+  }
+})
+```
+

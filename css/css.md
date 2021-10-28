@@ -1,10 +1,10 @@
-### @font-face
+#### @font-face
 
-#### 简介
+##### 简介
 
 @font-face 是 css3 中允许使用自定义字体的一个模块
 
-#### 字体格式
+##### 字体格式
 
 - TureTpe( .ttf ) 格式
 
@@ -26,7 +26,7 @@
 
   [Chrome4+, Safari3.1+, Opera10.0+, iOS Mobile Safari3.2+]
 
-#### 兼容性写法
+##### 兼容性写法
 
 @font-face 中我们至少需要 .woff .eot 两种格式字体，甚至还需要 .svg 等字体达到更多浏览器版本的支持
 
@@ -43,15 +43,27 @@
 }
 ```
 
-#### 页面中使用
+##### 页面中使用
 
 ```
 font-family:  'YourWebFontName'
 ```
 
-### 样式初始化
+#### 常见问题
 
-#### reset.css
+##### 图文排列不居中
+
+```
+// 因为图片是行级块元素，默认对齐方式是 base-line
+// 设置 img 样式 
+img{
+	vertical-align: middle;
+}
+```
+
+#### 样式初始化
+
+##### reset.css
 
 ```css
 /* http://meyerweb.com/eric/tools/css/reset/ 
