@@ -194,11 +194,3 @@ this.$nextTick(() => {
   })
 })
 ```
-
-3）参考链接
-
-```
-// 参数详见百度
-https://blog.csdn.net/learn8more/article/details/108047794
-```
-

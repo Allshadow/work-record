@@ -1,6 +1,6 @@
-### 监听浏览器事件
+#### 监听浏览器事件
 
-#### 监听滚动条滚动
+##### 监听滚动条滚动
 
 ```
 <script>
@@ -14,7 +14,7 @@
 </script>
 ```
 
-#### 监听滚动条滚动到最底部
+##### 监听滚动条滚动到最底部
 
 ```
 // 变量 vDom 可以是 window 或者 是其他的 dom 对象
@@ -29,7 +29,7 @@ vDom.addEventListener('scroll', () =>{
 })
 ```
 
-#### 监听页面（刷新或关闭）
+##### 监听页面（刷新或关闭）
 
 ```
 // 当离开页面以后执行的操作
@@ -56,9 +56,9 @@ window.onbeforeunload = function () {
 }
 ```
 
-### 文件下载
+#### 文件下载
 
-#### \<a> 标签
+##### \<a> 标签
 
 直接下载
 
@@ -84,7 +84,28 @@ const downLoad = (url, name, type) =>{
 }
 ```
 
-### 每隔几个字符串添加入符号
+##### 视频下载
+
+1）此为简单视频下载功能，url为下载视频路径
+
+```
+
+downLoad(url){
+	let a = document.createElement('a');
+	a.href = url;
+	a.click();
+	a = null;
+}
+```
+
+2）下载视频变为打开
+
+```
+在下载视频的url后拼接 
+?response-content-disposition=attachment
+```
+
+#### 每隔几个字符串添加入符号
 
 ```
 /**
@@ -101,13 +122,13 @@ function strInsert(str, length) {
 console.log(strInsert("111222333", 3));
 ```
 
-### 身份证号校验性别
+#### 身份证号校验性别
 
 ```
 sex = parseInt(this.basicForm.idNumber.substr(16, 1)) % 2 == 1 ? '男' : ‘女’
 ```
 
-### 移动端不允许缩放
+#### 移动端不允许缩放
 
 ```
 <meta 
@@ -122,13 +143,13 @@ maximum-scale // 允许用户缩放到的最大比例
 user-scalable // 用户是否可以手动缩放
 ```
 
-### 标签 js 不允许跳转
+#### 标签 js 不允许跳转
 
 ```
 <a href="javascript:void(0);">xxx</a>
 ```
 
-### video 获取视频时长
+#### video 获取视频时长
 
 ```
 let video = document.createElement('video')
@@ -140,9 +161,9 @@ video.addEventListener("loadedmetadata", function (_event) {
 })
 ```
 
-### 数组的拷贝
+#### 数组的拷贝
 
-#### 浅拷贝
+##### 浅拷贝
 
 1）定义
 
@@ -163,7 +184,7 @@ obj2.id = 3;
 console.log(obj.id);   // 3
 ```
 
-#### 深拷贝
+##### 深拷贝
 
 1）定义
 
@@ -188,19 +209,17 @@ JSON.parse(JSON.stringify)
 
 https://juejin.im/post/6889327058158092302#heading-13
 
-# 三、其他
+#### `typeof`
 
-## 1、typeof
-
-### 1）定义
+1）定义
 
 typeof 判断数据类型（数组跟对象都返回Object）
 
-## 2、**instanceof**
+#### `instanceof`
 
-## 3、解决js精度问题
+#### 解决js精度问题
 
-### 1）使用number-precision库
+##### 使用number-precision库
 
 #github地址
 
@@ -251,27 +270,12 @@ NP.round(0.105, 2);
 // = 0.11, not 0.1
 ```
 
-## 4、base64 图片引用
+#### base64
+
+##### 在 `<img>` 中展示
+
+需要在开头加上以下代码：
 
 ```
 “data:image/jpg;base64,...."
-```
-
-## （5）下载视频
-
-```js
-//此为简单视频下载功能，url为下载视频路径
-downLoad(url){
-	let a = document.createElement('a');
-	a.href = url;
-	a.click();
-	a = null;
-}
-```
-
-## （6）下载视频变为打开
-
-```
-在下载视频的url后拼接 
-?response-content-disposition=attachment
 ```
