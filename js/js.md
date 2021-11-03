@@ -279,3 +279,49 @@ NP.round(0.105, 2);
 ```
 “data:image/jpg;base64,...."
 ```
+
+#### `console`对象
+
+##### `console.log()`
+
+1）打印引用值出现问题
+
+修改了引用值的数据之前，使用`console.log()`打印这个值，点开小箭头，我们发现，使用`console.log()`打印引用值时，打印的内容跟上次定义的值不同。
+
+```
+<body>
+  <div onclick="showDiff()">点击我</div>
+  <script>
+    function showDiff(){
+      let data = {id: 1, name: '出现了一个奇怪的错误'}
+      console.log('data', data)
+      data.id = 2
+      // console.log('data', data)
+    }
+  </script>
+</body>
+
+```
+
+在没打开控制台的小箭头之前的结果
+
+![image-20211102154715580](js.assets/image-20211102154715580.png)
+
+打开小箭头发现
+
+![image-20211102154857757](js.assets/image-20211102154857757.png)
+
+原因如下：
+
+```
+console.log()`函数在浏览器中输出的是变量引用地址的内存快照，只简单输出变量的类型。
+
+当点击左侧这个小箭头时，浏览器会根据当前引用类型变量的内存地址去读取变量的值。
+
+这与 javascript 的事件队列是有关系的，console.log 函数只有当本次宏任务执行完成，才会去读取参数的值
+```
+
+
+
+
+

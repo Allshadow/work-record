@@ -1,9 +1,3 @@
-### .sync 修饰符 与 $emit(update: xxx) 
-
-```
-https://blog.csdn.net/weixin_42776111/article/details/108979101
-```
-
 ### 监听页面刷新后,回到主页
 
 ```
@@ -23,44 +17,6 @@ created(){
 <img v-if="xxx" :src="" />
 <img v-else :src="" />
 ```
-
-### 实现父子组件的双向绑定
-
-#### 场景
-
-我们可能需要对一个 prop 进行双向绑定，所以用 update:myPropName 模式触发事件。
-
-#### 基本结构
-
-```
-//子组件
-this.$emit('update:title'，newTitle) // update;title  冒号之间不能存在空格
-
-//父组件
-<text-doucument
-	:title = "doc.title"
-	@update:title="doc.title = $event"
-></text-doucument>
-```
-
-#### 使用 .sync 修饰符
-
-.sync 是上面父组件的语法糖，可以将父组件改写成如下规则
-
-```
-<text-doucument :title.sync="doc.title"></doucument>
-```
-
-#### 用一个对象同时设置多个prop
-
-```
-//doc 为一个对象
-<text-doucument :title.sync="doc"></doucument>
-```
-
-#### 注意事项
-
-.sync 修饰符的 v-bind 不能与表达式一起使用
 
 # 一、引入外部样式方式
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vue 中 console.log 打印引用值</title>
+</head>
+<body>
+  <div id="app">
+    <div @click="testClick">点击我，再看小箭头的数据</div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            
+          };
+        },
+        methods: {
+          testClick(){
+            let arr = [1, 2, 3]
+            let obj = {id: 1, name: '出现了一个奇怪的错误'}
+            new Promise((resolve, reject) => {
+              setTimeout(()=>{
+                resolve()
+              })
+            }).then(res =>{
+              // console.log(2, arr)
+              console.log(2, obj)
+              this.$nextTick(()=>{
+                arr.splice(0, 1)
+                obj.id = 3
+                // console.log(3, arr)
+                // console.log(3, obj)
+              })
+            })
+          }
+        },
+      });
+    
+  </script>
+</body>
+</html>

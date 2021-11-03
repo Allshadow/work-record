@@ -1,12 +1,66 @@
+#### 命名规则
+
+1）目录名称
+
+```
+使用小写，多个单词用 - 隔开
+例如： my-project
+```
+
+2）组件名称
+
+```
+// 使用大驼峰式命名
+例如：StuedentLive.vue
+```
+
+#### .sync 实现父子组件双向绑定
+
+1）使用场景
+
+子组件想要直接修改父组件传入的值时，需要对一个 prop 进行双向绑定
+
+2）语法
+
+```
+//父组件
+
+// 本质上是这样的：
+<text-doucument
+	:title = "doc.title"
+	@update:title="doc.title = $event"
+>
+</text-doucument>
+
+// 使用 .sync 语法糖：
+<text-doucument :title.sync="doc.title"></doucument>
+
+// 子组件
+this.$emit('update:title'，newTitle) // update;title  冒号之间不能存在空格
+```
+
+3）用一个对象同时设置多个prop
+
+```
+//doc 为一个对象
+<text-doucument :title.sync="doc"></doucument>
+```
+
+4）注意事项
+
+```
+.sync 修饰符的 v-bind 不能与表达式一起使用
+```
+
 #### v-model
 
 ##### 基础
 
-定义
+1）定义
 
 v-model 指令在表单 \<input>、\<textarea>、\<select> 元素上创建双向数据绑定。
 
-实现
+2）实现
 
 ```
 <input v-model="sth" />
@@ -24,7 +78,7 @@ v-model 指令在表单 \<input>、\<textarea>、\<select> 元素上创建双向
 
 ##### 自定义组件
 
-默认
+1）默认
 
 一个组件上的`v-model`默认会利用名为 `value` 的 prop 和名为 `input` 的事件
 
@@ -52,7 +106,7 @@ v-model 指令在表单 \<input>、\<textarea>、\<select> 元素上创建双向
 此时，组件中的 value 值为 text 传入的值，当 value 值改变时， text 值也会变化
 ```
 
-改变默认属性
+2）改变默认属性
 
 使用 `model` 选项修改默认的值
 
