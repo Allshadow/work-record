@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>对象解构赋值</title>
+</head>
+<body>
+  <script>
+    // 普通对象解构
+    function normalDeconstruction(){
+      const data = {
+        name: 'vue',
+        title: '你好',
+        id: 1,
+        set: function(){
+          console.log('我是解构方法')
+        }
+      }
+
+      const {name, id, title, set} = data
+      console.log('我是普通对象解构')
+      console.log('name: ' + name)
+      console.log('id: ' + id)
+      set()
+    }
+    
+    // map 对象解构
+    function deconstruction(){
+      const products = {
+        1: {
+            title: "Nike Air Zoom Pegasus 38",
+            price: 120,
+        },
+        "name": {
+            title: "Nike Air Zoom Alphafly NEXT%",
+            price: 275,
+        },
+        3: {
+            title: "Nike Zoom Fly 4",
+            price: 89.0,
+        },
+      };
+
+      // const {"name": {title, price}} = products
+      // 解构只能存在已个或者设置别名
+      const { 3: {title, price}} = products
+
+      console.log('我是 map 对象解构')
+      console.log('title', title)
+      console.log('price', price)
+    }
+
+    // 设置别名
+    function alignName(){
+      // 普通对象解构设置别名
+      const data = {id: 1, name: '刘能'}
+      const {newId: id} = data
+      console.log('普通对象', newId)
+
+      // map 对象
+      const dataMaP = {
+        car: {
+          color: '#000',
+          height: 200
+        }
+      }
+
+      const {car : {newColor: color}} = dataMaP
+      console.log('map对象', newColor)
+    }
+
+    normalDeconstruction()
+    deconstruction()
+    alignName()
+  </script>
+</body>
+</html>

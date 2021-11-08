@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组解构赋值</title>
+</head>
+<body>
+  <script>
+    // 普通数组解构
+    function normalDeconstruction(){
+      const data = ['小沈阳', '刘能', '李四']
+
+      const [xiao, liu, li] = data
+
+      console.log('我是普通数组解构')
+      console.log('xiao: ' + xiao)
+      console.log('liu: ' + liu)
+    }
+    
+    // 复杂解构,开发中不建议使用
+    function deconstruction(){
+      const products = [
+        {
+          title: "Nike Air Zoom Pegasus 38",
+          price: 120,
+        },
+        {
+          title: "Nike Air Zoom Alphafly NEXT%",
+          price: 275,
+        },
+        {
+          title: "Nike Zoom Fly 4",
+          price: 89.0,
+        }
+      ]
+
+
+      const [tmp = 2 , {title, price}] = products
+
+      console.log('我是 map 数组解构')
+      console.log('title', title)
+      console.log('price', price)
+    }
+
+    normalDeconstruction()
+    deconstruction()
+  </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set</title>
+</head>
+<body>
+  <script>
+    
+    // 测试数组对象解构问题
+    const setObjTest = () =>{
+      const arr = [{id: 2, name: '张三'}, {id: 2, name: '张三'}, {id: 1, name: '李四'}]
+      const set = new Set(arr)
+      console.log('seto', set)
+      console.log('set', [...set])
+      console.log('array.', Array.from(set))
+    }
+
+    setObjTest()
+  </script>
+</body>
+</html>

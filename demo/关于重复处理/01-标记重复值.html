@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数组对象标记重复</title>
+    <!-- 引入样式 -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+  </head>
+  <body>
+    <!-- date 值变化 -->
+    <div id="app">
+      <div v-for="(item,index) in arr" :key="index">
+        <el-tag v-if="item.repeatStatus || item.repeatStatus == 0">{{'id:' +  item.id + '  ' + 'repeat' + item.repeatStatus}}</el-tag>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            arr: [{
+              id: 1,
+              code: 0001
+            }, 
+            {
+              id: 2, 
+              code: 0002
+            }, 
+            {
+              id: 3, 
+              code: 0003
+            }, 
+            {
+              id: 4,
+              code: 0004
+            }, 
+            {
+              id: 1, 
+              code: 0005
+            },
+            {
+              id: 1, 
+              code: 0006
+            }, 
+            {
+              id: 2, 
+              code: 0002
+            }]
+          };
+        },
+        created () {
+          // this.dealRepeatArray(this.arr)
+          this.dealReat(this.arr)
+        },
+        methods: {
+          // 数组对象标记重复索引值
+          dealRepeatArray(arr){
+            arr.forEach((ele, index) => {
+              arr.forEach((list, listIndex) => {
+                if(!list.repeatStatus && list.repeatStatus != 0){
+                  if(listIndex > index){
+                    if(ele.id == list.id){
+                      if(!ele.repeatStatus){
+                        ele.repeatStatus = index
+                      }
+                      list.repeatStatus = index
+                    }
+                  }
+                }
+              })
+            })
+
+            console.log('arr', arr)
+          },
+
+          // 判断重复值，忽略第一个重复的值
+          dealReat(arr){
+            let lastArr = []
+            arr.forEach(ele => {
+              if(lastArr.includes(ele.id)){
+                ele.repeatStatus = true
+              }else{
+                lastArr.push(ele.id)
+              }
+            })
+
+            console.log('arr', arr)
+            console.log('lastArr', lastArr)
+          }
+        },
+      });
+    </script>
+  </body>
+</html>

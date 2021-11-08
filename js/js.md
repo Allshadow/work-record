@@ -56,7 +56,9 @@ window.onbeforeunload = function () {
 }
 ```
 
-#### 文件下载
+#### 文件处理
+
+##### 文件下载
 
 ##### \<a> 标签
 
@@ -84,7 +86,7 @@ const downLoad = (url, name, type) =>{
 }
 ```
 
-##### 视频下载
+##### 视频
 
 1）此为简单视频下载功能，url为下载视频路径
 
@@ -103,23 +105,6 @@ downLoad(url){
 ```
 在下载视频的url后拼接 
 ?response-content-disposition=attachment
-```
-
-#### 每隔几个字符串添加入符号
-
-```
-/**
-* @param {string} str   需要插入的字符（串）
-* @param {int} length   间隔几个字符
-*/
-function strInsert(str, length) {
-   let reg = new RegExp("\\d{1," + length + "}", "g");
-   let ma = str.match(reg);
-   return ma.join("^_^") + "^_^"; //最后面不要"^_^" 就去掉( + "^_^")
-}
-
-
-console.log(strInsert("111222333", 3));
 ```
 
 #### 身份证号校验性别
@@ -320,6 +305,8 @@ console.log()`函数在浏览器中输出的是变量引用地址的内存快照
 
 这与 javascript 的事件队列是有关系的，console.log 函数只有当本次宏任务执行完成，才会去读取参数的值
 ```
+
+#### 常见问题
 
 
 

@@ -1,6 +1,6 @@
 #### 变量声明及申明特性
 
-#####  1）`let`
+#####  `let`
 
 ```js
 //特性
@@ -45,7 +45,7 @@ var a = '111';
 }
 ```
 
-##### 2）`const`
+##### `const`
 
 ```js
 1) 常量一定要赋初始值
@@ -68,26 +68,54 @@ ARR = '123' //报错
 
 #### 变量的解构赋值
 
-##### 1）定义
+##### 定义
 
 允许按照一定模式从数组和对象中提取值，对变量进行赋值
 
-##### 2）数组解构
+##### 数组解构
 
-```js
+1）普通数组解构
+
+```
 const F4 = ['小沈阳', '刘能', '李四'];
 let [xiao, liu, zhao] = F4;
 console.log(xiao)
 ```
 
-##### 3）对象的解构
+2）复杂解构，开发中不建议使用
 
-```js
-1) 对象的解构
+```
+const products = [
+  {
+    title: "Nike Air Zoom Pegasus 38",
+    price: 120,
+  },
+  {
+    title: "Nike Air Zoom Alphafly NEXT%",
+    price: 275,
+  },
+  {
+    title: "Nike Zoom Fly 4",
+    price: 89.0,
+  }
+]
+
+const [tmp = 2 , {title, price}] = products
+
+console.log('我是 map 数组解构')
+console.log('title', title)
+console.log('price', price)
+```
+
+##### 对象的解构
+
+1）普通对象结构
+
+```
 const OBJ = {
-    name: 'chen',
-    hasn: funciton(){
-    	console.log('我打印出来了')
+	name: 'chen',
+	hasn: funciton(){
+		console.log('我打印出来了')
 	} 
 }
 let {name, hasn} = OBJ;
@@ -95,8 +123,73 @@ let {name, hasn} = OBJ;
 hasn(); //方法正常调用
 //属性解构比较少， 方法解构比较多
 
-2) 解构设置别名
-let {name: myName, hasn: nyHasn} = OBJ;
+```
+
+2）map 对象解构
+
+```
+const products = {
+  1: {
+    title: "Nike Air Zoom Pegasus 38",
+    price: 120,
+  },
+  "name": {
+    title: "Nike Air Zoom Alphafly NEXT%",
+    price: 275,
+  },
+  3: {
+    title: "Nike Zoom Fly 4",
+    price: 89.0,
+  },
+ };
+
+// const {"name": {title, price}} = products
+// 解构只能存在已个或者设置别名
+const { 3: {title, price}} = products
+
+console.log('我是 map 对象解构')
+console.log('title', title)
+console.log('price', price)
+```
+
+3）设置解构别名
+
+```
+// 普通对象解构设置别名
+const data = {id: 1, name: '刘能'}
+const {newId: id} = data
+console.log('普通对象', newId)
+
+// map 对象
+const dataMaP = {
+  car: {
+    color: '#000',
+    height: 200
+  }
+}
+
+const {car : {newColor: color}} = dataMaP
+console.log('map对象', newColor)
+```
+
+##### 函数参数解构
+
+```
+const funDeconstruction = ({title, remark}) =>{
+	console.log('title', title)
+	console.log('remark', remark)
+}
+
+funDeconstruction({
+	title: '我是标题',
+	remark: '标记信息'
+})
+```
+
+4）实用
+
+```
+https://my.oschina.net/devpoint/blog/5292444
 ```
 
 #### 模板字符串
