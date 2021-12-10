@@ -1,3 +1,16 @@
+#### 移动端事件
+
+```
+<!-- 触摸  -->
+<div @touchstart.prevent=""></div>
+
+<!-- 滑动  -->
+<div @touchstart.prevent=""></div>
+
+<!-- 触摸结束  -->
+<div @touchend.prevent=""></div>
+```
+
 #### 命名规则
 
 1）目录名称

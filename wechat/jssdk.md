@@ -8,7 +8,7 @@ uploadImage:fail, the permission value is offline verifying
 
 解决方案：
 
-1. 在微信开发者工具地址栏打卡 http://demo.open.weixin.qq.com/jssdk
+1. 在微信开发者工具地址栏打开 http://demo.open.weixin.qq.com/jssdk
 2. 再次访问需要的页面
 ```
 

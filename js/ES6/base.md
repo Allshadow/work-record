@@ -1,3 +1,21 @@
+#### `...`扩展运算符
+
+##### 数组
+
+1）将一个数组转为用逗号隔开的参数序列
+
+```
+let arr = ...[1,2,3,4]
+// 报错，生成的是用逗号隔开的序列
+
+console.log(...[1,2,3,4]) 
+// 1 2 3 4
+```
+
+2）该运算符主要用于函数的调用
+
+
+
 #### 变量声明及申明特性
 
 #####  `let`
@@ -194,6 +212,8 @@ https://my.oschina.net/devpoint/blog/5292444
 
 #### 模板字符串
 
+##### 基本用法
+
 ```js
 1) 声明
 let str = `我也是一个字符串`; //反引号``
@@ -211,6 +231,29 @@ let name = 'your name is ${first} ${last}';
 
 //ES6之前拼接字符串
 let name = 'your name is ' + first + ' ' + last + '';
+```
+
+##### 运算
+
+```
+bad：
+
+const name = '小明'
+const score = 59
+
+let result = ''
+
+if(score > 60){
+	result = `${name}的考试成绩及格`
+}else{
+	result = `${name}的考试成绩不及格`
+}
+
+good:
+
+const name = '小明'
+const score = 59
+const result = `${name}${score > 60?'的考试成绩及格'：'的考试成绩不及格'}`
 ```
 
 #### 对象的简化写法

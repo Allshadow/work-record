@@ -1,6 +1,6 @@
 #### vue-cli安装
 
-#### 卸载旧版
+##### 卸载旧版
 
 1）如果有全局安装了旧版本vue-cli (1.x 或者 2.x)，使用以下命令卸载
 
@@ -10,7 +10,7 @@ npm uninstall vue-cli -g
 yarn global remove vue-cli
 ```
 
-#### 安装
+##### 安装
 
 1）使用如下命令安装新的包
 
@@ -20,7 +20,7 @@ npm install -g @vue/cli
 yarn global add @vue/cli
 ```
 
-####  检查
+#####  检查
 
 1）使用一下命令检查安装版本是否正确
 
@@ -28,9 +28,9 @@ yarn global add @vue/cli
 vue --version
 ```
 
-### 创建项目
+#### 创建项目
 
-#### vue create
+##### vue create
 
 ```
 //Windows 上通过 minTTY 使用 Git Bash，交互提示符并不工作
@@ -39,11 +39,11 @@ OR
 $ vue create [项目名称]
 ```
 
-#### 预设选择
+##### 预设选择
 
 ![image-20210215151425560](搭建整套vue体系.assets/image-20210215151425560.png)
 
-#### 自定义选择
+##### 自定义选择
 
 #使用回车确定
 
@@ -51,7 +51,7 @@ $ vue create [项目名称]
 
 ![](搭建整套vue体系.assets/config.png)
 
-#### 启动服务
+##### 启动服务
 
 ```
 cd [项目名称]
@@ -66,9 +66,20 @@ https://www.jb51.net/article/160146.htm
 
 https://juejin.im/post/5bd02f98e51d457a944b634f
 
-### 新建 vue.config.js 
+#### `vue.config.js` 配置
 
 以下为 vue-cli 4 配置
+
+##### 自动打开浏览器
+
+```js
+module.exports = {
+  devServer: {
+    open: true,  //自动开启浏览器
+    port：8099 //配置端口号
+  }
+}
+```
 
 ##### 反向代理配置
 
@@ -100,7 +111,7 @@ module.export = {
 </script>
 ```
 
-####  取消eslint
+#####  取消eslint
 
 ```js
 module.export = {
@@ -114,18 +125,7 @@ module.export = {
 }
 ```
 
-#### 自动打开浏览器
-
-```js
-module.exports = {
-  devServer: {
-    open: true,  //自动开启浏览器
-    port：8099 //配置端口号
-  }
-}
-```
-
-#### 配置 source map
+##### 配置 source map
 
 ```
 module.exports = {
@@ -158,15 +158,13 @@ module.exports = {
 }
 ```
 
+#### postcss
+
 #### 自动补全 css 前缀插件
 
 1）使用
 
 
-
-
-
-### postcss
 
 ```
 https://www.jianshu.com/p/c8dc12afb5ce
@@ -182,5 +180,18 @@ https://www.jianshu.com/p/c8dc12afb5ce
 	//--port 端口号，可以不用配置，默认端口号
 	"dev": "vue-cli-service serve --host 192.168.199.126" --port 9082,
 }
+```
+
+#### 关于 `eslint`
+
+##### 关闭`eslint`
+
+当存在 `.eslintrc.js`文件时，注释掉以下
+
+```
+extends: [
+  'plugin:vue/essential',
+  // '@vue/standard'
+],
 ```
 

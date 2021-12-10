@@ -1,5 +1,11 @@
 # Git
 
+#### 升级 Git
+
+```
+git update-git-for-windows
+```
+
 ## 分支的强制覆盖
 
 有时候，想将develop分支上的内容强制覆盖到master分支

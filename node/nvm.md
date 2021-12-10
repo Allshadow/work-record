@@ -20,7 +20,7 @@ https://github.com/coreybutler/nvm-windows/releases
 
 ##### 简述
 
-使用 GitBash 输入以下命令
+使用GitBash 输入以下命令
 
 ##### 查看 npm 版本号
 
@@ -78,7 +78,7 @@ nvm uninstall 版本号
 解决： 将 nodejs 目录下有 etc 文件， 将其删除即可
 ```
 
-问题：安装完 node 招不到
+问题：安装完 node 找不到
 
 ```
 刚安装完node版本，需要重启计算机，否则有可能出现node找不到的问题
