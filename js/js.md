@@ -1,3 +1,51 @@
+#### 数组
+
+##### 去空值
+
+```
+_arr = _arr.filter(ele => ele && ele.trim())
+```
+
+##### 去重
+
+1）使用 `es6` `Set` 数据结构
+
+```
+const array = [1, 2, 4, 6, 4, 4]
+let arr = [...new Set(array)]
+// arr [1.2.3.4]
+```
+
+#### 数组对象
+
+##### 去重
+
+1）使用`es6` `Map`数据结构
+
+```
+const arr = [
+	{id: 1, name: '张三'},
+	{id: 2, name: '李四'},
+	{id: 1, name: '王五'}
+]
+const dealRepeat = (arr) =>{
+	const res = new Map()
+	return arr.filter((ele) => !res.has(ele.id) && res.set(ele.id, 1))
+}
+
+dealRepeat(arr) // 打印结果 [{...},{...}]
+```
+
+#### 字符串
+
+##### 去除重复字符串
+
+1）使用`es6` `Map`数据结构
+
+```
+[...new Set('ababbc')].join('')
+```
+
 #### 监听浏览器事件
 
 ##### 监听滚动条滚动
@@ -307,8 +355,6 @@ console.log()`函数在浏览器中输出的是变量引用地址的内存快照
 ```
 
 #### 常见问题
-
-
 
 
 

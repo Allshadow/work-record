@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>链式判断运算符</title>
+</head>
+<body>
+  <script>
+    // 错误写法, 
+    const firstName = message.body.user.firstName || 'default'
+
+    // 正确写法
+    const firstName = (message && message.body && message.body.user && message.body.user.firstName ) || 'default'
+  </script>
+</body>
+</html>

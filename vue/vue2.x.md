@@ -208,6 +208,25 @@ comArray(){
 }
 ```
 
+#### 路由相关
+
+##### 页面置顶
+
+切换组件时，页面默认回到顶部
+
+```
+// F12 打开调试工具的时候可能看不到效果
+let router = new Router({
+  routes: routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return { x: 0, y: 0 };
+  }
+})
+```
+
 #### 常见问题
 
 ##### 监听关闭

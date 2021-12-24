@@ -225,3 +225,36 @@ this.$refs['singleTable'].clearSelection();
 ```
 ./demo/el-table/multOrder
 ```
+
+#### 设置某一行不能选择
+
+##### 1）`Table-column Attributes`
+
+| 属性       | 官网介绍                                                     |
+| ---------- | ------------------------------------------------------------ |
+| selectable | 仅对 type=selection 的列有效，类型为 Function，Function 的返回值用来决定这一行的 `CheckBox`是否可以勾选 |
+
+##### 2）使用
+
+```
+// tempalete
+<el-table>
+	<el-table-column 
+		type="selection"
+    :selectable="checkSelect"
+  >
+  </el-table-column>
+</el-table>
+
+// methods
+checkSelect(row, index) {
+	return row.id ? true : false;  // true 可选 false 不可选
+},
+```
+
+##### 3）案例
+
+```
+demo/关于elementui/el-table/01-设置某行不能选择.html
+```
+
