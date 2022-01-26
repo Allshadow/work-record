@@ -1,7 +1,55 @@
-### 插件
+#### 插件
+
+##### 外观
+
+1）Better Comments
+
+用来高亮备注的
 
 ```
-Bracket Pair Colorizer 2 //括号变颜色，左侧会vue显示节点
+使用 ! / ? 等来高亮备注
+// ! 
+```
+
+2） Bracket Pair Colorizer 2
+
+高亮括号，选中会匹配到另一半
+
+3）Highlight Matching Tag
+
+会高亮标签，选中标签会出现下划线
+
+##### 效率
+
+1）Error Gutters
+
+查看报错
+
+2）Image preview
+
+预览代码中图片的引用，鼠标移上去就会有小窗展示图片
+
+3）Trailing Spaces
+
+展示尾随空格
+
+4）Code Spell Checker
+
+检查代码拼写
+
+5）koroFileHeader
+
+添加头部注释
+
+6） Auto Rename Tag
+
+自动重命名标签
+
+7）GitLens — Git supercharged
+
+查看 git 记录
+
+```
 Live Sass Compiler //将sass or scss 实时编译为 css
 minapp //支持小程序标签
 wechat-snippet //小程序功能辅助

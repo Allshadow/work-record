@@ -266,3 +266,24 @@ return{
 }
 ```
 
+#### 常见问题
+
+##### `resetForm` 报错
+
+```
+问题：Error: please transfer a valid prop path to form item!
+```
+
+```
+可能原因：数据原色已经删除，但是可能表单验证中的验证项目还未删除
+
+解决：
+
+使用 $nextTick 
+this.$nextTick(() => {
+	this.resetForm()
+})
+```
+
+
+

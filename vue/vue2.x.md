@@ -1,3 +1,15 @@
+#### 组件注册
+
+##### 全局注册
+
+```
+
+```
+
+##### 局部注册
+
+
+
 #### 移动端事件
 
 ```
@@ -227,6 +239,45 @@ let router = new Router({
 })
 ```
 
+#### 指令
+
+##### `v-html`
+
+**常见问题**
+
+当 html 中有换行符时，处理方式
+
+```
+// 使用 white-space: pre-wrap 属性
+
+<div style="white-space: pre-wrap" v-html="content"></div>
+```
+
+#### `axios`
+
+##### 基础配置
+
+安装
+
+```
+yarn add axios
+```
+
+引用
+
+```
+// main.js
+import axios from 'axios'
+
+Vue.prototype.$axios = axios
+```
+
+组件使用
+
+```
+this.$axios.post('url', data).then(res =>{})
+```
+
 #### 常见问题
 
 ##### 监听关闭
@@ -280,3 +331,49 @@ this.$nextTick(() => {
   })
 })
 ```
+
+##### tab 数据持久化
+
+1）需求
+
+当有多个 ` tab`  切换时, 我们如果切换到某个子项时，此时页面中的操作可能会离开本页面，返回后会刷新页面。必然体验不好。所以，我们需要保存当前的选项
+
+2）处理方式
+
+将现有的`tab` 的名称或 index 存到缓存，通过组件内的路由守卫来判断进来的页面，是否需要此缓存的字段
+
+3）实现
+
+```
+// 监听路由进来的页面
+beforeRouteEnter(to, from, next) {
+	next(vm =>{
+		// 判断此页面是否需要操作缓存
+		if(from.path == '/course' ){
+			let homeWorkCookie = {
+        activeName: 'first'
+      }
+			vm.$Cookies.set('homeWorkCookie', JSON.stringify(homeWorkCookie))
+		}
+	})
+},
+
+// 在页面中获取
+mounted(){
+	this.$nextTick(()=>{
+    let tab = JSON.parse(this.$Cookies.get('homeWorkCookie'))
+    if(tab.activeName){
+    	this.activeName = tab.activeName
+    }
+  })
+}
+
+// tab 切换时保存当前选项到缓存
+handleClick(val) {
+  let homeWorkCookie = {
+  	activeName: val.name
+  }
+	this.$Cookies.set('homeWorkCookie', JSON.stringify(homeWorkCookie))
+}
+```
+

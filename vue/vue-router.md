@@ -91,3 +91,15 @@ router.beforeEach((to, from, next) =>{
 })
 ```
 
+##### 常见问题
+
+1）组件内的守卫 `beforeRouterEnter` 不能获取组件实例 `this`
+
+```
+// 通过回调传参
+beforeRouteEnter (to, from, next) {
+  next(vm => {
+    // 通过 `vm` 访问组件实例
+  })
+}
+```
