@@ -2,10 +2,6 @@
 
 https://segmentfault.com/a/1190000018428170
 
-### 闭包
-
-http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html
-
 ### 木及简历
 
 https://resume.mdedit.online/

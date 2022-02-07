@@ -1,3 +1,16 @@
+#### 常见问题
+
+##### 自定义上传
+
+```
+<el-upload
+  action=""
+  :http-request="toUpload" // 自定义上传参数
+>
+	<span>上传图片</span>
+</el-upload>
+```
+
 #### 上传成功时返回的数据
 
 ```
@@ -13,7 +26,7 @@
 }
 ```
 
-### 分片上传阿里云 oss
+#### 分片上传阿里云 oss
 
 参考链接： https://blog.csdn.net/weixin_44408598/article/details/105767446
 
