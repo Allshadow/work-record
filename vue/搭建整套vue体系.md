@@ -1,6 +1,6 @@
-#### vue-cli安装
+### vue-cli安装
 
-##### 卸载旧版
+#### 卸载旧版
 
 1）如果有全局安装了旧版本vue-cli (1.x 或者 2.x)，使用以下命令卸载
 
@@ -10,7 +10,7 @@ npm uninstall vue-cli -g
 yarn global remove vue-cli
 ```
 
-##### 安装
+#### 安装
 
 1）使用如下命令安装新的包
 
@@ -20,7 +20,7 @@ npm install -g @vue/cli
 yarn global add @vue/cli
 ```
 
-#####  检查
+####  检查
 
 1）使用一下命令检查安装版本是否正确
 
@@ -28,9 +28,9 @@ yarn global add @vue/cli
 vue --version
 ```
 
-#### 创建项目
+### 创建项目
 
-##### vue create
+#### vue create
 
 ```
 //Windows 上通过 minTTY 使用 Git Bash，交互提示符并不工作
@@ -39,11 +39,11 @@ OR
 $ vue create [项目名称]
 ```
 
-##### 预设选择
+#### 预设选择
 
 ![image-20210215151425560](搭建整套vue体系.assets/image-20210215151425560.png)
 
-##### 自定义选择
+#### 自定义选择
 
 #使用回车确定
 
@@ -51,7 +51,7 @@ $ vue create [项目名称]
 
 ![](搭建整套vue体系.assets/config.png)
 
-##### 启动服务
+#### 启动服务
 
 ```
 cd [项目名称]
@@ -66,7 +66,7 @@ https://www.jb51.net/article/160146.htm
 
 https://juejin.im/post/5bd02f98e51d457a944b634f
 
-#### `vue.config.js` 配置
+### `vue.config.js` 配置
 
 以下为 vue-cli 4 配置
 
@@ -134,7 +134,7 @@ module.exports = {
 }
 ```
 
-#### 清除 dist 文件
+### 清除 dist 文件
 
 使用到 clean-webpack-plugin 插件
 
@@ -158,19 +158,99 @@ module.exports = {
 }
 ```
 
-#### postcss
+### postcss
 
 #### 自动补全 css 前缀插件
 
-1）使用
-
-
+1）安装
 
 ```
-https://www.jianshu.com/p/c8dc12afb5ce
+yarn add --dev postcss autoprefixer
 ```
 
-#### `package.json`配置
+2）修改 `package.json`  或者 `.browserslistrc`
+
+```
+"browserslist": [
+    "> 1%",
+    "last 3 versions",
+    "not ie <= 8",
+    "chrome >= 14",
+    "safari >= 3",
+    "ios >= 8",
+    "android >= 4.0"
+ ]
+```
+
+3）在根目录新建 `postcss.config.js` 文件
+
+```
+module.exports = {
+	plugins: {
+		autoprefixer: {}
+	}
+}
+```
+
+4）重启
+
+##### 常见问题
+
+1）
+
+```
+// 问题
+Error: PostCSS plugin autoprefixer requires PostCSS 8.Migration
+
+// 解决
+yarn add postcss-loader autoprefixer@8.0.0 --dev
+
+重启
+```
+
+#### 移动端适配方案
+
+使用`lib-flexible`和`postcss-pxtorem`将`px`单位转化为`rem`单位
+
+1）安装
+
+```
+yarn add --dev lib-flexible postcss-pxtorem
+```
+
+2）`main.js` 导入 `lib-fiexible`
+
+```
+import 'lib-flexible/flexible.js'
+```
+
+3）在 `postcss.config.js` 配置
+
+```
+module.exports = {
+	plugins: {
+		autoprefixer: {},
+    "postcss-pxtorem": {
+      "rootValue": 75,
+      "propList": ["*"]
+    }
+	}
+}
+```
+
+##### 常见问题
+
+1）
+
+```
+//问题
+Error: PostCSS plugin postcss-pxtorem requires PostCSS 8.
+
+// 由于 postcss-pxtorem 版本太高
+yarn add --dev postcss-pxtorem@5.1.1
+```
+
+### `package.json`配置
 
 1）配置局域网访问变量
 
@@ -182,7 +262,7 @@ https://www.jianshu.com/p/c8dc12afb5ce
 }
 ```
 
-#### 关于 `eslint`
+### 关于 `eslint`
 
 ##### 关闭`eslint`
 
