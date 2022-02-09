@@ -274,9 +274,9 @@ Vue.prototype.$axios = axios
 this.$axios.post('url', data).then(res =>{})
 ```
 
-#### 常见问题
+### 功能
 
-##### 监听关闭
+#### 监听关闭
 
 使用 `beforeDestroy` 生命周期
 
@@ -302,11 +302,13 @@ beforeDestroy(){
 }
 ```
 
-##### 实现置顶功能
+#### 实现置顶功能
+
+##### `scrollIntoView()`
 
 1）简介
 
-`scrollIntoView()` 方法将调用它的元素滚动到浏览器窗口的可见区域
+ `scrollIntoView()`方法将调用它的元素滚动到浏览器窗口的可见区域
 
 根据其他元素的布局，元素可能无法滚动到顶部或底部。（例如：该元素已经是原素的最底部）
 
@@ -322,13 +324,27 @@ element.scrollIntoView();
 
 // vue 中使用
 this.$nextTick(() => {
+  // 获取 dom 元素
   this.$refs.item.$el.scrollIntoView({
   	behavior: 'smooth' 
   })
 })
 ```
 
-##### tab 数据持久化
+3）当页面上有定位元素时，不想滚动到最顶部，可使用以下方式
+
+##### `scroll`
+
+```
+let element = document.getElementById('xx');
+let height = document.getElementById('xx').offsetTop; //计算需要向上移动的距离
+element.scroll({
+  top: height, //向上移动的距离，如果有fixede布局， 直接减去对应距离即可
+  behavior: 'smooth', // 平滑移动
+});
+```
+
+#### `tab` 数据持久化
 
 1）需求
 
