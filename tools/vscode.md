@@ -1,6 +1,6 @@
-#### 插件
+### 插件
 
-##### 外观
+#### 外观
 
 1）Better Comments
 
@@ -19,7 +19,7 @@
 
 会高亮标签，选中标签会出现下划线
 
-##### 效率
+#### 效率
 
 1）Error Gutters
 
@@ -58,7 +58,7 @@ Live Server //监听页面实时刷新
 code settings sync //同步码云插件
 ```
 
-### Live Scss Compiler
+#### Live Scss Compiler
 
 ```
 {
@@ -160,31 +160,6 @@ GiteeId:  jmsodp1q74u8wlebk95tx84
 输入： download setting //下载命令
 ```
 
-### 去除Teleport Ultra冗余代码
-
-1）用正则表达式批量替换
-
-```
-清除tppabs标签：
-
-html文件中：
-
-查找： \btppabs="h[^"]*"  （可以加个空格，把tppabs空格去掉）
-替换：（空）
-
-css文件中的图片链接（以gif图片为例）：
-
-查找：tpa=http://[^\s]*.gif
-
-替换：（空）
-
-css文件中的注释：
-
-查找：/\*tpa.*?\*/
-
-替换：（空）
-```
-
 ### 报错
 
 #### Terminal禁止运行命令
@@ -208,3 +183,31 @@ http-server : 无法加载文件 C:\Program Files\nodejs\http-server.ps1，因�
 在想要移除的文件下的返回符号有个 discard changes ,点击即可，或者右键文件单击 discard changes 
 
 ![image-20210316094038891](vscode.assets/image-20210316094038891.png)
+
+### 其他
+
+#### `Teleport Ultra`
+
+用`Teleport Ultra`爬取网页时会出现一些多余标签，用正则表达式批量替换
+
+```
+清除tppabs标签：
+
+html文件中：
+
+查找： \btppabs="h[^"]*"  （可以加个空格，把tppabs空格去掉）
+替换：（空）
+
+css文件中的图片链接（以gif图片为例）：
+
+查找：tpa=http://[^\s]*.gif
+
+替换：（空）
+
+css文件中的注释：
+
+查找：/\*tpa.*?\*/
+
+替换：（空）
+```
+
