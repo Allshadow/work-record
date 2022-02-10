@@ -1,3 +1,13 @@
+#### 显示索引号
+
+```
+<el-table-column
+	type="index" // type 为 index 即可
+	width="50"
+	label="序号" // 如果表头需要展示文字
+>
+```
+
 #### 超出隐藏并 hover 提示
 
 ```

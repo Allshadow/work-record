@@ -1,6 +1,39 @@
-# vue-cli
+### 模式和环境变量
 
-## 访问public文件夹
+#### 模式
+
+模式的作用，应该就是判断当前是开发环境还是生产环境
+
+##### 默认模式
+
+`vue-cli`中有三个默认模式
+
+```
+development 模式用于 vue-cli-service serve
+
+test 模式用于 vue-cli-service test:unit
+
+production 模式用于 vue-cli-service build 和 vue-cli-service test:e2e
+```
+
+##### 修改默认模式
+
+使用`--mode` 来修改默认模式
+
+```
+vue-cli-service build --mode development
+```
+
+##### 获取当前环境
+
+```
+// main.js 中打印
+console.log('env',process.env.NODE_ENV)
+```
+
+### 静态资源
+
+#### 访问public文件夹
 
 1）描述
 
@@ -33,23 +66,45 @@ data(){
 }
 ```
 
-## 引入src/assets图片
+#### 引入src/assets图片
 
-### 使用相对路径引入
+##### 使用相对路径引入
 
 ```
  <img src="../assets/images/temp_1_1.png" alt="">
 ```
 
-### 使用 require
+##### 使用 require
 
 ```
 require('@/assets/images/demo.png')
 ```
 
-## 设置浏览器标题
+#### 样式引入
 
-### 页面设置标题相同
+##### 引入全局样式
+
+```script
+<script>
+	import '@/assets/css/icon.css';
+	import '@/assets/css/common.scss';
+</script>
+```
+
+##### 引入局部样式
+
+```script
+<style lang="scss" scoped>
+	@import "../assets/css/icon.css";
+	@import "../assets/css/common.scss"
+</style>
+```
+
+### 功能
+
+#### 浏览器标题设置
+
+##### 页面设置标题相同
 
 ```
 <head>
@@ -57,7 +112,7 @@ require('@/assets/images/demo.png')
 </head>
 ```
 
-### 页面设置标题不同
+##### 页面设置标题不同
 
 ```
 router - index.js
@@ -80,6 +135,12 @@ main.js
 router.beforeEach((to, from, next) =>{
 	document.title = to.meta.title
 })
+
+```
+
+##### 自定义指令设置标题
+
+```
 
 ```
 
