@@ -96,7 +96,7 @@ service nginx stop
 service nginx restart
 ```
 
-设置开机自动启动
+#### 设置开机自动启动
 
 ```
 chkconfig nginx on
