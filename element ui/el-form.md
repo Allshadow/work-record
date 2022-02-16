@@ -154,6 +154,7 @@ data() {
 ```
 this.$refs[formName].clearValidate(['name']);
 
+有时候需要加上 this.$$nextTick(()=>{})
 // formName 是 <el-form> 上的 ref 属性
 // clearValidate 可以是字符串，可以是数组
 ```
