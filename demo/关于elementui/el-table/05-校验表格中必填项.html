@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>elementUi</title>
+    <!-- 引入样式 -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+  </head>
+  <body>
+    <!-- date 值变化 -->
+    <div id="app">
+      <el-form
+        :model="inServForm"
+        ref="inServForm"
+        :rules="rules"
+      >
+        <el-table
+          ref="infiledList"
+          :data="inServForm.infiledList"
+        >
+          <el-table-column
+            prop="matnrid"
+            label="物料编码"
+          >
+            <template scope="scope">
+              <el-form-item
+                :prop="'infiledList.'+scope.$index+'.matnrid'"
+                :rules="rules.matnrid"
+              >
+                <el-input v-model="scope.row.matnrid"></el-input>
+              </el-form-item>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-form>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            inServForm: {
+            infiledList:[],
+          },
+          rules: {
+            matnrid:[
+              { required: true, message: "物料编码不能为空", trigger: "blur" }
+            ],
+          }
+          };
+        },
+      });
+    </script>
+  </body>
+</html>

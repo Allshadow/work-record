@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>elementUi</title>
+    <!-- 引入样式 -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+  </head>
+  <body>
+    <!-- date 值变化 -->
+    <div id="app">
+      <div
+        v-for="(item, index) in initData"
+        style="margin-top: 15px"
+      >
+        <div style="text-align: right;margin-bottom: 10px;">
+          <i class="el-icon-delete" @click="del(index)"></i>
+        </div>
+        <el-table
+          :ref="`table${index}`"
+          :data="item.dataList"
+          border stripe
+          style="width: 100%"
+          @selection-change="(val) => handleSelectionChange(val, index)"
+        >
+          <el-table-column
+            type="selection"
+            width="55"
+          >
+          </el-table-column>
+          <el-table-column
+            label="日期"
+          >
+            <template slot-scope="scope">{{ scope.row.date }}</template>
+          </el-table-column>
+          <el-table-column
+            prop="name"
+            label="姓名"
+          >
+          </el-table-column>
+        </el-table>
+      </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            initData: [],
+            singleObj: {
+              dataList: [], // 列表数据
+              valueList: [], // 值数据
+            },
+            tableData: [{
+              date: '2016-05-03',
+              name: '王小虎'
+            }, {
+              date: '2016-05-02',
+              name: '王小虎'
+            }, {
+              date: '2016-05-04',
+              name: '王小虎'
+            }],
+          };
+        },
+        methods: {
+          del(index){
+            this.initData.splice(index, 1)
+            // 备份一份删除之后的值
+            const backList = _.cloneDeep(this.initData)
+            // 需要先把原先的值删掉，再赋值
+            this.$nextTick(()=>{
+              this.initData.forEach((ele, eleIn) => {
+                // 先清空
+                this.$refs[`table${eleIn}`][0].clearSelection()
+                let eleArr = backList[eleIn].valueList.map(ele => ele.date)
+                if(eleArr){
+                  ele.dataList.forEach(item => {
+                    if(eleArr.includes(item.date)){
+                      // 后赋值
+                      this.$refs[`table${eleIn}`][0].toggleRowSelection(item)
+                    }
+                  })
+                }
+              })
+            })
+          },
+
+          handleSelectionChange(val, index){
+            this.initData[index].valueList = val
+          }
+        },
+        created(){
+          this.initData = new Array(3).fill(this.singleObj)
+
+          for(let i= 0; i < 3; i++){
+            this.initData[i].dataList = this.tableData
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -166,15 +166,13 @@ export default{
   },
   computed: {
   	comOption(){
-  		// val 是匹配值, list 是 option 的 列表， listOpt 是匹配 el-select 的 key,value
+  		// val 是匹配值, 
+  		// list 是 option 的列表， 
+  		// listOpt 是匹配 el-select 的 key,value
       return (val, list, listOpt = {label: 'label', value: 'value'}) =>{
         if(val || val == 0){
-          const arr = list.map(ele => {
-            if(ele[listOpt.value] == val){
-              return ele[listOpt.label];
-            }
-          })
-          return arr[0]
+          const arr = list.filter((ele) => ele[listOpt.value] == val);
+					return arr[0][listOpt.label];
         }else{
           return ''
         }
@@ -336,6 +334,124 @@ disabled  //true为禁用
 </script>
 ```
 
+#### `el-table`
+
+##### 显示索引号
+
+```
+<el-table-column
+	type="index" // type 为 index 即可
+	width="50"
+	label="序号" // 如果表头需要展示文字
+>
+```
+
+##### 超出隐藏并 hover 提示
+
+```
+// 在 item 中使用
+<el-table-column
+	:show-overflow-tooltip="true || false"   // true 是生效 false 不生效
+>
+</el-table-column>
+```
+
+##### 默认选中节点
+
+单选框默认选中
+
+```
+row // 需要渲染中数组的对象，自己拼的不能用
+this.$refs['singleTable'].setCurrentRow(row, true)
+```
+
+多选框默认选中
+
+```
+// 需要渲染中数组的对象，自己拼的不能用
+this.$refs['multipleTable'].toggleRowSelection(row, true)
+```
+
+##### 清除选中
+
+```
+this.$refs['singleTable'].clearSelection();
+```
+
+##### 常见问题
+
+1）遍历 `<el-table>`情况下，删除中间某个数组值，底部选中的数据会被清空
+
+```
+demo/关于elementui/el-table/02-处理遍历表格的删除
+```
+
+2）多列排序
+
+```
+demo/关于elementui/el-table/03-多列排序
+```
+
+3）设置某行不能选择
+
+```
+// 使用 Table-column 的 selectable 属性
+
+// tempalete
+<el-table>
+	<el-table-column 
+		type="selection"
+    :selectable="checkSelect"
+  >
+  </el-table-column>
+</el-table>
+
+// methods
+checkSelect(row, index) {
+	return row.id ? true : false;  // true 可选 false 不可选
+},
+
+Demo:
+demo/关于elementui/el-table/01-设置某行不能选择.html
+```
+
+4）单选表格
+
+示例：
+
+![](element-ui.assets/image-20210618160611077.png)
+
+```
+demo/关于elementui/el-table/04-单选表格
+```
+
+#### `el-tree`
+
+##### 标准可选择树形节点
+
+```
+<el-tree
+  :data="dataList"
+  show-checkbox
+  node-key="deptId"
+  :check-strictly="true"
+  ref="tree"
+  highlight-current
+  :props="defaultProps"
+  >
+</el-tree>
+
+<script>
+export deafult {
+	data (){
+	 return {
+	 
+	 }
+	}
+}
+</script>
+```
+
 #### `el-dialog`
 
 ##### 插入弹窗到 `body`中
@@ -351,7 +467,21 @@ disabled  //true为禁用
 </el-dialog>
 ```
 
+#### `el-upload`
+
+```
+
+```
+
 #### 时间日期选择器
+
+##### `DatePicker`
+
+```
+format // 指定输入框的格式，这个为选择后值展示的格式
+
+value-format  // 指定值得格式，获取值的格式时候用这个参数
+```
 
 ##### 当天之前日期不能选
 

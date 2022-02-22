@@ -14,30 +14,35 @@
   <body>
     <!-- date 值变化 -->
     <div id="app">
-      <el-table 
-        :data="tableData" 
-        border 
-        style="width: 100%" 
+      <el-table
+        :data="tableData"
+        border
+        style="width: 100%"
         :header-cell-class-name="handleHeaderCellClass"
         @sort-change="handleSortChange"
         ref="tableRef"
       >
-        <el-table-column fixed prop="date" label="日期" width="150" sortable="custom">
+        <el-table-column 
+          prop="date" 
+          label="日期" 
+          sortable="custom"
+        >
         </el-table-column>
-        <el-table-column prop="name" label="姓名" width="120" sortable="custom">
+        <el-table-column 
+          prop="name" 
+          label="姓名"
+          sortable="custom"
+        >
         </el-table-column>
-        <el-table-column prop="province" label="省份" width="120">
+        <el-table-column 
+          prop="province" 
+          label="省份"
+        >
         </el-table-column>
-        <el-table-column prop="city" label="市区" width="120">
-        </el-table-column>
-        <el-table-column prop="address" label="地址" width="300">
-        </el-table-column>
-        <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
-        <el-table-column fixed="right" label="操作" width="100">
+        <el-table-column
+          label="操作" 
+        >
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small"
-              >查看</el-button
-            >
             <el-button type="text" size="small">编辑</el-button>
           </template>
         </el-table-column>
@@ -52,61 +57,59 @@
         data() {
           return {
             tableData: [],
-            orderArray: []
+            orderArray: [],
           };
         },
         methods: {
           handleClick(row) {
             console.log(row);
           },
-          handleHeaderCellClass({row, column, rowIndex, columnIndex}){
-            console.log('row',row ,'column',column);
-            this.orderArray.forEach(element => {
-                if (column.property===element.prop) {
-                  column.order=element.order
-                }
-              });
+          handleHeaderCellClass({ row, column, rowIndex, columnIndex }) {
+            console.log("row", row, "column", column);
+            this.orderArray.forEach((element) => {
+              if (column.property === element.prop) {
+                column.order = element.order;
+              }
+            });
           },
-          handleSortChange( {column, prop, order} ){
-            console.log('column',column, 'prop',prop, 'order',order);
+          handleSortChange({ column, prop, order }) {
+            console.log("column", column, "prop", prop, "order", order);
             //取消order是null
             if (order) {
               //order为ascending、descending 时
               // 1、该字段原本就在orderArray,2、该字段原本不在orderArray
-              let flagIsHave=false
-              this.orderArray.forEach(element => {
+              let flagIsHave = false;
+              this.orderArray.forEach((element) => {
                 if (element.prop === prop) {
-                  element.order=order
-                  flagIsHave=true
+                  element.order = order;
+                  flagIsHave = true;
                 }
               });
               if (!flagIsHave) {
                 this.orderArray.push({
-                  prop:prop,
-                  order:order
-                })
+                  prop: prop,
+                  order: order,
+                });
               }
-            }else{
+            } else {
               //order为null时，该字段原本一定在orderArray，去掉即可
-              let orderIndex=0
-              this.orderArray.forEach((element,index) => {
+              let orderIndex = 0;
+              this.orderArray.forEach((element, index) => {
                 if (element.prop === prop) {
-                  orderIndex=index
+                  orderIndex = index;
                 }
               });
-                this.orderArray.splice(orderIndex,1)
+              this.orderArray.splice(orderIndex, 1);
             }
           },
 
           // 清除排序
-          clearOrder(){
-            this.$refs.tableRef.columns.forEach(item => {
-              item.order = ''
-            })
-          }
-
+          clearOrder() {
+            this.$refs.tableRef.columns.forEach((item) => {
+              item.order = "";
+            });
+          },
         },
-        computed: {},
       });
     </script>
   </body>
