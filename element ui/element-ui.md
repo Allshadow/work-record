@@ -378,6 +378,42 @@ this.$refs['multipleTable'].toggleRowSelection(row, true)
 this.$refs['singleTable'].clearSelection();
 ```
 
+##### 翻页选中
+
+`<el-table>`默认切换到下一页时不保留选中的数据，使用 `row-key` 和 `reserve-selection`可以保留
+
+```
+<el-table row-key="id">
+  <el-table-column 
+  	type="selection" 
+  	reserve-selection
+  >
+  </el-table-column>
+</el-table>
+```
+
+注意事项：
+
+`row-key` 中可以使用 `String`  或者 `Function` 传参
+
+错误用法 一
+
+```
+// 使用 string 时 使用 :row-key="id"  // 这个不生效的
+```
+
+错误用法 二
+
+```
+// row-key   需要绑定数据的唯一值，不然不生效
+```
+
+错误用法 三
+
+```
+使用 function 语法时， reserve-selection 要绑定在 type="selection" 的列中
+```
+
 ##### 常见问题
 
 1）遍历 `<el-table>`情况下，删除中间某个数组值，底部选中的数据会被清空
@@ -423,6 +459,46 @@ demo/关于elementui/el-table/01-设置某行不能选择.html
 
 ```
 demo/关于elementui/el-table/04-单选表格
+```
+
+5）解决布局错乱
+
+原因： 使用动态布局或使用 fixed 定位造成以下问题
+
+![image-20210622173304014](element-ui.assets/image-20210622173304014.png)
+
+解决： 重新计算布局
+
+```js
+this.$nextTick(() =>{
+	this.$refs.dataTable.doLayout() // el-table 标签上的 ref 属性
+})
+```
+
+案例代码
+
+```vue
+// 因为我是在 el-select 改变时改变布局，则
+<el-select 
+	v-model="custom" 
+	@change="handleTableColumn"
+>
+	...
+</el-select>
+
+methods: {
+	handleTableColumn(){
+		this.$nextTick(() =>{
+			this.$refs.dataTable.doLayout()
+		})
+	},
+}
+```
+
+6）校验表格中必填项
+
+```
+demo/关于elementui/el-table/05-校验表格中必填项
 ```
 
 #### `el-tree`
