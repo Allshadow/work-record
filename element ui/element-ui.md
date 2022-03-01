@@ -164,6 +164,16 @@ data() {
 </script>
 ```
 
+##### 默认值设置
+
+`v-model` 值为当前选中的 `el-option`的`value`属性值
+
+```
+<el-select v-model="value" placeholder="请选择"></select>
+
+// 设置 value 的值即可设置默认值
+```
+
 ##### 可清除的下拉框
 
 ```
@@ -191,15 +201,46 @@ data() {
 <el-select @change="(val)"></el-select>
 ```
 
+##### `@change`传参方式
+
+```
+// 这种方法据说会改变 this 指向
+<el-input-number @change="(value) => numberChange(value, scope.row)" />
+
+// 使用$event
+<el-input-number @change="numberChange($event,scope.row,scope.$index)" />
+```
+
+##### 修改右侧图标
+
+```
+::v-deep i.el-select__caret {
+  /*很关键：将默认的select选择框样式清除*/
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  /*自定义图片*/  
+  background: url('~@/assets/audit/img/xiala.png') no-repeat scroll center center transparent;
+  /*自定义图片的大小*/  
+  background-size: 7px 6px;
+  /*图片的角度*/  
+  transform: rotateZ(0deg)!important;
+}
+/*将小箭头的样式去去掉*/ 
+::v-deep .el-icon-arrow-up:before {
+    content: '';
+}
+```
+
 ##### 进阶
 
 ###### 处理 el-select 值
 
-**需求分析**
+需求分析：
 
 使用 `el-select` 时，我们通常会将其 `value` 传递给后端，后端返回的值通常也是 `value` ，但是我们想要展示的一般来说是 `label`的值
 
-**简单举例**
+简单举例：
 
 ```
 <template>
@@ -241,9 +282,9 @@ export const isRedoOpt = [
 ];
 ```
 
-**处理 `value` 的值**
+处理 `value` 的值：
 
-如果用过滤器来过滤需要再重写一遍 options 方法，用计算属性直接复用 options.js
+如果用过滤器来过滤需要再重写一遍 `options` 方法，用计算属性直接复用 `options.js`
 
 ```
 <template>
@@ -272,6 +313,44 @@ export default{
         }else{
           return ''
         }
+      }
+    }
+  }
+}
+</script>
+```
+
+###### 通过遍历的 el-select
+
+```
+<div v-for="(item, index) in dataList">
+  <el-select 
+    v-model="selectData[index]" 
+    placeholder="请选择包计价方式"
+  >
+    <el-option 
+      v-for="list in options"
+      :label="list.dictName"
+      :key="list.dictValue"
+      :value="list.dictValue"
+    >
+    </el-option>
+  </el-select>
+</div>
+
+<script>
+  export default {
+  data() {
+  	return {
+      selectData: {},
+      options:[]
+    }
+  }
+  methods:{
+    getData(){
+      ...请求回来的数据
+      this.dataList.forEach((ele, index)=>{
+        this.$set(this.selectData, index, ele.dictName); //设置默认值
       }
     }
   }
