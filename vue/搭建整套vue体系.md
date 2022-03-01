@@ -111,20 +111,6 @@ module.export = {
 </script>
 ```
 
-#####  取消eslint
-
-```js
-module.export = {
-    lintOnSave: false, //配置eslint，不生效
-    devServer: {
-        overlay: {
-            warning: false, //配置eslint，不生效
-            errors: false //配置eslint，不生效
-        }
-    },
-}
-```
-
 ##### 配置 source map
 
 ```
@@ -264,14 +250,32 @@ yarn add --dev postcss-pxtorem@5.1.1
 
 ### 关于 `eslint`
 
-##### 关闭`eslint`
+#### 关闭`eslint`
 
-当存在 `.eslintrc.js`文件时，注释掉以下
+1）配置`vue.config.js`文件
 
 ```
-extends: [
-  'plugin:vue/essential',
-  // '@vue/standard'
+module.export = {
+	lintOnSave: false, //配置eslint，不生效
+	devServer: {
+		overlay: {
+			warning: false, //配置eslint，不生效
+			errors: false //配置eslint，不生效
+		}
+	},
+}
+
+并且注释掉 eslint 配置文件 @vue/standard
+"extends": [
+	"plugin:vue/essential",
+	// "@vue/standard"
 ],
+
 ```
+
+2）注释或删除掉 `eslintrc`配置文件
+
+可能是在`package.json` ，也可能是在  `.eslintrc.js`
+
+
 

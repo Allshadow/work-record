@@ -35,6 +35,102 @@ export default {
 <el-input style="width: 200px"></input>
 ```
 
+##### 从服务端搜索数据
+
+```
+<template>
+	<el-autocomplete
+    v-model="ruleForm.name"
+    :fetch-suggestions="querySearchAsync" // 筛选的步骤
+    placeholder="请输入xxx"
+    @select="handleSelect" // 选择后触发
+    style="width: 100%"
+  >
+	</el-autocomplete>
+</template>
+
+<script>
+// ...
+methods:{
+	// 选择后触发
+	handleSelect(item){
+		// item 的值为 {value:'xxx', key: xxx}
+    },
+    
+	// 搜索函数
+	querySearchAsync(queryString, cb){
+        // 由于我请求使用的是 await/async 所以返回的为promise
+        this.getCourseName(queryString).then(res =>{
+            // res 是数组对象，且这个参数必须有 value例如
+            // res = [{value: 'xxx', key: 1}]
+            cb(res);
+        })
+	},
+	
+	// 获取接口参数
+	async getCourseName(name){
+      const data = {
+        name
+      }
+
+      let res = await this.$api(this.$cfg.API.all.queryLikeByName, data)
+      const resList = res.result? res.result : []
+      const arr = []
+      resList.forEach((ele, index) => {
+        arr.push({
+          value: ele, // 
+          key: index
+        })
+      })
+      return arr
+    }
+}
+
+</script>
+```
+
+#### `el-input-number`
+
+##### 输入整数包含小数
+
+```
+<el-form>
+	<el-form-item label="xxx" prop="xxx">
+    <el-input-number 
+      v-model="ruleForm.xxx" 
+      :controls="false"
+      :min="0"
+      class="num"
+      placeholder="请输入专业选修课学分"
+    >
+    </el-input-number>
+	</el-form-item>
+</el-form>
+
+// el-input-number 默认会出现一个默认值，去掉默认值，将默认参数定义成 undefined 即可
+
+<script>
+data() {
+	return {
+    ruleForm: {
+    	xxx: undefined, //设置为 undefined
+    },
+	};
+},
+</script>
+
+<style>
+.el-input-number.num{
+  width: 100%;
+  .el-input{
+    input{
+      text-align: left; // 将居中的文本置为左边
+    }
+  }
+}
+</style>
+```
+
 #### `el-select`
 
 ##### 标准`select`
@@ -201,6 +297,23 @@ rules: {
 // 参照 gpx-web 目录下 lib 文件夹下 validator.js
 ```
 
+##### 校验单个项目
+
+有时候只需要校验一单个项目是否已经填写
+
+```
+this.$refs[formName].validateField(prop, getError => { //验证手机号码是否正确
+  if (!getError) {//如果正确得话，执行里面得代码
+    
+  } else {
+    return false;
+  }
+});
+
+// formName <el-form>上得 ref值
+// prop <el-form-item>上得prop校验值, prop 为 string, 也可以为数组（但数组没测试过）
+```
+
 ##### 动态表单校验
 
 有时候需要多个 `<el-form-item>`遍历时，可外面加 `div`遍历
@@ -256,7 +369,155 @@ export default{
 </script>
 ```
 
-#### el-switch
+##### `label`文字对齐方式
+
+1）默认规则设置
+
+```
+label-position="left/right/top"
+// 文字内容左对齐, 或者在内容上方
+// 如果设置 left/right 要设置 label-width="110px"
+```
+
+2）label 单独换行设置
+
+![image-20210927160545932](element-ui.assets/image-20210927160545932.png)
+
+```
+<style>
+.label-top{
+	/deep/ .el-form-item__content{ 
+      margin-left: 0!important;
+    }
+}
+</style>
+```
+
+##### 移除表单校验结果
+
+同一个输入框的有时候需要校验，有时候不需要校验。
+
+然而校验后会出现表单未填提示，需要清除
+
+```
+this.$refs[formName].clearValidate(['name']);
+
+有时候需要加上 this.$nextTick(()=>{})
+// formName 是 <el-form> 上的 ref 属性
+// clearValidate 可以是字符串，可以是数组
+```
+
+##### 存在两个需要校验时间的解决方法
+
+```
+//第一个校验
+<el-form-item label="招标文件的时间期限" prop="getBidFileStartTime"> 
+  <el-row>
+    <el-col :span="11">
+      <div style="padding: 0">
+        <el-date-picker
+          :disabled="noticeGetFileForm.getBidFileStartTimeDisabled"
+          v-model="noticeGetFileForm.getBidFileStartTime"
+          type="datetime"
+          placeholder="选择起始时间"
+          value-format="yyyy-MM-dd HH:mm:ss"
+        >
+        </el-date-picker>
+      </div>
+    </el-col>
+    <el-col :span="2">
+      <div style="padding: 0 4px">至</div>
+    </el-col>
+    <el-col :span="11">
+      <div style="padding: 0">
+        <el-form-item prop="getBidFileEndTime">  //插入一个el-form-item
+          <el-date-picker
+            :disabled="noticeGetFileForm.getBidFileEndTimeDisabled"
+            v-model="noticeGetFileForm.getBidFileEndTime"
+            type="datetime"
+            placeholder="选择结束时间"
+            value-format="yyyy-MM-dd HH:mm:ss"
+          >
+          </el-date-picker>
+        </el-form-item>
+      </div>
+    </el-col>
+  </el-row>
+</el-form-item>
+```
+
+##### 判断开始时间不大于结束时间
+
+```
+<el-form-item prop="starttime">
+    <el-date-picker
+      v-model="temp.starttime"
+      type="date"
+      :picker-options="starttime"
+      value-format="yyyy-MM-dd"
+      placeholder="开始时间"
+    />
+</el-form-item>
+  <el-form-item prop="endTime">
+    <el-date-picker
+      v-model="temp.endTime"
+      type="date"
+      :picker-options="endTime"
+      value-format="yyyy-MM-dd"
+      placeholder="结束时间"
+    />
+</el-form-item>
+
+return{
+// 开始时间
+      starttime: {
+        disabledDate: time => {
+          if (this.temp.endtime) {
+            return (
+              time.getTime() > new Date(this.temp.endtime).getTime()
+            )
+          } else {
+            // 不能大于当前日期
+            return time.getTime() > Date.now()
+          }
+        }
+      },
+      // 结束时间
+      endTime: {
+        disabledDate: time => {
+          if (this.temp.starttime) {
+            return (
+              time.getTime() > Date.now() ||
+              time.getTime() < new Date(this.temp.starttime).getTime() - 8.64e7 // 加- 8.64e7则表示包当天
+            )
+          } else {
+            return time.getTime() < Date.now()
+          }
+        }
+      },
+}
+```
+
+##### 常见问题
+
+`resetForm` 报错
+
+```
+问题：Error: please transfer a valid prop path to form item!
+```
+
+```
+可能原因：数据原色已经删除，但是可能表单验证中的验证项目还未删除
+
+解决：
+
+使用 $nextTick 
+this.$nextTick(() => {
+	this.resetForm()
+})
+```
+
+#### `el-switch`
 
 ##### 标准`el-switch`
 
@@ -545,8 +806,32 @@ export deafult {
 
 #### `el-upload`
 
+##### 自定义上传
+
+```
+<el-upload
+  action=""
+  :http-request="toUpload" // 自定义上传参数
+>
+	<span>上传图片</span>
+</el-upload>
+
+// 因为现在环境不支持，可能需要 onerror 这些属性来监听错误等
 ```
 
+##### 成功时返回的数据
+
+```
+{
+    bytes: null
+    content: null
+    fileName: "测试文件 12.doc"
+    moduleName: null
+    path: "2020/1/10/ff8080816f8a5708016f8d29c253001b.doc"
+    size: "8"
+    suffix: ".doc"
+    zoneCode: null
+}
 ```
 
 #### 时间日期选择器
@@ -601,6 +886,87 @@ methods:{
 
 ```
 
+#### `el-progress`
+
+##### 修改进度条样式
+
+图例展示
+
+![image-20210910100421691](element-ui.assets/image-20210910100421691.png)
+
+实现代码
+
+```
+<el-progress :percentage="50"></el-progress>
+
+/deep/ .el-progress{
+	width:100%;
+	white-space: nowrap; // 实现文字与进度条不换行
+	.el-progress-bar__inner{ // 修改进度条渐变色
+		background-color: unset;
+		background-image: linear-gradient(to right, #5573F6 , #23CEE7);
+	}
+	.el-progress__text{ // 修改右侧文本样式
+		padding-left: 10px;
+		color: #0045FF;
+	}
+}
+```
+
+#### `el-checkbox`
+
+##### 实现值与展示不同
+
+```
+<el-checkbox-group 
+	v-model="ruleForm.check"
+>
+	<!-- label 为 传入的值, 客观题为展示的值 -->
+	<el-checkbox :label="1">客观题</el-checkbox>
+	<el-checkbox :label="2">主观题</el-checkbox>
+</el-checkbox-group>
+
+export default{
+	data(){
+		return {
+			check: []
+		}
+	}
+}
+```
+
+#### `el-steps`
+
+##### 自定义步骤条
+
+```
+//v-if可以判断是否需要此图标
+<el-steps>
+  <el-step title="xxx">
+        <i :class="icon" slot="icon" v-if="active == 0"></i>
+  </el-step>
+</el-steps>
+```
+
+##### 竖直步骤条不居中解决
+
+```
+<!--在el-step 加上 text-align: center-->
+<el-steps direction="vertical" :active="active">
+  <el-step title="等待开标" style="text-align: center"></el-step>
+  <el-step title="公布投标人" style="text-align: center"></el-step>
+</el-steps>
+```
+
+##### 文字跟图标不对称
+
+```
+//因为有默认的margin-top: 20
+.el-step__title{
+  margin-top: 0;
+}
+```
+
 
 
 ### 问题集合
@@ -626,3 +992,17 @@ this.$set(this.ruleForm, 'major', arr)
 <!-- 引入组件库 -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 ```
+
+`CDN`引入时图标找不到问题：
+
+解决：需要下载字体包，请查看以下方式
+
+`./package` 文件夹下的是 `element-ui@2.14.1` 版本， 若需要升级，则看如下教程
+
+![image-20201221112507399](element-ui.assets/image-20201221112507399.png)
+
+![image-20201221112640176](element-ui.assets/image-20201221112640176.png)
+
+![image-20201221112712876](element-ui.assets/image-20201221112712876.png)
+
+![image-20201221112744662](element-ui.assets/image-20201221112744662.png)

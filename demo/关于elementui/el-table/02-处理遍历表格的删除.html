@@ -84,7 +84,7 @@
                 // 先清空
                 this.$refs[`table${eleIn}`][0].clearSelection()
                 let eleArr = backList[eleIn].valueList.map(ele => ele.date)
-                if(eleArr){
+                if(Array.isArray(backList[eleIn].valueList) && backList[eleIn].valueList.length){
                   ele.dataList.forEach(item => {
                     if(eleArr.includes(item.date)){
                       // 后赋值
