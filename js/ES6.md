@@ -1,26 +1,8 @@
-#### `...`扩展运算符
-
-##### 数组
-
-1）将一个数组转为用逗号隔开的参数序列
-
-```
-let arr = ...[1,2,3,4]
-// 报错，生成的是用逗号隔开的序列
-
-console.log(...[1,2,3,4]) 
-// 1 2 3 4
-```
-
-2）该运算符主要用于函数的调用
-
-
-
 #### 变量声明及申明特性
 
 #####  `let`
 
-```js
+```
 //特性
 1) 不能重复声明
 let a = '111';
@@ -65,7 +47,7 @@ var a = '111';
 
 ##### `const`
 
-```js
+```
 1) 常量一定要赋初始值
 
 2) 一般常量用大写（潜规则）
@@ -83,6 +65,22 @@ ARR = '123' //报错
 
 总结： 声明数组或对象时使用 const 比较稳妥
 ```
+
+#### `...`扩展运算符
+
+##### 数组
+
+1）将一个数组转为用逗号隔开的参数序列
+
+```
+let arr = ...[1,2,3,4]
+// 报错，生成的是用逗号隔开的序列
+
+console.log(...[1,2,3,4]) 
+// 1 2 3 4
+```
+
+2）该运算符主要用于函数的调用
 
 #### 变量的解构赋值
 
@@ -277,7 +275,7 @@ console.log(OBJ) // {name: 'chen', change: f, inprove: f}
 
 #### 箭头函数
 
-```js
+```
 1) 使用箭头（=>）定义函数
 //早期版本
 let fn = function(){}
@@ -343,7 +341,7 @@ p.then(function(value){
 })
 ```
 
-#### 设置默认参数
+#### 默认参数
 
 ```
 //以前javescript原先定义方式
@@ -357,3 +355,162 @@ var link = function(height, color, url){
 var link = function(height = 50, color = 'red', url = 'http://baidu.com'){}
 ```
 
+#### `export`
+
+##### 简介
+
+`export`命令用于规定模块的对外接口，`import`命令用于输入其他模块提供的功能。
+
+##### 基本语法
+
+1）输出变量
+
+```
+export var firstName = 'Michael';
+
+# or 
+var firstName = 'Michael';
+export {
+	firstName
+}
+```
+
+2）输出函数或类
+
+```
+export function use(){}
+
+# or
+function use(){}
+
+export {
+	use
+}
+```
+
+3）变量重命名
+
+```
+function use(){}
+
+export {
+	use as newName
+}
+```
+
+4）错误写法
+
+```
+// 报错
+export 1;
+
+// 报错
+var m = 1;
+export m;
+```
+
+##### `export default`
+
+##### 简介
+
+使用 `export default` 时 `import` 是不用花括号导出
+
+```
+// export-default.js
+export default function () {
+  console.log('foo');
+}
+
+import customName from './export-default';
+```
+
+
+
+#### `import`
+
+##### 简介
+
+使用`import`在其他`js`文件加载`export`命令定义的模块
+
+`import`命令接受一对大括号，里面指定要从其他模块导入的变量名。
+
+大括号里面的变量名，必须与被导入模块（`profile.js`）对外接口的名称相同。
+
+##### 基础语法
+
+```
+import { firstName } from './profile.js';
+
+function setName(element) {
+  element.textContent = firstName ;
+}
+```
+
+##### 模块整体加载
+
+```
+// util.js
+export function area(radius) {
+  return Math.PI * radius * radius;
+}
+
+export function circumference(radius) {
+  return 2 * Math.PI * radius;
+}
+
+// main.js
+import * as circle from './circle';
+
+console.log('圆面积：' + circle.area(4));
+console.log('圆周长：' + circle.circumference(14));
+
+// 下面两行都是不允许的
+circle.foo = 'hello';
+circle.area = function () {};
+```
+
+#### set
+
+1）Set 本身是一个构造函数，用来生成 Set 数据结构
+
+2）Set 结构不会添加重复的值
+
+##### 基本用法
+
+控制台打印出来的结果
+
+![image-20210806094952589](ES6.assets/image-20210806094952589.png)
+
+初始化
+
+```
+const set = new Set()
+// 使用 ... 将 set 对象转为数组
+let s = [...set]
+// []
+
+const set = new Set([1,2,3,4,4,5])
+let s = [...set]
+// [1,2,3,4,5]
+```
+
+##### 与 `map` 方法使用
+
+```
+const value = [{name: '陈', age: 22}, { name: '王', age: 18}]
+let set = new Set(value.map(ele => ele.name))
+let setArr = Array.from(set)
+
+console.log('setArr', setArr)
+//setArr (2) ["陈", "王"]
+```
+
+#### Map
+
+1) Map 与 Object(对象)的区别
+
+Object 只接受 key 为 字符串，为 字符串-值对应
+
+Map 可以接受各种类型的值作为key, 为值-值对应
+
+2）Map 可以接受数组
