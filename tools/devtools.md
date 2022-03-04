@@ -452,13 +452,11 @@ nrm use taobao
 nrm ls
 ```
 
-### 
-
 ### 项目中常见问题
 
-#### node-sass
+#### `node-sass`
 
-1）node-sass 安装报错
+1）`node-sass` 安装报错
 
 ```
 # 解决存放在Github上的sass无法下载的问题
@@ -492,3 +490,16 @@ D:\Program Files\phantomjs-2.1.1-windows\bin
 npm install -g node-gyp
 ```
 
+#### 报错
+
+1）运行项目时出现以下报错
+
+```
+Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: No "exports" main resolved in 'xxx'
+```
+
+原因：由于`node.js` 的版本过高，降低版本可以解决
+
+```
+nvm use 10.22.0
+```
