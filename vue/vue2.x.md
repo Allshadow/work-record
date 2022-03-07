@@ -1,12 +1,12 @@
-#### 全局 API
+### 全局 API
 
-##### `Vue.use()`
+#### `Vue.use()`
 
 当我们执行 `Vue.use()` 方法时，就会执行 `js` 中的`install` 方法。
 
 `install`方法名是特定的，在此之中可以注册组件等。
 
-#### 移动端事件
+### 移动端事件
 
 ```
 <!-- 触摸  -->
@@ -19,7 +19,7 @@
 <div @touchend.prevent=""></div>
 ```
 
-#### 命名规则
+### 命名规则
 
 1）目录名称
 
@@ -35,7 +35,9 @@
 例如：StuedentLive.vue
 ```
 
-#### `.sync` 父子组件双向绑定
+### 修饰符
+
+#### `.sync` 
 
 1）使用场景
 
@@ -73,92 +75,9 @@ this.$emit('update:title'，newTitle) // update;title  冒号之间不能存在�
 .sync 修饰符的 v-bind 不能与表达式一起使用
 ```
 
-#### v-model
+### 计算属性
 
-##### 基础
-
-1）定义
-
-v-model 指令在表单 \<input>、\<textarea>、\<select> 元素上创建双向数据绑定。
-
-2）实现
-
-```
-<input v-model="sth" />
-//  等同于
-<input :value="sth" oninput="sth = $event.target.value" />
-```
-
-`v-model` 在内部为不同的输入元素使用不同的 property 并抛出不同的事件：
-
-| 元素              | 属性(property) | 事件   |
-| ----------------- | -------------- | ------ |
-| text 和 textarea  | value          | input  |
-| checkbox 和 radio | checked        | change |
-| select            | value          | change |
-
-##### 自定义组件
-
-1）默认
-
-一个组件上的`v-model`默认会利用名为 `value` 的 prop 和名为 `input` 的事件
-
-```
-// 名为 base-text 组件
-<template>
-	<div>
-		<input 
-			type="text"
-			:input="value" 
-			@input="$emit('input', $event.target.value)" 
-		/>
-	</div>
-</template>
-
-<script>
-	props: {
-		value: {}	
-	}
-</script>
-
-// 实现组件双向绑定
-<base-text v-model="text" @input="handleInput"></base-text>
-
-此时，组件中的 value 值为 text 传入的值，当 value 值改变时， text 值也会变化
-```
-
-2）改变默认属性
-
-使用 `model` 选项修改默认的值
-
-```
-<template>
-	<div>
-		<input
-        	type="checkbox"
-          	v-bind:checked="checked"
-          	v-on:change="$emit('change', $event.target.checked)"
-        >
-	</div>
-</template>
-
-<script>
-	model:{
-		prop: 'checked',
-		event: 'change'
-	}
-	props: {
-		checked: Boolean
-	}
-</script>
-
-// 
-<base-text v-model="text" @input="handleInput"></base-text>
-```
-
-#### 计算属性
-
-##### setter
+#### `setter`
 
 ```vue
 //监听的值更新了，比如以下的fullName更新，setter就会被调用，若在setter下改变了getter方法计算的值，fullName，也会随着更新。
@@ -216,9 +135,9 @@ comArray(){
 }
 ```
 
-#### 路由相关
+### 路由相关
 
-##### 页面置顶
+#### 页面置顶
 
 切换组件时，页面默认回到顶部
 
@@ -235,13 +154,13 @@ let router = new Router({
 })
 ```
 
-#### 指令
+### 指令
 
-##### `v-html`
+#### `v-html`
 
-**常见问题**
+##### 常见问题
 
-当 html 中有换行符时，处理方式
+当 `html `中有换行符时，处理方式
 
 ```
 // 使用 white-space: pre-wrap 属性
@@ -249,9 +168,133 @@ let router = new Router({
 <div style="white-space: pre-wrap" v-html="content"></div>
 ```
 
-#### `axios`
+#### v-model
 
-##### 基础配置
+##### 表单元素
+
+###### 基础
+
+1）定义
+
+`v-model` 指令在表单` <input>`、`<textarea>`、`<select>`元素上创建双向数据绑定。
+
+2）实现
+
+```
+<input v-model="sth" />
+//  等同于
+<input :value="sth" oninput="sth = $event.target.value" />
+```
+
+`v-model` 在内部为不同的输入元素使用不同的 `property` 并抛出不同的事件：
+
+| 元素                  | 属性(property) | 事件   |
+| --------------------- | -------------- | ------ |
+| `text` 和 ` textarea` | value          | input  |
+| `checkbox` 和 `radio` | checked        | change |
+| `select`              | value          | change |
+
+###### 表单组件
+
+1）默认
+
+一个组件上的`v-model`默认会利用名为 `value` 的 `prop` 和名为 `input` 的事件
+
+```
+// 名为 base-text 组件
+<template>
+	<div>
+		<input 
+			type="text"
+			:input="value" 
+			@input="$emit('input', $event.target.value)" 
+		/>
+	</div>
+</template>
+
+<script>
+	props: {
+		value: {}
+	}
+</script>
+
+// 实现组件双向绑定
+<base-text v-model="text" @input="handleInput"></base-text>
+
+此时，组件中的 value 值为 text 传入的值，当 value 值改变时， text 值也会变化
+```
+
+2）改变默认属性
+
+使用 `model` 选项修改默认的值
+
+```
+<template>
+	<div>
+		<input
+    	type="checkbox"
+    	v-bind:checked="checked"
+    	v-on:change="$emit('change', $event.target.checked)"
+    >
+	</div>
+</template>
+
+<script>
+	model:{
+		prop: 'checked',
+		event: 'change'
+	}
+	props: {
+		checked: Boolean
+	}
+</script>
+
+// 
+<base-text v-model="text" @input="handleInput"></base-text>
+```
+
+##### 自定义组件
+
+###### 组件实现`v-model`
+
+当 `v-model`在非表单组件中使用时
+
+```
+// v-model 默认会利用子组件的 props 中绑定的 value 值和触发 input 事件达到双向绑定
+
+// 子组件
+<template>
+  <div class="base-test">
+    <el-button type="primary" @click="toClick">点击加1</el-button>
+    <slot></slot>
+  </div>
+</template>
+<script>
+export default {
+  props: {
+    value: { // props 绑定子组件
+      type: Number,
+      default: 0
+    },
+  },
+  methods: {
+    toClick(){
+      let val = this.value + 1
+      this.$emit('input', val) // 触发的方法
+    }
+  }
+}
+</script>
+
+// 父组件 使用 v-model 更新数据
+<base-test v-model="initData"> 
+	<div>data: {{initData}}</div>
+</base-test>
+```
+
+### `axios`
+
+#### 基础配置
 
 安装
 
