@@ -205,10 +205,14 @@ data() {
 
 ```
 // 这种方法据说会改变 this 指向
-<el-input-number @change="(value) => numberChange(value, scope.row)" />
+<el-input-number 
+	@change="(value) => numberChange(value, scope.row)" 
+/>
 
 // 使用$event
-<el-input-number @change="numberChange($event,scope.row,scope.$index)" />
+<el-input-number
+	@change="numberChange($event,scope.row,scope.$index)" 
+/>
 ```
 
 ##### 修改右侧图标
@@ -866,6 +870,13 @@ export deafult {
 	}
 }
 </script>
+```
+
+##### 手动清空/设置已选节点
+
+```
+// 清空时候 checkedObj = []
+this.$refs.treeRef.setCheckedKeys(checkedObj);
 ```
 
 #### `el-dialog`
