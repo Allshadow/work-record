@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>任务拆分成多个子任务</title>
+</head>
+<body>
+  <script>
+    // function handle(){
+    //   // 累加
+    //   for(let i = 0; i < num; i++){
+    //     count += num --
+    //   }
+    //   console.log(count)
+    // }
+
+    // let num = 987654321
+    // let count = 0
+    // handle()
+
+    // console.log('我希望优先执行')  // 想这个代码优先执行
+
+    function handle(){
+      // 累加
+      for(let i = 0; i < 100000; i++){
+        if(num <= 0) break
+        count += num --
+      }
+
+      if(num > 0){
+        setTimeout(handle)
+      }else{
+        console.log(count)
+      }
+
+    }
+
+    let num = 987654321
+    let count = 0
+    handle()
+
+    console.log('我希望优先执行')  // 想这个代码优先执行
+  </script>
+</body>
+</html>

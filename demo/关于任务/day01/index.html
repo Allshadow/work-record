@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>任务</title>
+</head>
+<body>
+  <script>
+    setTimeout(() => {
+      // 异步代码，会放到宏任务队列中执行
+      console.log('我是定时器')
+    }, 1000);
+
+    Promise.resolve()
+    .then(res =>{
+      // 也是异步代码，放到微任务队列中执行,
+      console.log('我是 promise')
+    })
+
+    // 同步任务会先执行
+    console.log('我是同步任务')
+
+    // 执行先输出 '我是同步任务' '我是 promise' 后输出 '我是定时器'
+
+
+    // 总结
+
+    // 1. 队列
+    // js 为单线程，同一时间只能干一件事，所以会存在一个队列，将其他的事情放到队列中完成，主线程的任务完成了，就会在队列中取任务来做
+    // 2. 定时器，dom 渲染，事件会把任务放到队列里面
+    // 3. 微任务的优先级比宏任务高
+  </script>
+</body>
+</html>

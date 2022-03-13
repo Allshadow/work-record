@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>定时器</title>
+</head>
+<body>
+  <script>
+    // 定时器定义的时间不同浏览器会出现不同差异，标准上不少于4毫秒
+    // 定时器设置的执行时间不一定是，执行代码的时间，要看主线程执行的时间
+    // 定时器会在定时器模块中先执行，不会等同步任务执行完之后再执行
+    setTimeout(() => {
+      console.log('定时器执行了')
+    }, 10);
+
+    console.log('我是主线任务')
+
+    for(var i= 0; i< 10000; i++){
+      console.log('I + for 循环')
+    }
+
+    setTimeout(() => {
+      console.log('定时器1')
+    }, 2000);
+
+    setTimeout(() => {
+      console.log('定时器2')
+    }, 2000);
+
+    // 先输出定时器1，再输出定时器 2
+
+    setTimeout(() => {
+      console.log('定时器1')
+    }, 2000);
+
+    setTimeout(() => {
+      console.log('定时器2')
+    }, 1000);
+
+    // 先输出定时器2 再输出定时器1
+  </script>
+</body>
+</html>
