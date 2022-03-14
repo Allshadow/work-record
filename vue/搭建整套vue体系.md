@@ -86,7 +86,7 @@ module.exports = {
 ```
 // vue.config.js 配置
 
-module.export = {
+module.exports = {
   devServer: {
 		proxy: {
 			'/djapi': { // 将以 /djapi 开头的请求转发到 https://danjuanapp.com 底下
