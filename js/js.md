@@ -1,12 +1,54 @@
-### 数组
+### 数组相关
 
-#### 去空值
+#### 综合
+
+##### 累加
+
+```
+let code = list.reduce((pre, cur) => pre + cur.credit, 0)
+```
+
+当不是每项都需要累加时，需要用以下方式
+
+```
+let count = list.reduce((pre, cur) => {
+	if(cur.status == 1){
+		pre = pre + cur.money
+	}
+	return pre
+}, 0)
+```
+
+##### 删除元素
+
+删除数组对象中，与另一个数组相同的元素
+
+```
+let arr = [
+	{id: 1, value: '1'},
+	{id: 2, value: '2'},
+	{id: 3,value: '3'},
+	{id: 4,value: '4'},
+	{id: 5,value: '5'},
+	{id: 6,value: '6'}
+]
+
+let delArr = [3, 4]
+
+const end = arr.filter((ele)=>{
+	return delArr.indexOf(ele.id) == -1
+})
+```
+
+#### 数组
+
+##### 去空值
 
 ```
 _arr = _arr.filter(ele => ele && ele.trim())
 ```
 
-#### 去重
+##### 去重
 
 使用 `es6` `Set` 数据结构
 
@@ -20,9 +62,9 @@ or
 let arr = Array.from(new Set(array))
 ```
 
-#### 数组的拷贝
+##### 数组的拷贝
 
-##### 浅拷贝
+###### 浅拷贝
 
 1）定义
 
@@ -43,7 +85,7 @@ obj2.id = 3;
 console.log(obj.id);   // 3
 ```
 
-##### 深拷贝
+###### 深拷贝
 
 1）定义
 
@@ -68,9 +110,9 @@ JSON.parse(JSON.stringify)
 
 https://juejin.im/post/6889327058158092302#heading-13
 
-### 数组对象
+#### 数组对象
 
-#### 去重
+##### 去重
 
 1）使用`es6` `Map`数据结构
 
@@ -88,9 +130,20 @@ const dealRepeat = (arr) =>{
 dealRepeat(arr) // 打印结果 [{...},{...}]
 ```
 
-字符串
+2）使用 `reduce()`
 
-##### 去除重复字符串
+```
+// data 为需要去重得数组
+let hash = {}; 
+data = data.reduce((pre, cur) => {
+	hash[cur.id] ? '' : hash[cur.id] = true && pre.push(cur); 
+	return pre 
+}, [])
+```
+
+### 字符串
+
+#### 去除重复字符串
 
 1）使用`es6` `Map`数据结构
 
@@ -157,6 +210,15 @@ window.onbeforeunload = function () {
 ```
 
 ### 文件处理
+
+#### 文件转化
+
+##### `base64`转为二进制文件
+
+```
+// 转为 binary 或者 url
+/demo/关于文件处理/01-base64转二进制文件.html
+```
 
 #### 文件下载
 

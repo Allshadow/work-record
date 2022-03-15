@@ -168,7 +168,7 @@ let router = new Router({
 <div style="white-space: pre-wrap" v-html="content"></div>
 ```
 
-#### v-model
+#### `v-model`
 
 ##### 表单元素
 
