@@ -120,6 +120,64 @@ module.exports = {
 }
 ```
 
+### `keep-alive`
+
+#### 基础
+
+1）简介
+
+实现页面缓存
+
+2）生命周期
+
+```
+初次进入时： created > mounted > activated；退出后触发 deactivated
+再次进入：会触发 activated；事件挂载的方法等，只执行一次的放在 mounted 中；组件每次进去执行的方法放在 activated 中
+```
+
+#### 实现方式
+
+1）修改路由文件
+
+```
+<keep-alive>
+  <!-- 需要缓存的视图组件 --> 
+  <router-view v-if="$route.meta.keepAlive"></router-view>
+</keep-alive>
+<!-- 不需要缓存的视图组件 -->
+<router-view v-if="!$route.meta.keepAlive"></router-view>
+```
+
+2）设置路由中的 `meta` 属性
+
+```
+{
+  path: 'list',
+  name: 'itemList',
+  component: xxx,
+  meta: {
+    keepAlive: true, // 设置 meta
+  }
+}
+```
+
+3）在组件中判断是否需要缓存
+
+```
+export default{
+	// 使用组件内守卫
+	beforeRouteEnter(to, from, next) {
+		// 根据条件判断需要缓存
+    if(from.name == 'teaching_course_detail'){
+      to.meta.keepAlive = false
+    }else{
+      to.meta.keepAlive = true
+    }
+    next()
+  }
+}
+```
+
 ### 清除 dist 文件
 
 使用到 clean-webpack-plugin 插件

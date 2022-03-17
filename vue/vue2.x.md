@@ -1,4 +1,4 @@
-### 全局 API
+### 全局 `API`
 
 #### `Vue.use()`
 
@@ -315,6 +315,26 @@ Vue.prototype.$axios = axios
 
 ```
 this.$axios.post('url', data).then(res =>{})
+```
+
+### 组件收录
+
+#### 移动端组件
+
+##### 电子签名
+
+基于 `vant` 与`vue-signature`的简单签名组件
+
+```
+// 运行此项目，点击电子按钮签名看示例
+
+https://github.com/Allshadow/mobile-demo
+```
+
+##### 滑块验证码
+
+```
+https://github.com/Allshadow/mobile-demo
 ```
 
 ### 功能

@@ -470,10 +470,7 @@ npm install
 
 ```
 //百度网盘
-work/phantomJs
-
-//下载地址(淘宝镜像)
-https://npm.taobao.org/mirrors/phantomjs?spm=a2c6h.14029880.0.0.735975d7cwFtK9
+2022开发工具/node相关/phantomJs
 
 //无需安装，解压即可，并配置环境变量
 //在path中添加：
