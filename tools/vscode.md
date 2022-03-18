@@ -1,3 +1,28 @@
+### 微信小程序
+
+#### 编译`scss`为`wxss`
+
+1）安装插件**Live Scss Compiler**
+
+2）在项目根目录下创建文件夹 `.vscode` ,在文件夹下创建`settings.json`文件
+
+3）配置`settings.json`
+
+```
+{
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".wxss",
+      "savePath": null
+    }
+  ],
+  "liveSassCompile.settings.generateMap": false  // 去掉map文件
+}
+```
+
+4）在`scss`文件下点击`watch sass`按钮
+
 ### 插件
 
 #### 外观
