@@ -758,21 +758,35 @@ this.$refs['singleTable'].clearSelection();
 使用 function 语法时， reserve-selection 要绑定在 type="selection" 的列中
 ```
 
+##### 自定义表头
+
+```
+<el-table>
+	<el-table-cloumn>
+		<template slot="header" slot-scope="scope">
+        <span>我是表头</span>
+      </template>
+	</el-table-cloumn>
+</el-table>
+```
+
 ##### 常见问题
 
-1）遍历 `<el-table>`情况下，删除中间某个数组值，底部选中的数据会被清空
+###### 删除时底部数据被清空
+
+遍历 `<el-table>`情况下，删除中间某个数组值，底部选中的数据会被清空
 
 ```
 demo/关于elementui/el-table/02-处理遍历表格的删除
 ```
 
-2）多列排序
+###### 多列排序
 
 ```
 demo/关于elementui/el-table/03-多列排序
 ```
 
-3）设置某行不能选择
+###### 设置某行不能选择
 
 ```
 // 使用 Table-column 的 selectable 属性
@@ -795,7 +809,7 @@ Demo:
 demo/关于elementui/el-table/01-设置某行不能选择.html
 ```
 
-4）单选表格
+###### 单选表格
 
 示例：
 
@@ -805,7 +819,7 @@ demo/关于elementui/el-table/01-设置某行不能选择.html
 demo/关于elementui/el-table/04-单选表格
 ```
 
-5）解决布局错乱
+###### 解决布局错乱
 
 原因： 使用动态布局或使用 fixed 定位造成以下问题
 
@@ -839,7 +853,7 @@ methods: {
 }
 ```
 
-6）校验表格中必填项
+###### 校验表格中必填项
 
 ```
 demo/关于elementui/el-table/05-校验表格中必填项
@@ -1023,6 +1037,14 @@ export default{
 		}
 	}
 }
+```
+
+#### `el-transfer`
+
+##### 树形穿梭框组件
+
+```
+// fjun-roll 项目搜索 BaseTransfer
 ```
 
 #### `el-steps`
