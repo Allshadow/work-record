@@ -278,6 +278,18 @@ https://www.cnblogs.com/lililia/p/10482169.html
 http://www.imooc.com/wiki/yarnlesson //慕课网教程
 ```
 
+#### 报错
+
+##### 报网络错误
+
+```
+// yarn 报错
+There appears to be trouble with your network connection. Retrying...
+
+// 解决
+yarn upgrade
+```
+
 
 
 ### `nvm`
@@ -416,6 +428,12 @@ rm -rf node_modules
 rm package-lock.json
 npm cache clear --force
 npm install
+```
+
+#### 设置源
+
+```
+
 ```
 
 

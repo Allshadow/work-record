@@ -1,3 +1,128 @@
+### 基本类型
+
+#### `Number`
+
+##### 判断是否是数字
+
+1）`typeOf`
+
+```
+let a = 123
+let type = typeof a == 'number' ? true : false
+```
+
+2）正则表达式（包含正负整数，0，以及正负浮点数）
+
+```
+/**
+* 校验只要是数字（包含正负整数，0以及正负浮点数）就返回true
+**/
+
+function isNumber(val){
+
+    var regPos = /^[0-9]+.?[0-9]*/; //判断是否是数字。
+  
+    if(regPos.test(val) ){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+```
+
+3）校验正数负数
+
+```
+/**
+* 校验正负正数就返回true
+**/
+
+function isIntNum(val){
+    var regPos = / ^\d+$/; // 非负整数 
+    var regNeg = /^\-[1-9][0-9]*$/; // 负整数
+    if(regPos.test(val) && regNeg.test(val)){
+        return true;
+    }else{
+        return false;
+    } 
+}
+```
+
+##### 解决精度问题
+
+使用`number-precision`库进行运算
+
+1）`github`地址
+
+```
+https://github.com/nefe/number-precision
+```
+
+2）安装
+
+```
+npm install number-precision --save
+```
+
+3）方法
+
+```
+NP.strip(num)         
+// strip a number to nearest right number
+NP.plus(num1, num2, num3, ...)   
+// addition, num + num2 + num3, two numbers is required at least.
+NP.minus(num1, num2, num3, ...)  
+// subtraction, num1 - num2 - num3
+NP.times(num1, num2, num3, ...)  
+// multiplication, num1 * num2 * num3
+NP.divide(num1, num2, num3, ...) 
+// division, num1 / num2 / num3
+NP.round(num, ratio)  
+// round a number based on ratio
+```
+
+4）使用
+
+```
+import NP from 'number-precision'
+NP.strip(0.09999999999999998); 
+// = 0.1
+NP.plus(0.1, 0.2);             
+// = 0.3, not 0.30000000000000004
+NP.plus(2.3, 2.4);             
+// = 4.7, not 4.699999999999999
+NP.minus(1.0, 0.9);            
+// = 0.1, not 0.09999999999999998
+NP.times(3, 0.3);              
+// = 0.9, not 0.8999999999999999
+NP.times(0.362, 100);          
+// = 36.2, not 36.199999999999996
+NP.divide(1.21, 1.1);          
+// = 1.1, not 1.0999999999999999
+NP.round(0.105, 2);            
+// = 0.11, not 0.1
+```
+
+#### 字符串
+
+##### 去除重复字符串
+
+1）使用`es6` `Map`数据结构
+
+```
+[...new Set('ababbc')].join('')
+```
+
+##### 判断字符串是否是数字
+
+1）先将字符串转为数字类型，在用`isNaN`判断
+
+```
+let a = '213'  // 对于浮点数也是可以判断
+let type = isNaN(Number(a)) // true 非数字， false 数字
+```
+
 ### 数组相关
 
 #### 综合
@@ -141,17 +266,13 @@ data = data.reduce((pre, cur) => {
 }, [])
 ```
 
-### 字符串
+### 浏览器事件
 
-#### 去除重复字符串
-
-1）使用`es6` `Map`数据结构
+#### 获取定位
 
 ```
-[...new Set('ababbc')].join('')
+Navigator.geolocation.getCurrentPosition
 ```
-
-### 监听浏览器事件
 
 #### 监听滚动条滚动
 
@@ -317,59 +438,6 @@ video.addEventListener("loadedmetadata", function (_event) {
 typeof 判断数据类型（数组跟对象都返回Object）
 
 #### `instanceof`
-
-#### 解决js精度问题
-
-##### 使用number-precision库
-
-#github地址
-
-https://github.com/nefe/number-precision
-
-#下载
-
-```
-npm install number-precision --save
-```
-
-#方法
-
-```
-NP.strip(num)         
-// strip a number to nearest right number
-NP.plus(num1, num2, num3, ...)   
-// addition, num + num2 + num3, two numbers is required at least.
-NP.minus(num1, num2, num3, ...)  
-// subtraction, num1 - num2 - num3
-NP.times(num1, num2, num3, ...)  
-// multiplication, num1 * num2 * num3
-NP.divide(num1, num2, num3, ...) 
-// division, num1 / num2 / num3
-NP.round(num, ratio)  
-// round a number based on ratio
-```
-
-#使用
-
-```
-import NP from 'number-precision'
-NP.strip(0.09999999999999998); 
-// = 0.1
-NP.plus(0.1, 0.2);             
-// = 0.3, not 0.30000000000000004
-NP.plus(2.3, 2.4);             
-// = 4.7, not 4.699999999999999
-NP.minus(1.0, 0.9);            
-// = 0.1, not 0.09999999999999998
-NP.times(3, 0.3);              
-// = 0.9, not 0.8999999999999999
-NP.times(0.362, 100);          
-// = 36.2, not 36.199999999999996
-NP.divide(1.21, 1.1);          
-// = 1.1, not 1.0999999999999999
-NP.round(0.105, 2);            
-// = 0.11, not 0.1
-```
 
 #### base64
 

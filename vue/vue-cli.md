@@ -37,9 +37,9 @@ console.log('env',process.env.NODE_ENV)
 
 1）描述
 
-任何放置在public文件夹的静态资源都会被简单复制，而不经过webpcak.需要通过绝对路径来引用他们。
+任何放置在`public`文件夹的静态资源都会被简单复制，而不经过`webpcak`.需要通过绝对路径来引用他们。
 
-2）在public/index.html 或其他通过 html-webpack-plugin用作模板的HTML文件中，需要通过<%= BASE_URL %>设置链接前缀：
+2）在`public/index.html`或其他通过 `html-webpack-plugin`用作模板的HTML文件中，需要通过`<%= BASE_URL %>`设置链接前缀：
 
 ```html
 <link rel="icon" href="<%= BASE_URL %>favicon.ico">
@@ -66,7 +66,7 @@ data(){
 }
 ```
 
-#### 引入src/assets图片
+#### 引入`src/assets`图片
 
 ##### 使用相对路径引入
 
@@ -98,6 +98,12 @@ require('@/assets/images/demo.png')
 	@import "../assets/css/icon.css";
 	@import "../assets/css/common.scss"
 </style>
+```
+
+##### 引入`assets`背景图
+
+```
+ background: url('~@/assets/imgs/fontBackgroun.png') no-repeat 100% 100%;
 ```
 
 ### 功能

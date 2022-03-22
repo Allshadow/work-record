@@ -772,6 +772,22 @@ this.$refs['singleTable'].clearSelection();
 
 ##### 常见问题
 
+###### 渲染列时排序问题
+
+当`el-table`用遍历来渲染表个列的时候可能会出现顺序错误
+
+```
+<el-table
+	:data="tableData"
+>
+	<!-- 将 div 标签替换为 template 标签 -->
+	<div v-for="(item,index) in tabConfig" :key="index"> 
+		<el-table-column :label="item.name" :prop="item.prop"></el-table-column>
+	</div>
+
+</el-table>
+```
+
 ###### 删除时底部数据被清空
 
 遍历 `<el-table>`情况下，删除中间某个数组值，底部选中的数据会被清空
@@ -1077,6 +1093,26 @@ export default{
 .el-step__title{
   margin-top: 0;
 }
+```
+
+#### `el-popover`
+
+##### 修改样式
+
+因为`el-popover`无法直接修改组件样式，需要全局修改
+
+```
+<el-popover 
+  // 设置一个独立样式
+	popper-class="proper-wrap"
+>
+</el-popover>
+
+<style lang="scss">
+.el-popover.proper-wrap{
+	background-color: #171F2D!important;
+}
+</style>
 ```
 
 
