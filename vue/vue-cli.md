@@ -54,7 +54,7 @@ data(){
     }
 }
 然后：
-<img :src="`${publicPath}my-image.png`">
+<img :src="`${this.publicPath}my-image.png`">
 ```
 
 4）在 sass 中使用

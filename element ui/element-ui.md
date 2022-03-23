@@ -799,6 +799,10 @@ demo/关于elementui/el-table/02-处理遍历表格的删除
 ###### 多列排序
 
 ```
+// 参考链接
+百度脑图-前端-vue2.x-框架-表格多列排序
+
+// 参考 demo
 demo/关于elementui/el-table/03-多列排序
 ```
 

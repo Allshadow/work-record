@@ -117,7 +117,7 @@ code settings sync //同步码云插件
 
 ### 配置同步码云
 
-国内github gist 仓库经常连接不上，于是选择码云来存放
+国内`github gist` 仓库经常连接不上，于是选择码云来存放
 
 #### 设置码云
 
@@ -129,7 +129,9 @@ code settings sync //同步码云插件
 
 点击上图发布后，跳转的页面获取
 
-GiteeId:  jmsodp1q74u8wlebk95tx84
+```
+GiteeId:  ysvd3fzc0xno85q42w76j93
+```
 
 ![image-20201210140419246](vscode.assets/image-20201210140419246.png)
 
@@ -141,13 +143,15 @@ GiteeId:  jmsodp1q74u8wlebk95tx84
 
 ![image-20201210142051044](vscode.assets/image-20201210142051044.png)
 
-私人令牌：d891c1f9f2c29039585adc63bd31ae71
+```
+私人令牌：ed62c5cce33235984ac1f18829562007
+```
 
 #### 设置vscode
 
-1）安装 code settings sync
+1）安装 `code settings sync`
 
-2）进入setting.json 配置文件
+2）进入`setting.json` 配置文件
 
 ```
 快捷键打开命令面板： ctrl + shift + p
@@ -155,12 +159,12 @@ GiteeId:  jmsodp1q74u8wlebk95tx84
 选择： Preferences: Open Settings (JSON) 进入
 ```
 
-3）json中添加，GiteeId，私人令牌
+3）`json`中添加`GiteeId`，私人令牌
 
 ```
 {
-	"gitee.gist": "jmsodp1q74u8wlebk95tx84" //这是本人id
-	"gitee.access_token": "48bd77cc246dbd4723860d283cb77ce2"//本人令牌
+	"gitee.gist": "ysvd3fzc0xno85q42w76j93" //这是本人id
+	"gitee.access_token": "ed62c5cce33235984ac1f18829562007"//本人令牌
 }
 ```
 

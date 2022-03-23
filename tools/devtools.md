@@ -183,11 +183,13 @@ git config --global user.email "email@example.com"
 //--global 如果用了这个参数，这台电脑上的所有Git仓库都会使用这个配置
 ```
 
-#### 常见问题
+### `Sourcetree`
 
-##### `Sourcetree`
+#### 报错
 
-git status失败 错误代码128：error :bad signature 0x0000000
+##### `git status` 失败
+
+报错：`git status`失败 错误代码`128：error :bad signature 0x0000000`
 
 ```
 //打开 git bash
@@ -199,7 +201,16 @@ rm -f .git/index
 git reset
 ```
 
+##### `ssh` 密钥认证失败
 
+使用 `sourceTree`时候，弹出窗口，通过密钥认证失败...请设置密钥等等
+
+```
+// 修改客户端配置，因为sourceTree默认SSH客户端配置的SSH客户端 是PuTTY/Plink
+[工具]-[选项]-[一般]，如下图，选择为 openSSH
+```
+
+![image-20220323151817063](devtools.assets/image-20220323151817063.png)
 
 ### `yarn`
 

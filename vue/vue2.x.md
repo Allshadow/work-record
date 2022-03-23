@@ -319,6 +319,15 @@ this.$axios.post('url', data).then(res =>{})
 
 ### 组件收录
 
+#### `web`端组件
+
+##### 调起打印机
+
+```
+// 使用 print.js
+https://github.com/Allshadow/vue-components-demo/tree/master/src/components/BasePrint
+```
+
 #### 移动端组件
 
 ##### 电子签名
