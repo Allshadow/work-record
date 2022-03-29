@@ -2,6 +2,28 @@
 
 #### `Number`
 
+##### 千分位处理
+
+```
+// 有浮点数也可以处理
+
+let num = 1000000
+
+let newNum = localeStr(num)  //  '1,000,000'
+
+/** 数字变千分位处理 */
+function localeStr(num) {
+  if (parseFloat(num).toString() === 'NaN') {
+    return num;
+  }
+  let result = '-';
+  if (Number(num)) {
+    result = Number(num).toLocaleString();
+  }
+  return result;
+}
+```
+
 ##### 判断是否是数字
 
 1）`typeOf`
@@ -17,16 +39,9 @@ let type = typeof a == 'number' ? true : false
 /**
 * 校验只要是数字（包含正负整数，0以及正负浮点数）就返回true
 **/
-
 function isNumber(val){
-
-    var regPos = /^[0-9]+.?[0-9]*/; //判断是否是数字。
-  
-    if(regPos.test(val) ){
-        return true;
-    }else{
-        return false;
-    }
+	var regPos = /^[0-9]+.?[0-9]*/; //判断是否是数字。
+	return regPos.test(val)
 }
 
 ```
@@ -37,15 +52,10 @@ function isNumber(val){
 /**
 * 校验正负正数就返回true
 **/
-
 function isIntNum(val){
-    var regPos = / ^\d+$/; // 非负整数 
-    var regNeg = /^\-[1-9][0-9]*$/; // 负整数
-    if(regPos.test(val) && regNeg.test(val)){
-        return true;
-    }else{
-        return false;
-    } 
+	var regPos = / ^\d+$/; // 非负整数 
+	var regNeg = /^\-[1-9][0-9]*$/; // 负整数
+	return regPos.test(val) && regNeg.test(val)
 }
 ```
 
@@ -235,6 +245,12 @@ JSON.parse(JSON.stringify)
 
 https://juejin.im/post/6889327058158092302#heading-13
 
+###### 封装深拷贝方法
+
+```
+/lib/common.js  deepClone()
+```
+
 #### 数组对象
 
 ##### 去重
@@ -264,6 +280,34 @@ data = data.reduce((pre, cur) => {
 	hash[cur.id] ? '' : hash[cur.id] = true && pre.push(cur); 
 	return pre 
 }, [])
+```
+
+### 其他
+
+#### 邮箱校验
+
+```
+let reg = /^\w+@[a-z0-9]+\.[a-z]{2,4}$/
+let val = 1111
+let isEmail = reg.test(val) // true 正确 false 错误
+```
+
+#### 身份证号校验性别
+
+```
+sex = parseInt(this.basicForm.idNumber.substr(16, 1)) % 2 == 1 ? '男' : ‘女’
+```
+
+#### video 获取视频时长
+
+```
+let video = document.createElement('video')
+let duration = 0
+video.src = res.result.filePath
+video.play()
+video.addEventListener("loadedmetadata", function (_event) {
+	duration = video.duration;
+})
 ```
 
 ### 浏览器事件
@@ -332,9 +376,17 @@ window.onbeforeunload = function () {
 
 ### 文件处理
 
-#### 文件转化
+#### `base64`
 
-##### `base64`转为二进制文件
+##### 在 `<img>` 中展示
+
+需要在开头加上以下代码：
+
+```
+“data:image/jpg;base64,...."
+```
+
+##### 转为二进制文件
 
 ```
 // 转为 binary 或者 url
@@ -343,7 +395,7 @@ window.onbeforeunload = function () {
 
 #### 文件下载
 
-\<a> 标签
+`<a>` 标签
 
 直接下载
 
@@ -371,10 +423,9 @@ const downLoad = (url, name, type) =>{
 
 #### 视频
 
-1）此为简单视频下载功能，url为下载视频路径
+1）此为简单视频下载功能，`ur`l为下载视频路径
 
 ```
-
 downLoad(url){
 	let a = document.createElement('a');
 	a.href = url;
@@ -390,68 +441,19 @@ downLoad(url){
 ?response-content-disposition=attachment
 ```
 
-#### 身份证号校验性别
-
-```
-sex = parseInt(this.basicForm.idNumber.substr(16, 1)) % 2 == 1 ? '男' : ‘女’
-```
-
-#### 移动端不允许缩放
-
-```
-<meta 
-	name="viewport" 
-	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-> 
-
-width // viewport的宽度 height - viewport的高度
-initial-scale // 初始的缩放比例
-minimum-scale // 允许用户缩放到的最小比例
-maximum-scale // 允许用户缩放到的最大比例
-user-scalable // 用户是否可以手动缩放
-```
-
-#### 标签 js 不允许跳转
-
-```
-<a href="javascript:void(0);">xxx</a>
-```
-
-#### video 获取视频时长
-
-```
-let video = document.createElement('video')
-let duration = 0
-video.src = res.result.filePath
-video.play()
-video.addEventListener("loadedmetadata", function (_event) {
-	duration = video.duration;
-})
-```
-
-
+### 方法
 
 #### `typeof`
 
 1）定义
 
-typeof 判断数据类型（数组跟对象都返回Object）
+`typeof` 判断数据类型（数组跟对象都返回Object）
 
 #### `instanceof`
 
-#### base64
+### `console`对象
 
-##### 在 `<img>` 中展示
-
-需要在开头加上以下代码：
-
-```
-“data:image/jpg;base64,...."
-```
-
-#### `console`对象
-
-##### `console.log()`
+#### `console.log()`
 
 1）打印引用值出现问题
 

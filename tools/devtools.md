@@ -289,20 +289,6 @@ https://www.cnblogs.com/lililia/p/10482169.html
 http://www.imooc.com/wiki/yarnlesson //慕课网教程
 ```
 
-#### 报错
-
-##### 报网络错误
-
-```
-// yarn 报错
-There appears to be trouble with your network connection. Retrying...
-
-// 解决
-yarn upgrade
-```
-
-
-
 ### `nvm`
 
 `nvm` 是 `node.js` 的版本管理工具
@@ -371,34 +357,6 @@ nvm install 版本号
 nvm uninstall 版本号
 ```
 
-#### 常见问题
-
-问题： `node -v` 不是内部命令或外部命令
-
-```
-// 先检查环境变量是否配置
-
-解决： 将 nodejs 目录下有 etc 文件， 将其删除即可
-```
-
-问题：安装完 `node` 找不到
-
-```
-刚安装完node版本，需要重启计算机，否则有可能出现node找不到的问题
-```
-
-问题：node 安装失败
-
-由于 `npm` `git`官方地址变更，使用默认配置会导致 node 下载失败，修改` “nvm/settings.txt”`
-
-```
-root: D:\nvm
-path: D:\nodejs
-// 添加以下代码
-node_mirror: http://npm.taobao.org/mirrors/node/
-npm_mirror: https://npm.taobao.org/mirrors/npm/
-```
-
 
 
 ### `npm`
@@ -423,15 +381,7 @@ npm install
 npm config get registry
 ```
 
-#### `.npmignore`
-
-##### 设置白名单
-
-```
-!dist/file.js
-```
-
-#### 常见问题
+##### 删除 `node_modules`
 
 ```
 // 删除 node_modules, 再安装
@@ -439,6 +389,14 @@ rm -rf node_modules
 rm package-lock.json
 npm cache clear --force
 npm install
+```
+
+#### `.npmignore`
+
+##### 设置白名单
+
+```
+!dist/file.js
 ```
 
 #### 设置源
@@ -516,9 +474,69 @@ D:\Program Files\phantomjs-2.1.1-windows\bin
 npm install -g node-gyp
 ```
 
-#### 报错
+### 报错
 
-1）运行项目时出现以下报错
+#### `yarn`
+
+##### 使用`yarn`命令报错
+
+![image-20220325150308820](devtools.assets/image-20220325150308820.png)
+
+```
+npm install -g yarn
+```
+
+##### 报网络错误
+
+```
+// yarn 报错
+There appears to be trouble with your network connection. Retrying...
+
+// 解决
+yarn upgrade
+```
+
+#### `nvm`
+
+##### `node`不是外部命令
+
+问题： `node -v` 不是内部命令或外部命令
+
+```
+// 先检查环境变量是否配置
+
+解决： 将 nodejs 目录下有 etc 文件， 将其删除即可
+```
+
+##### 安装完 `node` 找不到
+
+```
+刚安装完node版本，需要重启计算机，否则有可能出现node找不到的问题
+```
+
+##### node 安装失败
+
+由于 `npm` `git`官方地址变更，使用默认配置会导致 node 下载失败，修改` “nvm/settings.txt”`
+
+```
+root: D:\nvm
+path: D:\nodejs
+// 添加以下代码
+node_mirror: http://npm.taobao.org/mirrors/node/
+npm_mirror: https://npm.taobao.org/mirrors/npm/
+```
+
+#### `npm`
+
+##### 下载`yarn`报错
+
+切换`node1.6.14.2`版本后，下载`yarn`报错
+
+![image-20220325145552191](devtools.assets/image-20220325145552191.png)
+
+暂时无解！！！
+
+#### 运行项目时报错
 
 ```
 Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: No "exports" main resolved in 'xxx'

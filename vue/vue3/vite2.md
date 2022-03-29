@@ -32,3 +32,12 @@ server: {
 },
 ```
 
+#### 知识
+
+`<script>`加上`type="module"`
+
+```
+<!-- 要想浏览器识别 ES6 语法，需要加上 type="module", 才能识别 import 语法 -->
+<script type="module" src="/src/main.js"></script>
+```
+
