@@ -401,8 +401,12 @@ npm install
 
 #### 设置源
 
-```
+1）设置淘宝源
 
+```
+npm config set registry http://registry.npm.taobao.org/
+
+npm config get registry // 检查是否设置成功
 ```
 
 

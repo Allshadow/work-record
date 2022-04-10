@@ -5,7 +5,7 @@
 ##### 下载`nginx`安装包
 
 ```
-wget http://nginx.org/download/nginx-1.10.2.tar.gz
+wget http://nginx.org/download/nginx-1.20.2.tar.gz
 ```
 
 ##### 安装编译环境
@@ -19,7 +19,7 @@ yum -y install gcc gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel
 ##### 解压
 
 ```
-tar -zxvf  nginx-1.20.2.tar.gz
+tar -zxvf nginx-1.20.2.tar.gz
 ```
 
 ##### 安装
@@ -100,5 +100,48 @@ service nginx restart
 
 ```
 chkconfig nginx on
+```
+
+### 配置
+
+#### 配置多个域名路径
+
+##### 配置文件位置
+
+```
+vim /usr/local/nginx/conf/nginx.conf
+```
+
+##### `nginx.conf`
+
+```
+server {
+    listen          80;
+    server_name     www.codeliu.com;
+
+    location / {
+        root    /usr/lib/apache-tomcat-8.5.33/webapps/CodeliuDemo;
+        index   index.html index.htm;
+    }
+}
+
+
+server {
+    listen          80;
+    server_name     test1.codeliu.com;
+
+    location / {
+        root   /usr/lib/apache-tomcat-8.5.33/webapps/Test1Demo;
+        index  index.html index.htm;
+    }
+}
+
+```
+
+##### 检查与重启
+
+```
+/usr/local/nginx/sbin/nginx -t
+/usr/local/nginx/sbin/nginx -s reload
 ```
 

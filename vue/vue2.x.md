@@ -1,3 +1,25 @@
+### 全局配置
+
+#### `Vue.config`
+
+`Vue.config` 是一个对象，对`Vue`的全局配置，一次修改，全局都能使用
+
+#### `productionTip`
+
+当我们引入开发版本的`vue`，浏览器会有一个生产提示。使用`productionTip`可以配置是否提示
+
+```
+<script src="./js/vue.js"></script>
+<script>
+	// 配置是否在启动时生成生产提示
+	Vue.config.productionTip = false
+</script>
+```
+
+下图为控制台打印的提示信息：
+
+![image-20220407113617658](vue2.x.assets/image-20220407113617658.png)
+
 ### 全局 `API`
 
 #### `Vue.use()`
@@ -170,6 +192,8 @@ let router = new Router({
 
 #### `v-model`
 
+实现数据的双向绑定，要存在`value`值
+
 ##### 表单元素
 
 ###### 基础
@@ -290,6 +314,84 @@ export default {
 <base-test v-model="initData"> 
 	<div>data: {{initData}}</div>
 </base-test>
+```
+
+### 语法
+
+#### `vue`模板语法
+
+##### 插值语法
+
+```
+// 两对花括号
+{{}}
+```
+
+##### 指令语法
+
+```
+v-xxx
+```
+
+#### `el`的两种写法
+
+```
+// 第一种写法
+const vm = new Vue({
+	el: '#app'
+})
+
+// 第二种写法
+const vm = new Vue({
+	//这里面不写 el
+})
+console.log(vm)
+//去v实例的原型对象方法进行挂载
+vm.$mount('#app')  // 将vue解析的内容挂载到 <div id="app"> 的容器上去
+```
+
+#### 关于`data`
+
+##### `data`的两种写法
+
+```
+// 对象式
+const vm = new Vue({
+	data: {
+	
+	}
+})
+
+// 函数式
+const vm = new Vue({
+	data(){ // 正常是 data:function(){},一般在对象中写方法会删掉:function
+		return {
+			
+		}
+	}
+})
+```
+
+##### `data`不能使用箭头函数
+
+```
+// 正确
+const vm = new Vue({
+	data(){
+		console.log('this', this) // 这个this是vue调用的，所以指向vue实例对象
+		return {}
+	}
+})
+
+//错误
+const vm = new Vue({
+	data:()=>{ // 箭头函数没有自己的 this,会往上级找this
+		console.log('this', this) // 这个this指向是全局的window
+		return {}
+	}
+})
+
+// 由vue所管理的函数，不能使用箭头函数
 ```
 
 ### `axios`
@@ -460,4 +562,16 @@ handleClick(val) {
 	this.$Cookies.set('homeWorkCookie', JSON.stringify(homeWorkCookie))
 }
 ```
+
+### 其他
+
+#### 本地服务
+
+##### 图标错误
+
+在本地起服务器时，会有以下错误
+
+![image-20220407113942263](vue2.x.assets/image-20220407113942263.png)
+
+由于`Live Server`会在5500端口启动一台小服务器，把整个工程里的所有文件或者文件夹当作根资源来使用，所以，在这个目录下放置一个`.ico`文件即可
 

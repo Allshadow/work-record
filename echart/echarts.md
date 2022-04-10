@@ -20,7 +20,20 @@ setTimeout(function (){
 },200)
 ```
 
-#### x轴未从起始点开始
+#### x轴
+
+##### 标题倾斜显示
+
+```
+xAxis: {
+  axisLabel: {
+    interval: 0,
+    rotate: 45
+  }
+},
+```
+
+##### 未从起始点开始
 
 配置 `xAxis` 的` boundayGap` 值
 

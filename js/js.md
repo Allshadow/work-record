@@ -284,6 +284,16 @@ data = data.reduce((pre, cur) => {
 
 ### 其他
 
+#### 将变量作为对象的key
+
+```
+let a = 'hello'
+
+const obj = {
+	[a]: 'world'
+}
+```
+
 #### 邮箱校验
 
 ```
@@ -308,6 +318,20 @@ video.play()
 video.addEventListener("loadedmetadata", function (_event) {
 	duration = video.duration;
 })
+```
+
+#### 经典编码
+
+```
+let htmlStr = ''
+
+person.forEach(p =>{
+	htmlStr += `<li>${p.id}</li>`
+})
+
+let list = document.getElementById('list')
+
+list.innerHTml = htmlStr
 ```
 
 ### 浏览器事件
