@@ -248,7 +248,7 @@ https://juejin.im/post/6889327058158092302#heading-13
 ###### 封装深拷贝方法
 
 ```
-/lib/common.js  deepClone()
+./lib/common.js  deepClone()
 ```
 
 #### 数组对象
