@@ -133,11 +133,9 @@ let a = '213'  // 对于浮点数也是可以判断
 let type = isNaN(Number(a)) // true 非数字， false 数字
 ```
 
-### 数组相关
+### 数组综合
 
-#### 综合
-
-##### 累加
+#### 累加
 
 ```
 let code = list.reduce((pre, cur) => pre + cur.credit, 0)
@@ -154,7 +152,7 @@ let count = list.reduce((pre, cur) => {
 }, 0)
 ```
 
-##### 删除元素
+#### 删除元素
 
 删除数组对象中，与另一个数组相同的元素
 
@@ -175,15 +173,15 @@ const end = arr.filter((ele)=>{
 })
 ```
 
-#### 数组
+### 数组
 
-##### 去空值
+#### 去空值
 
 ```
 _arr = _arr.filter(ele => ele && ele.trim())
 ```
 
-##### 去重
+#### 去重
 
 使用 `es6` `Set` 数据结构
 
@@ -197,9 +195,59 @@ or
 let arr = Array.from(new Set(array))
 ```
 
-##### 数组的拷贝
+#### 取最大/小值
 
-###### 浅拷贝
+##### 最大值
+
+```
+let arr = [1, 3, 5, 7]
+
+Math.max.apply(null, numArray)
+
+or
+
+Math.max(...arr)
+
+or
+
+arr.reduce((a,b)=> a > b ? a : b)
+```
+
+##### 最小值
+
+```
+let arr = [1, 3, 5, 7]
+
+Math.min(...arr)
+
+or
+
+arr.reduce((a,b)=> a < b ? a : b)
+```
+
+#### 排序
+
+##### 字符串数组
+
+```
+arr.sort()
+```
+
+##### 数字数组
+
+```
+const array  = [40, 100, 1, 5, 25, 10]
+
+// 从小到大排序
+array.sort((a,b) => a-b)
+
+// 从大到小排序
+array.sort((a,b) => b-a);
+```
+
+#### 数组的拷贝
+
+##### 浅拷贝
 
 1）定义
 
@@ -220,7 +268,7 @@ obj2.id = 3;
 console.log(obj.id);   // 3
 ```
 
-###### 深拷贝
+##### 深拷贝
 
 1）定义
 
@@ -245,15 +293,15 @@ JSON.parse(JSON.stringify)
 
 https://juejin.im/post/6889327058158092302#heading-13
 
-###### 封装深拷贝方法
+##### 封装深拷贝方法
 
 ```
 ./lib/common.js  deepClone()
 ```
 
-#### 数组对象
+### 数组对象
 
-##### 去重
+#### 去重
 
 1）使用`es6` `Map`数据结构
 
@@ -280,6 +328,33 @@ data = data.reduce((pre, cur) => {
 	hash[cur.id] ? '' : hash[cur.id] = true && pre.push(cur); 
 	return pre 
 }, [])
+```
+
+#### 排序
+
+##### 字符串数组对象
+
+```
+const objectArr = [ 
+	{ first_name: 'Lazslo', last_name: 'Jamf'     },
+	{ first_name: 'Pig',    last_name: 'Bodine'   },
+	{ first_name: 'Pirate', last_name: 'Prentice' }
+];
+objectArr.sort((a, b) => a.last_name.localeCompare(b.last_name))
+```
+
+##### 数组数组对象
+
+```
+const arr = [
+	{ id: 2, name: 'john' },
+	{ id: 1, name: 'zhang' },
+	{ id: 6, name: 'li' }
+]
+
+arr.sort((a, b) => a.id - b.id)
+
+console.log('aaa', arr) 
 ```
 
 ### 其他
