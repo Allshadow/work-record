@@ -357,7 +357,14 @@ nvm install 版本号
 nvm uninstall 版本号
 ```
 
+#### 切换国内镜像
 
+`*\nvm\setting.txt`添加如下内容
+
+```
+node_mirror: https://npm.taobao.org/mirrors/node/
+npm_mirror: https://npm.taobao.org/mirrors/npm/
+```
 
 ### `npm`
 
