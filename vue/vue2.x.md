@@ -394,6 +394,83 @@ const vm = new Vue({
 // 由vue所管理的函数，不能使用箭头函数
 ```
 
+#### 数据代理
+
+##### `Object.defineProperty`
+
+```
+<script>
+	let person = {
+		name: 'John',
+		sex: '男',
+		// age: 30  若在对象中配置，都可以对此属性进行操作
+	}
+
+	let number = 19
+
+	// 若使用 Object.defineProperty 定义，则可以自定义配置
+	Object.defineProperty(person, 'age', {
+		// value: 35,
+		// enumerable: true,  // 控制属性是否可以枚举
+		// writable: true, // 控制属性是否可以修改， 默认值 false
+		// configurable: true, // 控制属性是否可以删除，默认值 false
+
+		// 当有人读取 person 的 age 属性时，get 函数(getter)就会被调用。
+		// 且需要放回值，返回值就是 age 的值
+		// 如果是读取整个对象,要点击控制台（...)，才会触发
+		get(){
+			console.log('有人读取age属性了')
+			return number
+		},
+    // 当有人修改 person 的 age 属性时，set 函数(setter)就会被调用。
+    // value 就是修改的属性值
+    set(value){
+      console.log('有人修改 age 属性了，值是', value)
+      // 此时修改 number 的值，就可以改变对象中 age 的值了
+      number = value
+    }
+	})
+
+	// enumerable 为 false, 则该属性不能被遍历
+	console.log('key', Object.keys(person))
+
+	console.log('person',person)
+
+</script>
+```
+
+##### 定义
+
+数据代理：通过一个对象代理对另一个对象中属性操作(读/写)
+
+##### 最简单的数据代理
+
+```
+<script>
+    const obj = { x: 100}
+    const obj2 = {y: 100}
+
+    // 通过修改 obj2 来读取或写入 obj 的 x 值
+    Object.defineProperty(obj2, 'x', {
+      get(){
+        return obj.x
+      },
+      set(value){
+        obj.x = value
+      }
+    })
+  </script>
+```
+
+#### 事件处理
+
+##### 事件占位符
+
+```
+// $event 可以放置在任何位置
+<div @click="to($event)"></div>
+```
+
 ### `axios`
 
 #### 基础配置
