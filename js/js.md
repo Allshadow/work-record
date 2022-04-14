@@ -133,6 +133,16 @@ let a = '213'  // 对于浮点数也是可以判断
 let type = isNaN(Number(a)) // true 非数字， false 数字
 ```
 
+#### `Boolean`
+
+##### 虚值
+
+虚值就是在转换为布尔值时变为 `false` 的值
+
+```
+undefined / null / 0 （包含 -0 和 +0）/ NaN / ''
+```
+
 ### 数组综合
 
 #### 累加
@@ -171,6 +181,34 @@ let delArr = [3, 4]
 const end = arr.filter((ele)=>{
 	return delArr.indexOf(ele.id) == -1
 })
+```
+
+#### 菜单结构
+
+将一维数组转化为一个多层的数据结构
+
+```
+// 规则
+	// 拥有一个唯一的 id
+	// 拥有一个 parentId ，这个 id 指向它父级的 id
+const list = [
+  { id: 1, pid: 0 },
+  { id: 2, pid: 1 },
+  { id: 3, pid: 2 },
+  { id: 4, pid: 2 },
+  { id: 5, pid: 4 },
+  { id: 6, pid: 0 }
+];
+
+const treeData =  (arr, pid) => {
+  return res = arr.filter((item)=> {
+    if(item.pid === pid){
+      item.children = treeData(arr, item.id)
+      	return true
+      }
+  })
+}
+console.log('arr', treeData(list, 0))
 ```
 
 ### 数组
@@ -481,6 +519,16 @@ window.onbeforeunload = function () {
 
 ### 文件处理
 
+#### 文件上传
+
+```
+<input type="file" accept="image/*" multiple>
+
+-- accept // 限制文件类型
+-- image/* 只能选择图片类型
+-- multiple // 选择多张
+```
+
 #### `base64`
 
 ##### 在 `<img>` 中展示
@@ -555,6 +603,40 @@ downLoad(url){
 `typeof` 判断数据类型（数组跟对象都返回Object）
 
 #### `instanceof`
+
+### 代码优化
+
+#### 替代`switch...case`
+
+```
+//switch 语句将返回给定普通宠物的品种
+const getBreeds = pet =>{
+  switch (pet){
+    case 'dog':
+   		return ['Husky', 'Poodle', 'Shiba'];
+    case 'cat':
+    	return ['Korat', 'Donskoy'];
+    case 'bird':
+    	return ['Parakeets', 'Canaries'];
+    default:
+    	return [];
+  }
+}
+
+// 使用以下方法替代
+const breeds = {
+ 	dog: ["Husky", "Poodle", "Shiba"],
+ 	cat: ["Korat", "Donskoy"],
+ 	bird: ["Parakeets", "Canaries"],
+};
+const getBreeds = (pet) => {
+ 	return breeds[pet] || [];
+};
+
+const dogBreeds = getBreeds("cat");
+```
+
+
 
 ### `console`对象
 

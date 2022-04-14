@@ -507,6 +507,16 @@ There appears to be trouble with your network connection. Retrying...
 yarn upgrade
 ```
 
+##### 依赖错误
+
+`This dependency was not found:`
+
+​		`* core-js/modules/es.error.cause.js...`
+
+```
+yarn add core-js //重启项目
+```
+
 #### `nvm`
 
 ##### `node`不是外部命令

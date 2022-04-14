@@ -202,6 +202,12 @@ module.exports = {
 }
 ```
 
+### 依赖
+
+```
+npm install nprogress normalize.css
+```
+
 ### postcss
 
 #### 自动补全 css 前缀插件
