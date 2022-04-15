@@ -157,6 +157,81 @@ comArray(){
 }
 ```
 
+
+
+### 过滤器
+
+#### 标准用法
+
+```
+<!-- 在双花括号中 -->
+{{ message | capitalize }}
+
+<!-- 在 `v-bind` 中 -->
+<div v-bind:id="rawId | formatId"></div>
+
+export default {
+	filters: {
+    capitalize: function (value) {
+      return ''
+    }
+  }
+}
+
+```
+
+#### 串联
+
+```
+// 一个过滤器处理了完，依次将参数传入下一个过滤器中
+{{ message | filterA | filterB }} 
+```
+
+#### 传参
+
+```
+// 第一个参数是 message
+{{ message | filterA('arg1', arg2) }}
+```
+
+#### 全局使用
+
+##### 基本用法
+
+```
+Vue.filter('capitalize', function (value) {
+  return ''
+})
+
+new Vue({
+  // ...
+})
+```
+
+##### 项目中
+
+```
+// 在以下 js 写入方法 
+/utils/filter.js
+
+export function formatSex(val) {
+  // ...
+}
+
+// main.js 引入
+import * as filters from '@/utils/filter'
+
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+
+new Vue({
+  // ...
+})
+```
+
+
+
 ### 路由相关
 
 #### 页面置顶
