@@ -72,7 +72,7 @@
 
 ##### 使用方法
 
-```js
+```
 this.$set(obj, key, value) //key 需要为字符串
 #OR
 vue.set(obj, key, value)
@@ -97,6 +97,8 @@ vue.set(obj, key, value)
 <div @touchend.prevent=""></div>
 ```
 
+
+
 ### 命名规则
 
 1）目录名称
@@ -112,6 +114,8 @@ vue.set(obj, key, value)
 // 使用大驼峰式命名
 例如：StuedentLive.vue
 ```
+
+
 
 ### 修饰符
 
@@ -152,6 +156,8 @@ this.$emit('update:title'，newTitle) // update;title  冒号之间不能存在�
 ```
 .sync 修饰符的 v-bind 不能与表达式一起使用
 ```
+
+
 
 ### 计算属性与监听器
 
