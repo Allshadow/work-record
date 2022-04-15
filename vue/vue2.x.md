@@ -253,6 +253,114 @@ let router = new Router({
 
 ### 指令
 
+#### `v-bind`
+
+##### `:class`
+
+1）对象语法
+
+```
+//active 为类名， 多个单词拼接得时候需要 ‘’
+//isActive 为布尔值，判断是否展示
+:class="{ active: isActive }"
+:class="{ 'active-center': isActive }"
+
+// 直接绑定 data
+<div :class="classObject"></div>
+
+data: {
+  classObject: {
+    active: true,
+    'text-danger': false
+  }
+}
+```
+
+2）数组语法
+
+```
+<div :class="[active, 'text-danger']"></div>
+
+<!-- data中的数据 -->
+<div v-bind:class="[activeClass, errorClass]"></div>
+
+data: {
+  activeClass: 'active',
+  errorClass: 'text-danger'
+}
+
+<!-- 数组中使用对象语法 -->
+<div v-bind:class="[{ active: isActive }, errorClass]"></div>
+
+<!-- 数组中使用三元运算符 -->
+<div :class="[isActive ? activeClass : '', errorClass]"></div>
+```
+
+3）计算属性绑定
+
+```
+<div v-bind:class="classObject"></div>
+
+computed: {
+  classObject(){
+    return {
+      active: this.isActive && !this.error,
+      'text-danger': this.error && this.error.type === 'fatal'
+    }
+  }
+}
+```
+
+##### `:style`
+
+1）对象语法
+
+```
+<div :style="{fontSize: '20px', color: '#000'}"></div>
+
+// 直接绑定一个样式
+<div :style="styleObject"></div>
+
+data: {
+  styleObject: {
+    color: 'red',
+    fontSize: '13px'
+  }
+}
+```
+
+2）数组语法
+
+```
+<div :style="[{color: '#67C23A'},{fontSize:'20px'}]"></div>
+```
+
+3）使用三元运算符
+
+```
+//若只有单个样式
+<div :style="status==1? 'color: #67C23A', 'color: #F56C6C'"></div>
+
+//若存在多个样式
+<div :style="status==1? {color: '#67C23A'} : {color: '#F56C6C'}, {fontSize: '20px'}"
+>
+</div>
+```
+
+4）计算属性
+
+```
+<div :style="styles"></div>
+
+computed:{
+  styles(){
+    return{
+      height: 100 +"px"
+    } //78
+  },
+}
+```
+
 #### `v-html`
 
 ##### 常见问题
@@ -601,6 +709,48 @@ https://github.com/Allshadow/mobile-demo
 ```
 
 ### 功能
+
+#### `<img>`
+
+##### `:src`使用三目运算符
+
+在图片的` :src` 属性上使用三目运算符读不到后面的图片`url` ,使用替代方法
+
+```
+<img v-if="xxx" :src="" />
+<img v-else :src="" />
+```
+
+##### `onerror`事件
+
+当图片加载不了，使用默认代替，因此用到`onerror`方法
+
+```
+/*
+	传统使用 onerror, vue中使用 @error
+	@error可以传递多个参数 onerror($event, index)	
+*/
+<img :src="item.picUrl" @error="onerror($event, index)">
+
+methods:{
+	onerror(e, index){
+    let img = e.srcElement;
+		img.src = this.defaultImg;
+    img.onerror = null; //防止闪图
+	},
+}
+```
+
+##### `:src`添加随机数
+
+当间隔`1s`时间来刷新图片，由于图片的请求路径是一样的，由于图片懒加机制，则不会重新请求，导致请求到的图是同一张。
+
+```
+/*
+	src后面拼接随机的字符串，不会影响到图片请求
+**/
+<img :src="item.picUrl + '?time=' + Math.random()">
+```
 
 #### 监听关闭
 
