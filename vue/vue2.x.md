@@ -28,6 +28,62 @@
 
 `install`方法名是特定的，在此之中可以注册组件等。
 
+
+
+### `$`
+
+#### `$ref`
+
+#####  基础
+
+```
+# 给标签绑定ref，使用this.$refs.xxx 获取的当前的dom对象
+# 给组件绑定res,使用this.$res.xxx 获取的是当前组件对象
+```
+
+##### 动态添加`ref`
+
+```
+<li 
+  v-for="(item,index) in listData" 
+  :key="index" 
+  :ref="`list${index}`"
+  @click="toUse"
+>
+</li>
+
+<script>
+	methods:{
+    toUse(){
+      //由于dom是遍历出来的，所以会加[0]
+      this.$refs[`list${index}`][0]  
+    }
+  }
+</script>	
+```
+
+#### `$set`
+
+##### 使用背景
+
+为`vue` `data`中的某个对象添加动态的属性，但是视图层没发生更新
+
+由于受`javascript`的限制，`vue`不能监听对象属性的添加或删除，所以对象属性必须存在于 `data`中
+
+##### 使用方法
+
+```js
+this.$set(obj, key, value) //key 需要为字符串
+#OR
+vue.set(obj, key, value)
+```
+
+##### 案例
+
+`elementUI select` 使用了动态默认值，选择项目时，切换效果失效
+
+
+
 ### 移动端事件
 
 ```
@@ -97,9 +153,11 @@ this.$emit('update:title'，newTitle) // update;title  冒号之间不能存在�
 .sync 修饰符的 v-bind 不能与表达式一起使用
 ```
 
-### 计算属性
+### 计算属性与监听器
 
-#### `setter`
+#### `computed`
+
+##### `setter`
 
 ```vue
 //监听的值更新了，比如以下的fullName更新，setter就会被调用，若在setter下改变了getter方法计算的值，fullName，也会随着更新。
@@ -119,7 +177,7 @@ computed: {
 }
 ```
 
-#### 传参
+##### 传参
 
 ```js
 :data="computedData(123)"
@@ -133,7 +191,7 @@ computed:{
 }
 ```
 
-#### 返回对象
+##### 返回对象
 
 有时候需要在计算属性中返回对象，适用以下写法
 
@@ -154,6 +212,83 @@ comArray(){
 			code: code        
 		}
 	}
+}
+```
+
+#### `watch`
+
+##### 监听父组件`props`传入值
+
+```
+props:{
+  localTime: null
+},
+
+data: {
+  return{
+    ownTime: ''
+  }
+}
+
+watch:{
+  localTime(newVal, oldVal){
+    this.ownTime = newVal;
+  }
+},
+```
+
+##### 监听对象变化
+
+```
+data: {
+  return{
+    ownTime: {}
+  }
+}
+
+watch:{
+  ownTime:{
+    handler(newVal, oldVal){
+
+    },
+    deep: true  //是否深度监听
+    immediate: true //是否立即执行
+  }
+},
+```
+
+##### 监听对象得某个属性变化
+
+```vue
+//方法一（推荐）
+data:{
+	obj: {
+		age: 18
+	}
+}
+watch: {
+	"obj.age":{
+		handler(newValue){
+      console.log('obj.age发生变化')
+		}
+	}
+}
+
+//方法二
+data: {
+  obj: {
+  	age: 18
+  }
+},
+computed: {
+  isage(){
+  	return this.obj.age
+  }
+},
+watch: {
+  isage(){
+  	console.log('obj.age发生变化')
+  }
 }
 ```
 
@@ -499,6 +634,8 @@ export default {
 </base-test>
 ```
 
+
+
 ### 语法
 
 #### `vue`模板语法
@@ -654,6 +791,62 @@ const vm = new Vue({
 <div @click="to($event)"></div>
 ```
 
+#### `props` 
+
+```
+props: {
+		//必须是数字类型
+		propA: Number,
+		
+		// 必须是字符串或数字类型
+		propB: [String, Number],
+		
+		//布尔值，如果没有定义，默认为true
+		propC: {
+			type: Boolean,
+			default: true
+		},
+		
+		//数字，必传
+		propD: {
+			type: Number,
+			required: true
+		},
+		
+		//如果是数组或对象，默认值必须是一个函数来返回
+		propE: {
+			type: Array,
+			default: function(){
+				return[];
+			}
+		},
+		
+		//自定义一个验证函数
+		propF: {
+			validator : function(){
+				return value > 10;
+			}
+		}
+	}
+```
+
+#### `jsx`
+
+##### 什么是`jsx`
+
+```
+//jsx是javascript与XML结合的格式
+当遇到 <  jsx就当HTMEL解析， 遇到 ( 就当javascript解析
+```
+
+##### `render`函数使用`jsx`
+
+```
+https://www.cnblogs.com/amylis_chen/p/11320059.html
+```
+
+
+
 ### `axios`
 
 #### 基础配置
@@ -678,6 +871,58 @@ Vue.prototype.$axios = axios
 ```
 this.$axios.post('url', data).then(res =>{})
 ```
+
+### 组件
+
+#### 问题
+
+##### 子组件参数
+
+异步获取数据时，子组件未接收到父组件的值
+
+```
+//使用 v-if 判断，等待有值时判断
+//使用监听器，监听到父组件的值
+```
+
+### 组件通信
+
+#### `props/$emit`
+
+#### `$attrs/$listener`
+
+##### `$attrs`
+
+1）描述
+
+父作用域中不作为`prop`属性传入的参数（除`class` 和 `style`外），可以通过 `v-bind="$attrs"`，传入内部组件
+
+2）案例
+
+```
+v-bind="$attrs"
+//父组件
+
+子组件取值
+this.$attrs.xxx
+```
+
+##### `$listeners`
+
+1）描述
+
+包含了父作用域中的（不含`.native` 修饰器）`v-on`事件监听，可以通过 `v-on='$listeners'`,传入内部组件
+
+2）案例
+
+```
+//父组件使用
+v-on = '$listeners'
+
+//子组件使用this.$emit('changeValue', false)，触发父级的方法执行
+```
+
+
 
 ### 组件收录
 
@@ -864,6 +1109,47 @@ handleClick(val) {
 	this.$Cookies.set('homeWorkCookie', JSON.stringify(homeWorkCookie))
 }
 ```
+
+#### 监听物理返回键
+
+```
+/*
+*  mounted 为vue 的 mounted
+*  destroyed 为 vue 的 destroyed
+*  methods 为 vue 的 methods
+* */
+function mounted() {
+  // 如果支持 popstate 一般移动端都支持了
+  if (window.history && window.history.pushState) {
+    // 往历史记录里面添加一条新的当前页面的url //这个不用更改
+    history.pushState(null, null, document.URL);
+    // 给 popstate 绑定一个方法 监听页面刷新
+    window.addEventListener(
+    	'popstate', 
+    	this.backChange, 
+    	false
+    );//false阻止默认事件
+  }
+}
+
+//页面销毁时，取消监听。否则其他vue路由页面也会被监听
+function destroyed(){
+	window.removeEventListener(
+		'popstate', 
+		this.backChange, 
+		false
+	);//false阻止默认事件
+}
+
+function methods(){
+  backChange() {
+  	const that = this;
+  	console.log("监听到了");
+  }
+}
+```
+
+
 
 ### 其他
 

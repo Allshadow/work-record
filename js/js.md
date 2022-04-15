@@ -454,6 +454,13 @@ video.addEventListener("loadedmetadata", function (_event) {
 })
 ```
 
+#### 跳转外部链接
+
+```js
+let url = http://www.baidu.com
+window.location.href = url;
+```
+
 #### 经典编码
 
 ```
