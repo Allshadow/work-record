@@ -213,6 +213,14 @@ console.log('arr', treeData(list, 0))
 
 ### 数组
 
+#### 过滤虚值
+
+```
+const arr = [1, 0, undefined, null]
+const trueNum = arr.filter(Boolean)
+// trueNum  [1]
+```
+
 #### 去空值
 
 ```
@@ -264,6 +272,13 @@ arr.reduce((a,b)=> a < b ? a : b)
 ```
 
 #### 排序
+
+##### 打乱数组顺序
+
+```
+const arr = [10, 15, true, false]
+const randomArr = arr.sort(()=> 0.5 - Math.random())
+```
 
 ##### 字符串数组
 
@@ -634,6 +649,25 @@ const getBreeds = (pet) => {
 };
 
 const dogBreeds = getBreeds("cat");
+```
+
+### 异常处理
+
+#### `try...catch`
+
+##### 概述
+
+一旦发生错误，程序就终止执行，try...catch结构允许对错误进行处理，选择是否往下执行
+
+##### 基本结构
+
+```
+try{
+	throw new Error('出错了');
+} catch(e){
+	console.log(e.name + ": " + e.message);
+	console.log(e.stack);
+}
 ```
 
 
