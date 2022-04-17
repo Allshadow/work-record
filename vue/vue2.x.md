@@ -1036,6 +1036,42 @@ https://github.com/Allshadow/mobile-demo
 
 ### 功能
 
+#### 实现前端筛选
+
+使用计算属性
+
+```
+<div id="app">
+	<input type="text" placeholder="请输入文字" v-model="keyWord">
+
+	<ul>
+  	<li v-for="item in filterData" :key="item.id">{{item.name}}</li>
+  </ul>
+</div>
+
+new Vue({
+	el: '#app',
+	data(){
+	 	return {
+	 		keyWord: '',
+	 		dataList: [
+	 			{ id: '001', name: '马冬梅' },
+	 			{ id: '002', name: '周冬雨' },
+	 			{ id: '003', name: '周杰伦' },
+	 			{ id: '004', name: '温兆伦' },
+	 		]
+	 	}
+	},
+	computed: {
+		filterData(){
+			return this.dataList.filter(ele => {
+				return ele.name.indexOf(this.keyWord) !== -1
+			})
+		}
+	}
+})
+```
+
 #### `<img>`
 
 ##### `:src`使用三目运算符
