@@ -797,6 +797,81 @@ const vm = new Vue({
 <div @click="to($event)"></div>
 ```
 
+#### 键盘事件
+
+##### 基本键盘事件
+
+```
+<input type="text" placeholder="请输入文字" @keyup="showInfo">
+
+showInfo(e){
+  // keycode 已经被废弃，使用 code 好点
+  console.log('keycode', e.keyCode)
+  console.log('code', e.code)
+
+  console.log(e.target.value)
+}
+```
+
+##### 按键修饰符
+
+```
+<input @keyup.enter="submit">
+
+<!-- 如果 code 名字为大驼峰写法，例如CapsLock -->
+<input @keyup.caps-lock="submit">
+
+<input @keyup.13="submit">
+```
+
+##### 注意
+
+1） `tab`  键必须配合`keydown`使用，不然没有效果
+
+```
+<input @keydown.tab="submit">
+```
+
+##### 系统修饰键
+
+```
+// 以下系统修饰键比较特殊
+ctrl、alt、shift、meta（win图标）
+
+// 配合 keyup 使用时，按下修饰键的同时，需要按下其他键，随后释放其他键，事件才会被触发
+// 配合 keydown 使用时，正常触发事件
+```
+
+#### `key`
+
+##### 作用
+
+```
+// key 是虚拟 dom 对象的标识。
+// 当数据发生变化时，Vue 会根据【新数据】生成【新的虚拟 dom】,随后 Vue 进行【新虚拟 dom】与旧【虚拟dom】的差异比较
+```
+
+##### 对比规则
+
+```
+// 旧虚拟dom找到了与新虚拟 dom 相同的 key:
+	// 若虚拟 dom 中内容没变，直接使用之前的真实 dom
+	// 若虚拟 dom 中的内容变了，则生成新的真实 dom，随后替换掉之前页面之间的真实 dom
+	
+// 旧虚拟dom未找到与新虚拟 dom 相同的 key:
+	// 创建新的真实dom，随后渲染到页面
+```
+
+##### 用`index`作为`key`
+
+```
+// 若对数据进行：逆序添加、逆序删除等破坏顺序操作：
+	// 会产生没有必要的真实 dom 更新 ==> 界面效果没问题，但效率低
+	
+// 如果结构中还包含输入类的 dom：
+	// 会常产生错误 dom 更新 ==> 界面会有问题
+```
+
 #### `props` 
 
 ```
