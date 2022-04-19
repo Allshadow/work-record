@@ -1141,6 +1141,24 @@ export default{
 }
 ```
 
+#### `$message`
+
+##### 设置`zindex`
+
+```
+this.$message({	
+  message:'这是一条消息提示',
+  type:'success',
+  customClass:'zZindex'
+});
+
+<style>
+  .zZindex {
+    z-index:3000 !important;
+  }
+</style>
+```
+
 ### 问题集合
 
 #### `refs`

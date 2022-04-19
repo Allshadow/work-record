@@ -118,3 +118,57 @@ showList(isShow){
 }
 ```
 
+### input
+
+##### 只能输入正整数
+
+实现代码
+
+```
+<el-input 
+	v-model="formData.studyTime" 
+	@input="handleTime"
+>
+</el-input>
+
+# 省略...
+
+handleTime(val){
+	this.formData.studyTime = val.replace(/[^\d]/g,'')
+},
+```
+
+参考链接
+
+```
+https://blog.csdn.net/zxl1990_ok/article/details/105437735
+```
+
+
+
+1）当 type = number 时，浏览器右侧出现箭头
+
+使用以下样式，去掉箭头
+
+```
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+ 
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+```
+
+2）当 type = number 时，禁止输入 e 和 ...
+
+```
+<input 
+    type="number" 
+    autocomplete="off" 
+    onkeypress="return (/[\d]/.test(String.fromCharCode(event.keyCode)))" 
+    style="ime-mode:Disabled"
+>
+```
+
