@@ -480,7 +480,7 @@ data: {
 
 ```
 //若只有单个样式
-<div :style="status==1? 'color: #67C23A', 'color: #F56C6C'"></div>
+<div :style="status==1? 'color: #67C23A' :  'color: #F56C6C'"></div>
 
 //若存在多个样式
 <div :style="status==1? {color: '#67C23A'} : {color: '#F56C6C'}, {fontSize: '20px'}"
@@ -516,7 +516,51 @@ computed:{
 
 #### `v-model`
 
-实现数据的双向绑定，要存在`value`值
+```
+v-model 默认收集的是 input 值
+
+实现数据的双向绑定，要存在valu`值
+```
+
+##### 当 `type=radio` 时
+
+```
+// 单选框时
+男：<input type="radio" name="sex" v-model="sex" value="male">
+女：<input type="radio" name="sex" v-model="sex" value="female">
+
+data(){
+	return {
+		// 设置默认值
+		sex: 'male'
+	}
+}
+```
+
+##### 当`type=checkbox`时
+
+```
+// 若不设置 value 值时，vue 默认取 checked
+学习<input type="checkbox" v-model="hobby" value="study">
+吃饭<input type="checkbox" v-model="hobby" value="eat">
+
+data(){
+	return {
+		// 这个必须为数组
+		hobby: []
+	}
+}
+```
+
+##### `v-model`三个修饰符
+
+```
+// lazy: 失去焦点再收集数据
+// number: 输入字符串转为有效的数字,一般与 type=number 使用
+// trim: 输入首尾空格过滤
+```
+
+
 
 ##### 表单元素
 

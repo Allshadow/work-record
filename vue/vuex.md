@@ -1,18 +1,20 @@
+### 基本
+
 #### 安装
 
 ##### 选择安装
 
-vue-cli 如需要使用 vuex，在创建时选择选项即可。
+`vue-cli` 如需要使用 `vuex`，在创建时选择选项即可。
 
 ##### 手动安装
 
-1） yarn
+1） `yarn`
 
 ```
 yarn add vuex
 ```
 
-2）在一个模块化的打包系统中，您必须显式地通过 `Vue.use()` 来安装 Vuex：
+2）在一个模块化的打包系统中，您必须显式地通过 `Vue.use()` 来安装 `Vuex`：
 
 ```
 import Vue from 'vue'
@@ -21,9 +23,34 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 ```
 
-#### 基本使用
+### 应用
 
-##### 命名空间使用
+#### `module`
+
+##### 调用其他模块的参数
+
+```
+// 当前模块的 state 和 mutation 中是无法获取其它模块的state
+// actions 中可通过第一个参数中的 rootState 属性获取到其它模块 state
+const actions = {
+	logout(content){
+		content.commit
+		content.dispatch
+		content.rootState
+		content.rootGetters
+		content.state
+	}
+}
+
+使用其他模块的 mutations
+// 第三个参数传 { root: true }
+content.commit('permission/reset', false {root: true}) 
+
+// 使用 actions 
+ontext.dispatch(‘模块名/actions方法名’, 传参, { root: true})
+```
+
+#### 命名空间使用
 
 使用 `mutations`
 

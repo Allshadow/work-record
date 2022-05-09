@@ -913,6 +913,26 @@ export deafult {
 this.$refs.treeRef.setCheckedKeys(checkedObj);
 ```
 
+##### 横向滚动条无效
+
+当内容超出容器的时候，横向滚动条没有效果
+
+原因：`el-tree-node`是个`div`，块级元素，导致我怎么设置，滚动条都不出来
+
+```
+// 内容溢出，设置横向滚动条
+.el-tree {
+	width: 100%;
+	overflow: auto;
+}
+
+/deep/ .el-tree > .el-tree-node {
+	// 设置横向滚动条
+	display: inline-block;
+	min-width: 100%;
+}
+```
+
 #### `el-dialog`
 
 ##### 插入弹窗到 `body`中

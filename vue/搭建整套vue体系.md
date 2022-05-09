@@ -204,6 +204,18 @@ module.exports = {
 
 ### 依赖
 
+#### `normalize.css`
+
+```
+// 安装
+yarn add normalize.css
+
+// 使用
+import 'normalize.css/normalize.css'
+```
+
+
+
 ```
 npm install nprogress normalize.css
 ```

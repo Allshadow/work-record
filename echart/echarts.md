@@ -286,3 +286,37 @@ option ={
 }
 ```
 
+### 地区图
+
+#### 点击时取消默认样式
+
+```
+options = {
+	series: [
+		select: false
+	]
+}
+```
+
+`JSON`地址
+
+```
+// json 地址
+https://blog.csdn.net/Ans_min/article/details/122811919
+
+// 教程
+https://zhuanlan.zhihu.com/p/128553525?utm_source=wechat_session
+```
+
+### 热词云图
+
+参考文档
+
+```
+// echarts 随机颜色消失
+https://blog.csdn.net/Dan1374219106/article/details/115864750
+
+// 参考文档
+https://segmentfault.com/a/1190000023022232
+```
+

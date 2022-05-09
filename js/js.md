@@ -416,6 +416,120 @@ console.log('aaa', arr)
 
 如果一个对象的所有键名都是整数或零，并且有 `length`属性。就称为 “类似数组的对象”
 
+
+
+### 模块化
+
+#### 简介
+
+##### 未模块化的影响
+
+```
+// 造成全局污染
+
+// 依赖管理
+	// 下层 js 能调用上层 js 的方法，上层 js 无法调用下层 js 的方法 
+```
+
+##### 参考链接
+
+```
+https://juejin.cn/post/6994224541312483336#heading-19
+```
+
+#### `commonjs`
+
+##### `webpack`
+
+```
+webpack 打包工具对 commonJS 的支持和转换，前端应用在编译之前，可以使用 commonJS 开发
+```
+
+##### 使用与原理
+
+```
+// 每一个 js 文件都是一个单独的模块，可以称之为 module
+// 模块中包含 commonjs 规范的核心变量， exports, module.exports, require
+// exports module.exports 负责模块的导出
+// require 函数可以帮助我们导入其他模块（自定义模块、系统模块、第三方库模块）
+```
+
+#### `es module`
+
+##### `export`
+
+```
+// 导出模块
+
+// 1
+
+const name = '我是xxx'
+
+export {
+	name
+}
+
+// 2
+export const say = function (){}
+
+// 导入模块
+import { name, say } from './index.js'
+
+export {} // 与变量名绑定，命名导出
+import {} from 'xxx' ，此时 import {} 中的变量名称要与 export {} 一致
+```
+
+##### `export default`
+
+```
+const name = 'xxx'
+const say = function(){
+	console.log('aaaa')
+}
+
+export default {
+	name,
+	say
+}
+
+// 导入模块
+import mes from './index.js'
+
+export default anything 导入 module 的默认导出。 anything 可以是函数，属性方法，或者是对象
+import anyName from 'module' anyName 可以是自定义名称
+```
+
+##### 混合导入/导出
+
+```
+// 导出
+
+export const name = 'xxx'
+
+export const author = 'xxx'
+
+export default function say(){}
+
+// 导入
+import theSay, { name, author as newAuthor } from './index.js'
+
+import theSay, * as mes from './index'
+```
+
+##### 无需导入模块，只需运行模块
+
+```
+import 'module'
+```
+
+##### 动态导入
+
+```
+const promise = import('module')
+```
+
+
+
 ### 其他
 
 #### 将变量作为对象的key

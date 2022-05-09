@@ -15,6 +15,147 @@ maximum-scale // 允许用户缩放到的最大比例
 user-scalable // 用户是否可以手动缩放
 ```
 
+### `<table>`
+
+```
+// 基础表格
+./demo/table/01-基本表格布局.html
+```
+
+#### 子标签
+
+`<caption>`
+
+```
+// 设置表格的标题
+// 一个表格中只能有一个 <caption> 标签
+```
+
+`<tr>`
+
+```
+一个 tr 是一行
+```
+
+`<td>`
+
+```
+一个 td 算一列
+```
+
+`<colgroup>`
+
+```
+// 统一设置样式
+```
+
+#### 属性
+
+##### `border`
+
+```
+// border 属性会为每个单元格添加边框
+// border值改变时，只有外部边框会改变
+// border = 0 时，显示没有边框的表格
+```
+
+`border = 1`
+
+![image-20210112165544501](html.assets/image-20210112165544501.png)
+
+`border = 8`
+
+![image-20210112170002780](html.assets/image-20210112170002780.png)
+
+`border = 0`
+
+![image-20220429104819774](html.assets/image-20220429104819774.png)
+
+##### 合并单元格
+
+```
+rowspan  // 表示跨行合并
+colspan  // 表示跨列合并 
+
+<!-- n 表示要合并的行数，整数 -->
+<td rowspan rowspan="n">单元格内容</td>
+
+<!-- n 表示要合并的列数，整数 -->
+<td rowspan colspan="n">单元格内容</td>
+
+// 每次合并 n 个单元格都要少写 n-1 个<td>标签，不然表格会排列错误
+```
+
+#### 通过`css`改变其样式
+
+##### 宽度自适应
+
+```
+<style>
+	table{
+		width: 100%; //将表格设为自适应宽度
+	}
+</style>
+```
+
+##### 均分表格
+
+```
+<style>
+	table{
+		table-layout: fixed; 
+	}
+</style>
+```
+
+#### 关于边距问题
+
+##### `cellspacing`
+
+```
+// cellspacing 属性设置单元格与单元格边框之间的空白边距
+
+// 将边距设置为 0
+<table cellspacing="0"></table>
+
+//等价于
+<style>
+	table{
+		border-spacing:0; // 调整此参数值
+	}
+</style>
+```
+
+##### `cellpadding`
+
+```
+cellpadding 设置单元格内容与单元格边框之间的间距
+
+// 将间距设置为 0
+<table cellpadding="0"></table>
+
+//等价于
+<style>
+  th,td {
+		padding：0;
+	}
+</style>
+```
+
+##### 合并边框
+
+```
+<style>
+  table{
+  	border-collapse: collapse; 
+  }
+</style>
+```
+
+![image-20210112171522402](html.assets/image-20210112171522402.png)
+
+#### 
+
 ### 其他
 
 #### `js`不允许跳转

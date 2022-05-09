@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表格</title>
+</head>
+<body>
+  <table>
+    <caption>表格标题</caption>
+    <colgroup>   <!-- 用来存放列组 -->
+        <col span=2>    <!-- 控制第一列和第二列 -->
+        <col span=1>    <!-- 第三列 -->
+        <!--/*<col>不添加span属性，默认一列，以在colgroup中的顺序为准*/ -->
+    </colgroup>
+    <thead>        <!-- 表头 -->
+        <tr>
+            <th>姓名</th>
+            <th>年级</th>
+            <th>学号</th>
+        </tr>
+    </thead>
+    <tbody>        <!-- 表格的中间部分 -->
+        <tr>
+            <td>周时</td>
+            <td>一</td>
+            <td>01</td>
+        </tr>
+    </tbody>
+    <tfoot>        <!-- 表格的底部 -->
+        <tr>
+            <td>小石</td>
+            <td>三</td>
+            <td>03</td>
+        </tr>
+    </tfoot>
+</table>
+</body>
+</html>

@@ -355,6 +355,15 @@ var link = function(height, color, url){
 var link = function(height = 50, color = 'red', url = 'http://baidu.com'){}
 ```
 
+### `es module`
+
+#### 浏览器直接使用
+
+```
+<!-- type=“module” -->
+<script src="b.js" type="module"></script>
+```
+
 #### `export`
 
 ##### 简介
