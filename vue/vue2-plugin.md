@@ -20,17 +20,16 @@ yarn add swiper@5.1.0 vue-awesome-swiper@4.1.1
 
 ```
 // 1. vue-awesome-swiper的 github 地址
+https://github.com/surmon-china/vue-awesome-swiper
 
 // 2. vue-awesome-swiper demo
 https://v1.github.surmon.me/vue-awesome-swiper
 
 // 3. swiper 配置项
-https://www.swiper.com.cn/api/
+https://www.swiper.com.cn/api
 ```
 
-
-
-##### `swiper`手动操作后不继续轮播
+##### 手动操作后不继续轮播
 
 ```
  var swiper = new Swiper('.swiper-container', {

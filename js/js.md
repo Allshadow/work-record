@@ -227,6 +227,45 @@ const trueNum = arr.filter(Boolean)
 _arr = _arr.filter(ele => ele && ele.trim())
 ```
 
+#### 位置
+
+##### 数组元素交换位置
+
+```
+/**
+* 数组元素交换位置
+* index1 添加项目位置
+* index2 删除项目位置
+*/
+export swapArray = (arr, index1, index2) => {
+	arr[index1] = arr.splice(index2, 1, arr[index1])[0]
+  return arr
+}
+
+/**
+* 元素上移/下移的方法
+*	@params arr 数组列表
+*	@params index 需要移动的索引值
+* @params type 上移还是下移， 上移传 'up'
+*/
+export moveArray = (arr, index, length, type="up") => {
+	let length = arr.length
+  if(type === 'up'){
+    if(index != 0){
+      swapArray(arr, index, index - 1)
+    }else{
+    	console.log('已经处于置顶')
+    }
+	}else{
+    if(index + 1 != length){
+      swapArray(arr, index, index + 1)
+    }else{
+    	console.log('已经处于置底')
+    }
+  }
+}
+```
+
 #### 去重
 
 使用 `es6` `Set` 数据结构

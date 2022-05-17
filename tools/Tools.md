@@ -1,34 +1,8 @@
 ### 谷歌浏览器
 
-#### 操作方式
+#### 谷歌插件
 
-##### 强制刷新
-
-```
-// 方式一
-shift + 鼠标左键
-
-// 方式二
-ctrl + F5
-```
-
-#### 谷歌标签与码云同步
-
-1）插件下载
-
-```
-百度网盘： /work/谷歌插件/标签同步码云
-```
-
-2）码云 `token`
-
-```
-15a6b5b6080d5a934b99e7fa7a57c537
-
-// 获取码云token 以及其他信息查看 码云仓库的 readme.md
-```
-
-#### vue-devtools
+##### `vue-devtools`
 
 1）谷歌浏览器版本
 
@@ -47,15 +21,56 @@ ctrl + F5
 
 ![image-20210621110717783](Tools.assets/image-20210621110717783.png)
 
-3）弹出的选择文件弹窗，选择文件加压后的 ‘E:\project\vue-devtools-dev\packages\shell-chrome’，点选择文件夹即可
+3）弹出的选择文件弹窗，选择文件加压后的 `E:\project\vue-devtools-dev\packages\shell-chrome`，点选择文件夹即可
 
-#### webstorm
+##### 谷歌标签与码云同步
 
-##### 安装包位置
+1）插件下载
+
+```
+百度网盘： /工具/谷歌插件/标签同步码云
+```
+
+2）码云 `token`
+
+```
+15a6b5b6080d5a934b99e7fa7a57c537
+
+// 获取码云token 以及其他信息查看 码云仓库的 readme.md
+```
+
+##### `cookie-editor`
+
+```
+// 百度网盘： /工具/谷歌插件
+// 直接点击 '加载已解压的扩展程序' 直接引入目录
+```
+
+##### `axure`
+
+```
+// 百度网盘： /工具/Axure
+```
+
+#### 操作方式
+
+##### 强制刷新
+
+```
+// 方式一
+shift + 鼠标左键
+
+// 方式二
+ctrl + F5
+```
+
+### `webstorm`
+
+#### 安装包位置
 
 #百度网盘（work 目录下）
 
-##### 基础设置
+#### 基础设置
 
 #启动时不默认打开工程
 
@@ -70,7 +85,7 @@ File --> Settings --> Appearance & Behavior --> System Settings
 File --> Settings --> Editor --> Live Templates
 ```
 
-##### 激活码激活网址
+#### 激活码激活网址
 
 ```
 //激活码激活易过期，并且作者并不会直接更新
@@ -80,7 +95,7 @@ http://lookdiv.com/  钥匙：lookdiv
 https://niceyoo.lanzous.com/icd3rkf
 ```
 
-##### 永久激活方法
+#### 永久激活方法
 
 ```
 //更新于2020-05-13
@@ -108,7 +123,7 @@ https://macstore.info/a/Jetbrainscrack.html
 6.重启你的IDE。
 ```
 
-##### 常用快捷键
+#### 常用快捷键
 
 ```
 Ctrl + Alt + L //格式化代码
@@ -129,14 +144,14 @@ alt + 左键  //切换标签（切换编辑区的窗口）
 Shift + L  //删除行
 ```
 
-##### 支持jsx语法
+#### 支持jsx语法
 
 ```
 路径： File | Settings | Languages & Frameworks | JavaScript 
 修改： javaScript language version 选择 jsx
 ```
 
-#### .md
+### .md
 
 ##### 目录结构生成器
 
@@ -151,7 +166,7 @@ npm install mddir -g //下载目录结构生成器
 mmdir //在文件目录下会生成一个directoryList.md文件
 ```
 
-#### Mark Man
+### Mark Man
 
 ##### 下载地址
 
@@ -174,7 +189,7 @@ Adobe AIR 下载地址： https://get.adobe.com/cn/air/
 //百度网盘（work目录下）
 ```
 
-#### Axure9
+### Axure9
 
 ##### 激活码链接
 
@@ -193,13 +208,6 @@ key: iy9uUKbS7pEZwE5hbHTGigOcu48TdY4JXWbJYHxXLuvAzRL8qmry9J2mS5wXO7y3
 
 ```
 百度网盘work目录下
-```
-
-#### Axure谷歌插件
-
-```
-//百度网盘
-/work/Axure 9 pro/Axure插件
 ```
 
 #### Typora

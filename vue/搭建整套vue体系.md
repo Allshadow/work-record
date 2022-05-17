@@ -76,7 +76,7 @@ https://juejin.im/post/5bd02f98e51d457a944b634f
 module.exports = {
   devServer: {
     open: true,  //自动开启浏览器
-    port：8099 //配置端口号
+    port: 8099 //配置端口号
   }
 }
 ```
