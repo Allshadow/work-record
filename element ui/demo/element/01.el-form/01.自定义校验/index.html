@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>element-ui</title>
+    <!-- 引入样式 -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <el-form
+        :model="ruleForm"
+        :rules="rules"
+        ref="ruleForm"
+        label-width="100px"
+      >
+        <el-form-item label="密码" prop="pass">
+          <el-input
+            v-model="ruleForm.pass"
+            @change="handleChange"
+          ></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')"
+            >提交</el-button
+          >
+        </el-form-item>
+      </el-form>
+    </div>
+    <script src="./js/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data() {
+          var check = (rule, value, callback) => {
+            if (!value) {
+              return callback();
+            }else{
+              if (!Number.isInteger(value)) {
+                callback(new Error("请输入数字值"));
+              } else {
+                if (value < 18) {
+                  callback(new Error("必须年满18岁"));
+                } else {
+                  callback();
+                }
+              }
+            }
+          };
+          return {
+            ruleForm: {
+              pass: "",
+            },
+            rules: {
+              pass: [{required: false, validator: check, trigger: "blur" }],
+            },
+          };
+        },
+
+        methods: {
+          submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+              if (valid) {
+                alert("submit!");
+              } else {
+                console.log("error submit!!");
+                return false;
+              }
+            });
+          },
+          resetForm(formName) {
+            this.$refs[formName].resetFields();
+          },
+
+          // 改变文本
+          handleChange(val){
+            const index = this.findRuleIndex(this.rules, 'pass')
+            if(val){
+              this.rules.pass[index].required = true
+            }else{
+              this.rules.pass[index].required = false
+            }
+          },
+
+          // 判断 rule 得索引
+          findRuleIndex(rule, key){
+            return Object.keys(rule).findIndex(ele => ele == key)
+          }
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -569,6 +569,31 @@ const promise = import('module')
 
 
 
+### 校验
+
+#### 身份证
+
+##### 校验性别
+
+```
+sex = parseInt(this.basicForm.idNumber.substr(16, 1)) % 2 == 1 ? '男' : ‘女’
+```
+
+##### 校验身份证号
+
+```
+function isCardNo(card) { 
+  // 身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X 
+  var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/; 
+  if(reg.test(card) === false) { 
+    alert("身份证输入不合法"); 
+    return false; 
+  } 
+}
+```
+
+
+
 ### 其他
 
 #### 将变量作为对象的key
@@ -587,12 +612,6 @@ const obj = {
 let reg = /^\w+@[a-z0-9]+\.[a-z]{2,4}$/
 let val = 1111
 let isEmail = reg.test(val) // true 正确 false 错误
-```
-
-#### 身份证号校验性别
-
-```
-sex = parseInt(this.basicForm.idNumber.substr(16, 1)) % 2 == 1 ? '男' : ‘女’
 ```
 
 #### video 获取视频时长
