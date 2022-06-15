@@ -282,6 +282,12 @@ yarn run //用来执行在 package.json 中属性下定义的脚本
 yarn run dev || yarn dev
 ```
 
+##### 清除缓存
+
+```
+yarn cache clean
+```
+
 参考链接
 
 ```
@@ -434,7 +440,7 @@ npm install -g nrm
 
 ```
 nrm add npm http://registry.npmjs.org
-nrm add taobao https://registry.npm.taobao.org
+nrm add taobao https://registry.npm.taobao.org/
 ```
 
 ##### 切换源地址

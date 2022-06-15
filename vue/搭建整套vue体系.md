@@ -331,22 +331,11 @@ yarn add --dev postcss-pxtorem@5.1.1
 1）配置`vue.config.js`文件
 
 ```
-module.export = {
-	lintOnSave: false, //配置eslint，不生效
-	devServer: {
-		overlay: {
-			warning: false, //配置eslint，不生效
-			errors: false //配置eslint，不生效
-		}
-	},
+module.exports = {
+	lintOnSave: false
 }
 
-并且注释掉 eslint 配置文件 @vue/standard
-"extends": [
-	"plugin:vue/essential",
-	// "@vue/standard"
-],
-
+// 需要重新运行项目
 ```
 
 2）注释或删除掉 `eslintrc`配置文件

@@ -89,6 +89,20 @@ methods:{
 </script>
 ```
 
+##### 超出文本打点
+
+```
+<style lang="scss" scoped>
+::v-deep .over-input.el-input{
+	input{
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+	}
+}
+</style>
+```
+
 #### `el-input-number`
 
 ##### 输入整数包含小数
@@ -476,6 +490,30 @@ label-position="left/right/top"
 </style>
 ```
 
+##### 隐藏校验小红点
+
+![image-20220518104953348](element-ui.assets/image-20220518104953348.png)
+
+```
+// 方法一 设置 rules 的 require
+rules: {
+	idCard: [{required: true}], // required false 或者 没填 都不会显示
+},
+// 方法二 隐藏小红点
+<el-form>
+	<el-form-item class="is-require"></el-form-item>
+</el-form>
+
+<style lang="scss" scoped>
+	// 隐藏身份证小红点
+  .is-require{
+    ::v-deep .el-form-item__label::before{
+    	content: '' !important;
+    }
+  }
+</style>
+```
+
 ##### 移除表单校验结果
 
 同一个输入框的有时候需要校验，有时候不需要校验。
@@ -579,6 +617,16 @@ return{
         }
       },
 }
+```
+
+##### 常见需求
+
+1）存在需求：当值为空时，不需要校验表单，有值的时候，这个表单需要进行校验
+
+使用自定义校验方法比较好用：
+
+```
+./demo/element/01.el-form/01.自定义校验
 ```
 
 ##### 常见问题
@@ -1135,6 +1183,7 @@ export default{
 <style lang="scss">
 .el-popover.proper-wrap{
 	background-color: #171F2D!important;
+	
 }
 </style>
 ```

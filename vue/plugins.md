@@ -1,5 +1,51 @@
 ### `vue2.x`
 
+
+
+#### 导出表格
+
+##### 说明
+
+```
+// 本文借鉴 vue-element-admin, 并基于此基础上进行改造，以便可以修改所需样式
+// Excel 的导入导出都是依赖于js-xlsx来实现的。
+// 在 js-xlsx 的基础上又封装了Export2Excel.js来方便导出数据。
+```
+
+##### 安装依赖
+
+```
+// 必须安装
+yarn add xlsx@0.14.1 xlsx-style file-saver
+// 这个 vue-cli 好像不一定要安装,等报错再装
+yarn add --dev script-loader
+```
+
+当安装 `xlsx-style`报错时:
+
+![image-20220613110605690](plugins.assets/image-20220613110605690.png)
+
+```
+// 配置 vue.config.js
+module.exports = {
+  configureWebpack: {
+    externals: {
+      "./cptable": "var cptable",
+    },
+  },
+};
+```
+
+##### `Export2Excel.js`
+
+```
+https://blog.csdn.net/qq_45200669/article/details/124191345
+
+https://blog.csdn.net/xingchen678/article/details/102686621
+```
+
+
+
 #### 时间处理
 
 ```
@@ -53,6 +99,28 @@ https://www.swiper.com.cn/api
 ```
 https://www.npmjs.com/package/vue-signature
 ```
+
+### 其他
+
+#### `nanoid`
+
+随机`ID`生成器，生成`ID`不重复
+
+##### 安装
+
+```
+yarn add nanoid
+```
+
+##### 使用
+
+```
+import { nanoid } from 'nanoid'
+// 直接使用 nanoid() 就能生成一个独一无二的id
+model.id = nanoid() //=> "V1StGXR8_Z5jdHi6B-myT"
+```
+
+
 
 ### 服务端
 

@@ -313,12 +313,12 @@ let Person = (name, age) =>{
 let me = new Person('xiao', 30) //报错
 ```
 
-#### promise
+#### `promise`
 
 ##### 1）定义
 
 ```
-es6中异步编程的解决方案，promise是一个构造函数
+es6中异步编程的解决方案，promise 是一个构造函数
 ```
 
 ##### 2）实例化 Promise 对象
@@ -333,12 +333,21 @@ const p = new Promise(function(resolve, reject){
 	}, 1000)
 })
 
-//调用promise 对象的 then 方法
+//调用 promise 对象的 then 方法
 p.then(function(value){
 	//成功时执行
 }, function(reason){
 	//失败时执行
 })
+```
+
+##### 3）`promise`
+
+```
+promise
+.then(result => {...})
+.catch(error => {...})
+.finally(()=> {...})
 ```
 
 #### 默认参数

@@ -4,6 +4,14 @@
 
 `Vue.config` 是一个对象，对`Vue`的全局配置，一次修改，全局都能使用
 
+##### `vue-cli`中配置
+
+```
+// 在 mian.js 中使用
+
+Vue.config.productionTip = false
+```
+
 #### `productionTip`
 
 当我们引入开发版本的`vue`，浏览器会有一个生产提示。使用`productionTip`可以配置是否提示
@@ -28,6 +36,26 @@
 
 `install`方法名是特定的，在此之中可以注册组件等。
 
+#### `Vue.extend()`
+
+创建一个组件，若自己没写，`vue` 会自动调用
+
+```
+// Vue.extend 中， data 必须是函数
+
+const vueDemo = Vue.extend({
+	template: `<div>
+							xxx
+						</div>`
+	data(){
+		return {}
+	}
+})
+
+// 可以写成
+const vueDemo = { /** .... */ }
+```
+
 
 
 ### `$`
@@ -37,8 +65,8 @@
 #####  基础
 
 ```
-# 给标签绑定ref，使用this.$refs.xxx 获取的当前的dom对象
-# 给组件绑定res,使用this.$res.xxx 获取的是当前组件对象
+// 给标签绑定ref，使用this.$refs.xxx 获取的当前的dom对象
+// 给组件绑定res,使用this.$res.xxx 获取的是当前组件对象
 ```
 
 ##### 动态添加`ref`
@@ -66,7 +94,7 @@
 
 ##### 使用背景
 
-为`vue` `data`中的某个对象添加动态的属性，但是视图层没发生更新
+为`vue data`中的某个对象添加动态的属性，但是视图层没发生更新
 
 由于受`javascript`的限制，`vue`不能监听对象属性的添加或删除，所以对象属性必须存在于 `data`中
 
@@ -81,6 +109,16 @@ vue.set(obj, key, value)
 ##### 案例
 
 `elementUI select` 使用了动态默认值，选择项目时，切换效果失效
+
+
+
+### 内置的组件
+
+#### `keep-alive`
+
+```
+https://blog.csdn.net/ZYS10000/article/details/122480733
+```
 
 
 
@@ -733,6 +771,54 @@ export default {
 
 
 
+### `mixin`
+
+```
+// mixin.js
+
+export const mixin = {
+	methods: {
+	
+	}
+}
+
+// 组件引入
+import { mixin } from 'xxx'
+
+export default {
+	mixins: [mixin, xxx]
+}
+
+// 如果组件与混入同时存在的内容，以组件为主，若同时存在两个声明周期，混入先执行
+```
+
+
+
+### 插件
+
+```
+// plugins.js
+export default {
+	install(Vue){// 第一个参数是 Vue
+		Vue.filter('xxxx', function(){})
+		
+		Vue.directive('xxx', {})
+		
+		Vue.mixin({})
+		
+		// 给 Vue 原型上添加一个方法(vm 和 vc， 都能使用)
+		Vue.prototype.hello = () => xxx
+	}
+}
+
+// main.js
+import plugins from './plugins'
+
+Vue.use(plugins)
+```
+
+
+
 ### 语法
 
 #### `vue`模板语法
@@ -879,6 +965,21 @@ const vm = new Vue({
   </script>
 ```
 
+#### 数组更新
+
+##### 变更数组的方法
+
+```
+push()/pop()/shift()/unshift()/splice()/sort()/reverse()
+```
+
+##### 直接替换
+
+```
+// 对于非变更方法 filter()/concat()/slice() 不会改变原数组，直接替换数组
+this.items = []
+```
+
 #### 事件处理
 
 ##### 事件占位符
@@ -963,44 +1064,25 @@ ctrl、alt、shift、meta（win图标）
 	// 会常产生错误 dom 更新 ==> 界面会有问题
 ```
 
-#### `props` 
+#### 版本对比
+
+`vue.js` 与 `vue.runtime.xxx.js` 的区别
 
 ```
-props: {
-		//必须是数字类型
-		propA: Number,
-		
-		// 必须是字符串或数字类型
-		propB: [String, Number],
-		
-		//布尔值，如果没有定义，默认为true
-		propC: {
-			type: Boolean,
-			default: true
-		},
-		
-		//数字，必传
-		propD: {
-			type: Number,
-			required: true
-		},
-		
-		//如果是数组或对象，默认值必须是一个函数来返回
-		propE: {
-			type: Array,
-			default: function(){
-				return[];
-			}
-		},
-		
-		//自定义一个验证函数
-		propF: {
-			validator : function(){
-				return value > 10;
-			}
-		}
-	}
+vue.js 是完整版的vue， 包含核心功能和模板解析器
+vue.runtime.xxx.js 是运行版的vue,只包含核心功能，不包含模板解析器
+
+new Vue({
+	el: '#app',
+	// 使用
+	render: h => h(App)
+	// 不能使用
+	// template: `<h1></h1>`
+})
+
 ```
+
+
 
 #### `jsx`
 
@@ -1018,31 +1100,6 @@ https://www.cnblogs.com/amylis_chen/p/11320059.html
 ```
 
 
-
-### `axios`
-
-#### 基础配置
-
-安装
-
-```
-yarn add axios
-```
-
-引用
-
-```
-// main.js
-import axios from 'axios'
-
-Vue.prototype.$axios = axios
-```
-
-组件使用
-
-```
-this.$axios.post('url', data).then(res =>{})
-```
 
 ### 组件
 
@@ -1065,9 +1122,73 @@ ItvConfig: ()=> import("./components/itvConfig")
 
 ### 组件通信
 
-#### `props/$emit`
+#### `props & $emit`
 
-#### `$attrs/$listener`
+##### `props` 
+
+1）语法
+
+```
+// 父组件传参语法
+<!-- 没有v-bind 默认字符串， 有v-bind 为表达式 -->
+<child name='张三' :age="18"></child>
+```
+
+```
+// 子组件接收语法
+
+// 简单数组
+props: ['name', 'value']
+
+// 限制类型
+props: {
+	name: String, // 必须是数字类型
+	age: Number，
+	// 必须是字符串或数字类型
+	propB: [String, Number],
+}
+
+// 完整
+props: {
+	name: {
+		type: String, // 类型
+		// required 与 default 不会同时出现
+		required: true，// 是否必传
+		default: true // 默认值
+	},
+	
+	//如果是数组或对象，默认值必须是一个函数来返回
+  propE: {
+  	type: Array,
+  	default: function(){
+  		return[];
+  	}
+  },
+
+  //自定义一个验证函数
+  propF: {
+  	validator : function(){
+  		return value > 10;
+  	}
+  }
+}
+```
+
+2）注意事项
+
+```
+// props 优先于 data 中的数据加载,所以，以下可用
+
+props: ['name', 'age'],
+
+data(){
+	return {
+		myName: this.name
+	}
+}
+```
+
+#### `$attrs & $listener`
 
 ##### `$attrs`
 
@@ -1132,6 +1253,32 @@ https://github.com/Allshadow/mobile-demo
 ```
 
 ### 功能
+
+#### 行内使用背景图片
+
+```
+<!-- 模板 -->
+<div :style="bgStyle">
+
+// script
+const defaultImg = require("xxx") 
+
+// or  const defaultImg = require("@/xxx") 
+
+export default [
+	data(){
+		return {
+			defaultImg
+		}
+	},
+	
+	computed: {
+    bgStyle() {
+      return `background-image: url(${this.defaultImg});`
+    },
+  }
+]
+```
 
 #### 实现前端筛选
 
