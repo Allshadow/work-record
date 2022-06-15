@@ -44,8 +44,6 @@ https://blog.csdn.net/qq_45200669/article/details/124191345
 https://blog.csdn.net/xingchen678/article/details/102686621
 ```
 
-
-
 #### 时间处理
 
 ```
@@ -118,6 +116,30 @@ yarn add nanoid
 import { nanoid } from 'nanoid'
 // 直接使用 nanoid() 就能生成一个独一无二的id
 model.id = nanoid() //=> "V1StGXR8_Z5jdHi6B-myT"
+```
+
+
+
+#### `vconsole`
+
+移动端的开发调试，使用此插件比较实用
+
+##### 安装
+
+```
+yarn add --dev vconsole || npm install vconsole
+```
+
+##### 引入
+
+```
+//在 main.js 引入
+
+// 开发环境下面使用vConsole进行调试
+if (process.env.NODE_ENV === 'development') {
+  const VConsole = require('vconsole')
+  new VConsole()
+}
 ```
 
 
