@@ -116,6 +116,64 @@ vue.set(obj, key, value)
 
 #### `keep-alive`
 
+##### 基础
+
+1）简介
+
+实现页面缓存
+
+2）生命周期
+
+```
+初次进入时： created > mounted > activated；退出后触发 deactivated
+再次进入：会触发 activated；事件挂载的方法等，只执行一次的放在 mounted 中；组件每次进去执行的方法放在 activated 中
+```
+
+##### 实现方式
+
+1）修改路由文件
+
+```
+<keep-alive>
+  <!-- 需要缓存的视图组件 --> 
+  <router-view v-if="$route.meta.keepAlive"></router-view>
+</keep-alive>
+<!-- 不需要缓存的视图组件 -->
+<router-view v-if="!$route.meta.keepAlive"></router-view>
+```
+
+2）设置路由中的 `meta` 属性
+
+```
+{
+  path: 'list',
+  name: 'itemList',
+  component: xxx,
+  meta: {
+    keepAlive: true, // 设置 meta
+  }
+}
+```
+
+3）在组件中判断是否需要缓存
+
+```
+export default{
+	// 使用组件内守卫
+	beforeRouteEnter(to, from, next) {
+		// 根据条件判断需要缓存
+    if(from.name == 'teaching_course_detail'){
+      to.meta.keepAlive = false
+    }else{
+      to.meta.keepAlive = true
+    }
+    next()
+  }
+}
+```
+
+##### 参考文档
+
 ```
 https://blog.csdn.net/ZYS10000/article/details/122480733
 ```
@@ -1122,21 +1180,26 @@ ItvConfig: ()=> import("./components/itvConfig")
 
 ### 组件通信
 
-#### `props & $emit`
+#### `props`
 
-##### `props` 
+##### 父传子
 
-1）语法
+1）传参语法
 
 ```
 // 父组件传参语法
 <!-- 没有v-bind 默认字符串， 有v-bind 为表达式 -->
 <child name='张三' :age="18"></child>
-```
 
-```
 // 子组件接收语法
+export default {
+	props: ['name', 'value'] // 更多写法看 2) 接收规则
+}
+```
 
+2）接收规则
+
+```
 // 简单数组
 props: ['name', 'value']
 
@@ -1174,7 +1237,7 @@ props: {
 }
 ```
 
-2）注意事项
+3）注意事项
 
 ```
 // props 优先于 data 中的数据加载,所以，以下可用
@@ -1187,6 +1250,105 @@ data(){
 	}
 }
 ```
+
+##### 子传父
+
+需要父级传人一个方法，子组件去调用此方法，孙组件也适用
+
+```
+// 父组件传参
+<test-props :fetch-value="fetchValue"></test-props>
+
+export default {
+	methods: {
+    fetchValue(val){
+      console.log('val', val)
+      // 这边执行父组件的方法
+    }
+  }
+}
+
+// 子组件接收
+<el-button @click="handleValue">点我向父级传参</el-button>
+
+export default {
+  props: ['fetchValue'],
+  methods: {
+    handleValue(){
+      let val = 1
+      this.fetchValue(val)
+      // 这里执行的是子组件的方法
+    }
+  }
+}
+```
+
+#### `emit`
+
+##### 自定义事件
+
+```
+// 子组件触发
+this.$emit('xxx', false)
+
+// 父组件自定义事件
+<test @xxx=''></test>
+
+or
+
+mounted(){
+	this.$refs.test.$on('xxx', () =>{}) //写箭头函数或者写在methods:{} 中 如果写成 function(){} this 指向会是子组件
+}
+
+// 解绑事件，在子组件内
+this.$off('xxx') // 解绑单个
+this.$off(['xxx', 'yyy']) // 解绑多个
+this.$off() // 解绑所有
+```
+
+##### 组件使用原生的事件
+
+```
+// 要使用 natvie 修饰符，不然会当成自定义事件
+<test @click.native='xxx'></test>
+```
+
+
+
+#### 全局事件总线
+
+##### 标准写法
+
+```
+new Vue({
+	el: '#app',
+	render: h => h(App),
+	beforeCreat(){
+		Vue.prototype.$bus = this // 安装全局事件总线
+	}
+})
+
+
+// 组件中监听
+mounted(){
+	this.$bus.$on('xxx', (data) =>{})
+}
+
+// 组件中触发事件
+methods: {
+	handleChange(){
+		this.$bus.$emit('xxx', false)
+	}
+}
+
+// 销毁
+
+beforeDestroy(){
+	this.$bus.$off('hello') // 一定要写销毁内容，不然把自定义事件都给销毁了
+}
+```
+
+
 
 #### `$attrs & $listener`
 
@@ -1513,6 +1675,16 @@ function methods(){
 
 
 ### 其他
+
+#### `key`值重复报错
+
+![image-20220619125148288](vue2.x.assets/image-20220619125148288.png)
+
+```
+由于key关键字重复定义了。要注意！！！
+```
+
+
 
 #### 本地服务
 

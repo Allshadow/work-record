@@ -711,6 +711,37 @@ window.onbeforeunload = function () {
 }
 ```
 
+3）兼容处理
+
+```
+let isEndSendOK = false;
+function report() {
+  if (isEndSendOK) {
+    return;
+  }
+  isEndSendOK = true;
+  fetch('xxxxxx');
+}
+
+// 监听多个事件，做同一个事情，用一个标志位确定是否做过
+// 移动端普遍只支持 pagehide
+window.addEventListener('beforeunload', report);
+window.addEventListener('pagehide', report);
+window.addEventListener('unload', report);
+
+// IOS14 之前不会冒泡，只能监听document
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState !== 'visible') {
+    report();
+  } else {
+    // 如果界面又显示了，说明没有关闭，重置标志位
+    isEndSendOK = false;
+  }
+});
+```
+
+
+
 ### 文件处理
 
 #### 文件上传

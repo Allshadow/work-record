@@ -122,6 +122,52 @@ export default {
 // 目前感觉这种方式用作相同比例的分辨率，宽高比不相同的分辨率，可能会有问题
 ```
 
+
+
+### 移动端适配方案
+
+#### `lib-flexible`
+
+使用`lib-flexible`和`postcss-pxtorem`将`px`单位转化为`rem`单位
+
+1）安装
+
+```
+yarn add --dev lib-flexible postcss-pxtorem
+```
+
+2）`main.js` 导入 `lib-fiexible`
+
+```
+import 'lib-flexible/flexible.js'
+```
+
+3）在 `postcss.config.js` 配置
+
+```
+module.exports = {
+	plugins: {
+		autoprefixer: {},
+    "postcss-pxtorem": {
+      "rootValue": 75,
+      "propList": ["*"]
+    }
+	}
+}
+```
+
+#### 常见问题
+
+```
+//问题
+Error: PostCSS plugin postcss-pxtorem requires PostCSS 8.
+
+// 由于 postcss-pxtorem 版本太高
+yarn add --dev postcss-pxtorem@5.1.1
+```
+
+### 
+
 ## 响应式布局
 
 ### 简介

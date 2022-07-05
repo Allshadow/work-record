@@ -1,6 +1,74 @@
+### `vue-cli`依赖
+
+#### `normalize.css`
+
+```
+// 安装
+yarn add normalize.css
+
+// 使用
+import 'normalize.css/normalize.css'
+```
+
+#### `postcss`系列
+
+##### `autoprefixer`
+
+自动补全 `css`前缀
+
+1）安装
+
+```
+yarn add --dev postcss  // 是一个用 JavaScript 工具和插件转换 CSS 代码的工具
+
+yarn add --dev autoprefixer // 自动补全插件
+```
+
+2）修改 `package.json`  或者 `.browserslistrc`
+
+```
+"browserslist": [
+    "> 1%",
+    "last 3 versions",
+    "not ie <= 8",
+    "chrome >= 14",
+    "safari >= 3",
+    "ios >= 8",
+    "android >= 4.0"
+ ]
+```
+
+3）在根目录新建 `postcss.config.js` 文件，输入以下配置，重启项目
+
+```
+module.exports = {
+	plugins: {
+		autoprefixer: {}
+	}
+}
+```
+
+4）问题解决
+
+```
+// 问题
+Error: PostCSS plugin autoprefixer requires PostCSS 8.Migration
+
+// 解决
+yarn add postcss-loader autoprefixer@8.0.0 --dev
+
+重启
+```
+
+5）参考链接
+
+```
+https://www.jianshu.com/p/c8dc12afb5ce
+```
+
+
+
 ### `vue2.x`
-
-
 
 #### 导出表格
 

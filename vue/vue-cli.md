@@ -1,4 +1,175 @@
+### `vue-cli`
+
+#### 卸载旧版
+
+如果有全局安装了旧版本`vue-cli`(`1.x`或者 `2.x`)，使用以下命令卸载：
+
+```
+npm uninstall vue-cli -g
+# OR
+yarn global remove vue-cli
+```
+
+#### 安装
+
+使用如下命令安装新的包：
+
+```npm
+npm install -g @vue/cli
+# OR
+yarn global add @vue/cli
+```
+
+####  检查
+
+检查是否安装成功
+
+```
+vue --version
+```
+
+
+
+### `vue`项目
+
+#### 创建项目
+
+##### `vue create`
+
+```
+//Windows 上通过 minTTY 使用 Git Bash，交互提示符并不工作
+$ winpty vue.cmd create [项目名称]
+OR
+$ vue create [项目名称]
+```
+
+##### 预设选择
+
+![image-20210215151425560](vue-cli.assets/image-20210215151425560.png)
+
+##### 自定义选择
+
+1）使用回车确定
+
+2）使用空格选择
+
+![](vue-cli.assets/config.png)
+
+##### 启动服务
+
+```
+cd [项目名称]
+yarn serve
+```
+
+##### 参考链接
+
+```
+https://www.jb51.net/article/160146.htm
+
+// config 配置
+https://juejin.im/post/5bd02f98e51d457a944b634f
+```
+
+
+
+### `vue.config.js`
+
+以下为 `vue-cli` 配置
+
+#### `devServer`
+
+##### 自动打开浏览器
+
+```
+module.exports = {
+  devServer: {
+    open: true,  //自动开启浏览器
+    port: 8099 //配置端口号
+  }
+}
+```
+
+##### 反向代理配置
+
+```
+// vue.config.js 配置
+
+module.exports = {
+  devServer: {
+		proxy: {
+			'/djapi': { // 将以 /djapi 开头的请求转发到 https://danjuanapp.com 底下
+        target: 'https://danjuanapp.com',
+        changeOrigin: true,
+        secure: false,
+        // rewrite: (path) => path.replace(/^\/api/, '')
+      },
+		}
+  },
+}
+
+// index.vue 使用
+<script>
+	import axios from 'axios'
+	export default {
+		mounted(){
+			// 发送 axios 请求
+      axios.get('/djapi/v3/filter/fund?type=1&order_by=1m&size=10&page=1')
+    }
+	}
+</script>
+```
+
+#### `source map`
+
+```
+module.exports = {
+  // 不需要生产环境的 source map
+  productionSourceMap: false,
+}
+```
+
+#### `eslint`
+
+##### 关闭`eslint`
+
+1）配置`vue.config.js`文件
+
+```
+module.exports = {
+	lintOnSave: false
+}
+
+// 需要重新运行项目
+```
+
+2）注释或删除掉 `eslintrc`配置文件
+
+可能是在`package.json` ，也可能是在  `.eslintrc.js`
+
+
+
+### `package.json`
+
+#### 配置局域网访问变量
+
+```
+"scripts": {
+	// --host 后面为 ip 地址 
+	//--port 端口号，可以不用配置，默认端口号
+	"dev": "vue-cli-service serve --host 192.168.199.126" --port 9082,
+}
+```
+
+
+
 ### 模式和环境变量
+
+#### 获取当前环境
+
+```
+process.env.NODE_ENV
+```
 
 #### 模式
 
