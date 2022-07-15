@@ -94,15 +94,18 @@ module.exports = {
 
 ```
 // vue.config.js 配置
-
 module.exports = {
+  // 开启代理服务器
   devServer: {
 		proxy: {
-			'/djapi': { // 将以 /djapi 开头的请求转发到 https://danjuanapp.com 底下
+			'/api': { // 将以 /api 开头的请求转发到 https://danjuanapp.com 底下
         target: 'https://danjuanapp.com',
-        changeOrigin: true,
+        ws: true, // 用于支持 websocket
+        changeOrigin: true, // 用于控制请求头中的 host 值
         secure: false,
-        // rewrite: (path) => path.replace(/^\/api/, '')
+   			// pathrRewrite 匹配前缀，不然代理服务器会将前缀 '/api',作为请求路径
+   			// { 正则 , 匹配后的值 }
+        pathRewrite:{'^/api': ''}
       },
 		}
   },
@@ -114,7 +117,7 @@ module.exports = {
 	export default {
 		mounted(){
 			// 发送 axios 请求
-      axios.get('/djapi/v3/filter/fund?type=1&order_by=1m&size=10&page=1')
+      axios.get('/api/v3/filter/fund?type=1&order_by=1m&size=10&page=1')
     }
 	}
 </script>
@@ -165,19 +168,9 @@ module.exports = {
 
 ### 模式和环境变量
 
-#### 获取当前环境
+#### `vue-cli` 默认模式
 
-```
-process.env.NODE_ENV
-```
-
-#### 模式
-
-模式的作用，应该就是判断当前是开发环境还是生产环境
-
-##### 默认模式
-
-`vue-cli`中有三个默认模式
+##### 三个默认模式
 
 ```
 development 模式用于 vue-cli-service serve
@@ -189,17 +182,31 @@ production 模式用于 vue-cli-service build 和 vue-cli-service test:e2e
 
 ##### 修改默认模式
 
-使用`--mode` 来修改默认模式
-
 ```
+// 使用 --mode 选项修改模式
+
 vue-cli-service build --mode development
 ```
 
-##### 获取当前环境
+#### 环境变量
+
+##### 环境变量与模式的关系
 
 ```
+// 1. 文件 .env.[mode] 这个 mode 应该与上面的模式一致
+
+如果将默认模式修改为: vue-cli-service serve --mode dev
+则 .env 需要命名为 .env.dev 不然取不到值
+
+// 2.  若 .env.[mode] 文件中没有设置 NODE_ENV=XXX, 则 NODE_ENV 默认值为 [mode]
+```
+
+#### 获取当前环境
+
+```
+// NODE_ENV 决定运行的模式
 // main.js 中打印
-console.log('env',process.env.NODE_ENV)
+console.log('env', process.env.NODE_ENV)
 ```
 
 ### 静态资源
@@ -276,6 +283,78 @@ require('@/assets/images/demo.png')
 ```
  background: url('~@/assets/imgs/fontBackgroun.png') no-repeat 100% 100%;
 ```
+
+#### 引入`JSON`文件
+
+##### `import`
+
+```
+// xxx.json
+{
+	"code": "0000",
+	"msg": "xxxx"
+}
+
+// xxx.vue 
+import GansuJson from "../api/100000_full.json"
+
+```
+
+##### `axios`
+
+```
+// json 应放在 public 文件夹
+
+// xxx.vue
+import axios from "axios";
+
+axios.get("/620000_level_3.json")
+	.then(res => {
+	
+	}
+)
+```
+
+
+
+### 错误
+
+#### 兼容 `ie`
+
+新建的 `vue-cli4`项目用`ie`打开报语法错误，如下图所示:
+
+![image-20220708095421058](vue-cli.assets/image-20220708095421058.png)
+
+点击报错信息如下图所示：
+
+![image-20220708100719816](vue-cli.assets/image-20220708100719816.png)
+
+一般是引用外部依赖没被识别
+
+解决方案：
+
+1）安装 `babel/polyfill`依赖包
+
+```
+yarn add @babel/polyfill // 生产依赖
+```
+
+2）在`vue.config.js`配置`transpileDependencies`
+
+```
+module.exports = {
+  devServer: {
+    open: true,
+  },
+  lintOnSave: false,
+  // 将上图依赖文件添加此处
+  transpileDependencies: [
+    'sockjs-client'
+ 	]
+}
+```
+
+
 
 ### 功能
 

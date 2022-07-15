@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div onclick="run()">点击</div>
+  <script>
+    var arr = [100, 100, 100]
+
+    let listArr = []
+
+    function run(){
+      com(0, [0])
+      console.log('listArr', listArr)
+    }
+
+    function com(index, list){
+      if(index > arr.length - 1){
+        return 
+      }
+
+      let len = arr[index]
+      
+      for(let i = 0; i < len; i++ ){
+        list.splice(index, 1, i)
+
+        if(index == arr.length -1){
+          listArr.push(list.join())
+        }
+        com(index + 1, list)
+      }
+    }
+
+  </script>
+</body>
+</html>

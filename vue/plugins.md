@@ -1,28 +1,10 @@
 ### `vue-cli`依赖
 
-#### `normalize.css`
-
-```
-// 安装
-yarn add normalize.css
-
-// 使用
-import 'normalize.css/normalize.css'
-```
-
-#### `postcss`系列
+#### 必要依赖
 
 ##### `autoprefixer`
 
-自动补全 `css`前缀
-
-1）安装
-
-```
-yarn add --dev postcss  // 是一个用 JavaScript 工具和插件转换 CSS 代码的工具
-
-yarn add --dev autoprefixer // 自动补全插件
-```
+1）`vue-cli`默认开启了`autoprefixer`
 
 2）修改 `package.json`  或者 `.browserslistrc`
 
@@ -48,27 +30,253 @@ module.exports = {
 }
 ```
 
-4）问题解决
+##### `axios`
+
+安装
 
 ```
-// 问题
-Error: PostCSS plugin autoprefixer requires PostCSS 8.Migration
-
-// 解决
-yarn add postcss-loader autoprefixer@8.0.0 --dev
-
-重启
+yarn add axios
 ```
 
-5）参考链接
+引用
 
 ```
-https://www.jianshu.com/p/c8dc12afb5ce
+// main.js
+import axios from 'axios'
+
+Vue.prototype.$axios = axios
+```
+
+组件使用
+
+```
+this.$axios.post('url', data).then(res =>{})
+```
+
+
+
+#### 可选依赖
+
+##### `element-ui`
+
+管理系统的`ui`框架
+
+```
+// 文档地址
+https://element.eleme.cn/#/zh-CN
+```
+
+##### `vue-meta`
+
+主要用于管理`HTML`头部标签
+
+安装：
+
+```
+yarn add vue-meta
+```
+
+引入：
+
+```
+// main.js 引入
+import VueMeta from 'vue-meta'
+Vue.use(VueMeta)
+
+// App.vue 中使用
+export default {
+	name: 'App',
+	metaInfo: {
+    title: 'My Example App',
+    titleTemplate: '%s - Yay!',
+    htmlAttrs: {
+      lang: 'en',
+      amp: true
+    }
+  }
+}
+```
+
+##### `normalize.css`
+
+```
+// 安装
+yarn add normalize.css
+
+// 使用
+import 'normalize.css/normalize.css'
 ```
 
 
 
 ### `vue2.x`
+
+#### `js-cookie`
+
+##### 安装
+
+```
+npm install js-cookie --save
+```
+
+##### 使用
+
+```
+// main.js 引入
+import Cookies from 'js-cookie'
+
+Vue.prototype.$cookies = Cookies
+
+// 其他引用
+this.$cookies.set()
+```
+
+##### 语法
+
+1）标准语法
+
+```
+//保存到cookie
+
+// Create a cookie, valid across the entire site:
+Cookies.set('name', 'value');
+
+// Create a cookie that expires 7 days from now, valid across the entire site:
+Cookies.set('name', 'value', { expires: 7 });
+
+// Create an expiring cookie, valid to the path of the current page:
+Cookies.set('name', 'value', { expires: 7, path: '' });
+
+//从cookie中取出
+// Read cookie:
+Cookies.get('name'); // => 'value'
+Cookies.get('nothing'); // => undefined
+
+// Read all visible cookies:
+Cookies.get(); // => { name: 'value' }
+
+//删除cookie
+// Delete cookie:
+Cookies.remove('name');
+
+// Delete a cookie valid to the path of the current page:
+Cookies.set('name', 'value', { path: '' });
+Cookies.remove('name'); // fail!
+Cookies.remove('name', { path: '' }); // removed!
+```
+
+2）取值应注意事项
+
+```
+//跟一般使用不同的是，从Cookie中取出的时候，要从字符串转换成json格式：
+const user = {
+  name: 'lia',
+  age: 18
+}
+Cookies.set('user', user)
+const liaUser = JSON.parse(Cookies.get('user'))
+```
+
+3）设置过期时间
+
+参考文档
+
+```
+https://github.com/js-cookie/js-cookie/wiki/Frequently-Asked-Questions#expire-cookies-in-less-than-a-day
+```
+
+从现在开始15分钟后过期
+
+```
+var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+Cookies.set('foo', 'bar', {
+    expires: inFifteenMinutes
+});
+```
+
+4）删除所有 `cookie`
+
+```
+Object.keys(Cookies.get()).forEach(
+    function(cookieName) {
+  		var neededAttributes = {
+    		// Here you pass the same attributes that were used when the cookie was created
+    		// and are required when removing the cookie
+  };
+  Cookies.remove(cookieName, neededAttributes);
+});
+```
+
+
+
+#### `mock.js`
+
+##### 基础使用
+
+1）安装
+
+```
+yarn add --dev mockjs
+
+or
+
+npm install mockjs --save-dev
+```
+
+2）新建目录
+
+`src`目录下新建下图的文件结构
+
+![stickpicture](plugins.assets/stickpicture-1657161884352.png)
+
+上图项目中的代码
+
+`index.js`
+
+```
+const Mock = require('mockjs');
+//格式： Mock.mock( url, post/get , 返回的数据);
+Mock.mock('/user/userInfo', 'get', require('./json/userInfo'));
+Mock.mock('/home/banner', 'get', require('./json/homeBanner'));
+```
+
+`json`文件中的内容
+
+```
+// homeBanner.json
+
+{
+  "result": "success",
+  "data": {
+    "mtime": "@datetime", //具体应用看官方文档
+    "score|1-800": 800,
+    "rank|1-100":  100,
+    "stars|1-5": 5,
+    "nickname": "@cname"
+  },
+  "msg": ""
+}
+```
+
+3）使用
+
+```
+// main.js 引入
+import axios from 'axios' //需要使用到 axios
+Vue.prototype.axios = axios;  //挂载 axios
+require('./mock'); //引入mock数据，关闭则注释该行
+
+// axios 请求
+this.axios.get('/user/userInfo')
+  .then(function(res){
+    console.log(res);
+  })
+  .catch(function(err){
+    console.log(err);
+  });
+```
+
+
 
 #### 导出表格
 

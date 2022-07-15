@@ -923,5 +923,45 @@ console.log()`函数在浏览器中输出的是变量引用地址的内存快照
 这与 javascript 的事件队列是有关系的，console.log 函数只有当本次宏任务执行完成，才会去读取参数的值
 ```
 
+### `xhr`
 
+#### `enctype`
+
+`enctype` 为 `form` 表单的属性。切勿与  `content-type ` 混为一谈
+
+1）当表单使用`GET`方法发送数据时，`enctype`无效
+
+```
+<form action="" method="get">
+```
+
+2）当表单使用`POST`方法发送数据时，有三种类型发送
+
+```
+1. application/x-www-form-urlencoded
+// 如果未设置，默认为 application/x-www-form-urlencoded
+http Reques tHeaders 的 content-type: application/x-www-form-urlencoded
+
+// 2. text/plain
+
+// 3. multipart/form-data
+```
+
+谷歌调试工具中的
+
+![image-20220706174659342](js.assets/image-20220706174659342.png)
+
+
+
+```
+content-type 为 application/x-www-form-urlencoded
+
+传参方式为 formData: key1=val1&key2=val2
+```
+
+![image-20220706200205487](js.assets/image-20220706200205487.png)
+
+```
+XMLHttpRequest.setRequestHeader('Content-Type', 'application/json') 
+```
 
