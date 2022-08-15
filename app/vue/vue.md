@@ -26,7 +26,7 @@ Vue.config.productionTip = false
 
 下图为控制台打印的提示信息：
 
-![image-20220407113617658](vue2.x.assets/image-20220407113617658.png)
+![image-20220407113617658](vue.assets/image-20220407113617658.png)
 
 ### 全局 `API`
 
@@ -1695,7 +1695,7 @@ function methods(){
 
 #### `key`值重复报错
 
-![image-20220619125148288](vue2.x.assets/image-20220619125148288.png)
+![image-20220619125148288](vue.assets/image-20220619125148288.png)
 
 ```
 由于key关键字重复定义了。要注意！！！
@@ -1709,7 +1709,7 @@ function methods(){
 
 在本地起服务器时，会有以下错误
 
-![image-20220407113942263](vue2.x.assets/image-20220407113942263.png)
+![image-20220407113942263](vue.assets/image-20220407113942263.png)
 
 由于`Live Server`会在5500端口启动一台小服务器，把整个工程里的所有文件或者文件夹当作根资源来使用，所以，在这个目录下放置一个`.ico`文件即可
 

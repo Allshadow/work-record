@@ -20,7 +20,10 @@ wx.getUserProfile 只能手动触发
 小程序没有双向绑定，需要方法取值
 
 ```
-<input value="{{addrData.address}}" bindchange='addrChange'/>
+<input 
+	value="{{addrData.address}}"
+	bindchange='addrChange'
+/>
 
 //使用 bindchange 触发事件
 
@@ -243,7 +246,7 @@ data = data.replace(new RegExp(/src=\"/g), `style="width: 100%" src="${app.globa
 <rich-text nodes="{{goodList.goods_content}}"></rich-text>
 ```
 
-#### 等待 app.js 中 login 执行完再执行其他方法
+#### 等待 `app.js` 中 `login` 执行完再执行其他方法
 
 ```
 App({
