@@ -376,6 +376,35 @@ https://www.npmjs.com/package/vue-signature
 
 ### 其他
 
+#### `monent.js`
+
+时间转化
+
+##### 起步
+
+```
+// 安装
+yarn add moment
+
+// 引用
+import moment from 'moment'
+
+// 挂载
+Vue.prototype.$moment = moment;
+
+// 使用
+this.$moment.
+```
+
+##### 语法
+
+```
+// 获取当前时间
+
+```
+
+
+
 #### `nanoid`
 
 随机`ID`生成器，生成`ID`不重复

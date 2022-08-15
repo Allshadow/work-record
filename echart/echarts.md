@@ -1,6 +1,61 @@
 ### 整体
 
+#### `legend`
+
+##### 图例组件
+
+图例如图所示:
+
+![image-20220815112912452](echarts.assets/image-20220815112912452.png)
+
+```
+// 图例：
+	// 颜色一般对应 series 中的 color
+	// 文本一般对应 series 的 name (name 不能为 number 类型)
+```
+
+
+
+##### 隐藏提示图例
+
+![微信图片_20220323172904](echarts.assets/20220323172904.png)
+
+```
+option ={
+  legend: {
+  	show: false
+  }    
+}
+```
+
+#### 
+
 #### `tooltip`
+
+##### 自定义 `tooltip`
+
+`tooltip`中如果使用图表，存在`dom`元素绑定`id`，每次触发时需要将旧`dom`移除
+
+```
+tooltip: {
+	formatter: (item) => {
+		let dom = document.getElementById('subChart')
+    if(dom){
+    	dom.parentNode.removeChild(dom)
+		}
+    setTimeout(() => {
+    	this.createSubChart("subChart", data);             		 }, 100);
+		let str = `<div 
+        style="width:300px;height:200px;" i
+        d="subChart"
+			>
+			</div>`;
+     return str;
+  }
+}
+```
+
+
 
 ##### `tooltip.trigger`
 
@@ -43,18 +98,6 @@ xAxis: {
 },
 ```
 
-#### 隐藏提示图例
-
-![微信图片_20220323172904](echarts.assets/20220323172904.png)
-
-```
-option ={
-  legend: {
-  	show: false
-  }    
-}
-```
-
 #### 设置背景颜色
 
 ```
@@ -62,6 +105,16 @@ optios = {
 	backgroundColor: '',
 }
 ```
+
+#### 销毁实例
+
+```
+var myChart = echarts.init(document.getElementById('main'))
+ 
+myChart.dispose();  // 销毁实例
+```
+
+
 
 ### 散点图
 

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>简易进度条</title>
+  <style>
+    .progress-wrap{
+      width: 100px;
+    }
+
+    .progress-bar{
+      height: 6px;
+      background-color: #ebeef5;
+      border-radius: 100px;
+      position: relative;
+    }
+
+    .progress-block{
+      position: absolute;
+      width: 0%;
+      height: 6px;
+      background-color: #409eff;
+      border-radius: 100px;
+      z-index: 1;
+      transition: width 3s;
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-wrap">
+    <div class="progress-bar">
+      <div class="progress-block" id="progressBlock"></div>
+    </div>
+  </div>
+  <script>
+    window.onload = function(){
+      setWidth()
+    }
+
+    function setWidth(){
+      document.getElementById("progressBlock").style.width = '50%'
+    }
+  </script>
+</body>
+</html>

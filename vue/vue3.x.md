@@ -17,3 +17,31 @@ setup(){
 }
 ```
 
+### 指令
+
+#### `v-model`
+
+使用 `v-model`绑定组件
+
+```
+// 组件上的 v-model 使用 modelValue 作为 prop 和 update:modelValue 作为事件
+
+// 父组件
+<child v-model="isShow"></child>
+
+// 子组件
+<el-button 
+	@click="$emit('update:modelValue', false)"
+>
+取消
+</el-button>
+
+export default {
+	props: {
+		modelValue:{
+			
+		}
+	}
+}
+```
+

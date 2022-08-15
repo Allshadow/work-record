@@ -1006,7 +1006,36 @@ this.$refs.treeRef.setCheckedKeys(checkedObj);
 </el-dialog>
 ```
 
+##### 弹框居中
+
+```
+.el-dialog{
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin: 0 !important;
+}
+```
+
+
+
 #### `el-upload`
+
+##### `accept`
+
+```
+<el-upload accept=".pdf, .doc, .docx"></el-upload>
+```
+
+##### `file-list`
+
+上传文件的列表
+
+```
+// 当用到 element 默认的样式时， file-list为文件的 file 对象组成的数组
+```
+
+
 
 ##### 自定义上传
 
@@ -1018,8 +1047,44 @@ this.$refs.treeRef.setCheckedKeys(checkedObj);
 	<span>上传图片</span>
 </el-upload>
 
+toUpload(param){
+  const formData = new FormData();
+    formData.append("file", param.file);
+    upload(formData)
+    .then((res) => {
+    	param.onSuccess(res)
+    })
+    .catch((err) => {
+    });
+  });
+}
+
 // 因为现在环境不支持，可能需要 onerror 这些属性来监听错误等
 ```
+
+**关于自定义上传回调:**
+
+自定义上传，原先绑定的事件监听不到一些事件，比如`:on-success`,上传成功的回调获取不到
+
+```
+toUpload(){
+	upload(formData)
+    .then((res) => {
+    	// 将获取的回调传给onSuccess() 方法
+    	param.onSuccess(res)
+    })
+    .catch((err) => {
+    });
+}
+```
+
+**参考:**
+
+```
+https://www.cnblogs.com/daHai007/p/14412583.html
+```
+
+
 
 ##### 成功时返回的数据
 
@@ -1219,6 +1284,53 @@ export default{
 	top: 10px;
 }
 ```
+
+
+
+#### `el-image`
+
+##### `el-image-viewer`
+
+按需引入
+
+```
+// main.js
+import { Image } from 'element-ui' // 按需引入
+
+Vue.component('el-image-viewer', Image.components.ImageViewer)
+
+<template>
+    <el-button 
+    	type="primary" 
+    	@click="onPreview"
+    >预览</el-button>
+	 <el-image-viewer 
+	 		v-if="showViewer"
+    	:on-close="()=>{showViewer=false}" 
+    	:url-list="[viewUrl]" 
+    />
+</template>
+<script>
+ export default {
+        data() {
+            return {
+                showViewer:false,
+                viewUrl:''
+            }
+        },
+        methods: {
+            //预览
+            onPreview(){
+                this.showViewer=true
+                this.viewUrl= []
+            }
+       	}
+}
+</script>
+
+```
+
+
 
 #### `$message`
 

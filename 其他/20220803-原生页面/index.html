@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+  <div id="infoModel" class="info-model">
+    <ul class="info-wrap">
+      <li class="info-item">
+        <div class="item-title" onclick="showDetail(event, this)">
+          <div>一致性</div>
+          <img src="./img/arrow.png" alt="" class="arrow">
+        </div>
+        <ul class="item-content">
+          <li>111:</li>
+          <li>222:</li>
+          <li>333</li>
+          <li>444</li>
+          <li>555</li>
+          <li>666</li>
+          <li class="info-img-wrap">
+            <img src="https://www.w3school.com.cn/i/eg_tulip.jpg" alt="">
+            <img src="https://www.w3school.com.cn/i/eg_tulip.jpg" alt="">
+            <img src="https://www.w3school.com.cn/i/eg_tulip.jpg" alt="">
+            <img src="https://www.w3school.com.cn/i/eg_tulip.jpg" alt="">
+            <img src="https://www.w3school.com.cn/i/eg_tulip.jpg" alt="">
+            <img src="https://www.w3school.com.cn/i/eg_tulip.jpg" alt="">
+          </li>
+        </ul>
+      </li>
+    </ul>
+  <script>
+    var list = [
+      {id: '001', name: '我是测试', sex: '男'},
+      {id: '002', name: '我是测试', sex: '女'},
+      {id: '003', name: '我是测试', sex: '男'},
+      {id: '004', name: '我是测试', sex: '女'},
+      {id: '005', name: '我是测试', sex: '男'},
+    ]
+
+    // 点击事件
+    function showDetail(e, obj){
+       let target = e.target != obj ? e.target.parentNode : e.target
+
+      // 箭头样式
+      let arrowDom = target.getElementsByClassName('arrow')[0]
+      // 兄弟元素
+      let boDom = target.nextElementSibling
+
+      if(arrowDom.className.indexOf('arrow-rotate') == -1){
+        arrowDom.className = arrowDom.className + ' arrow-rotate'
+      }else{
+        arrowDom.className = arrowDom.className.replace(/ arrow-rotate/, '')
+      }
+
+      if(boDom.className.indexOf('item-display') == -1){
+        boDom.className = boDom.className + ' item-display'
+      }else{
+        boDom.className = boDom.className.replace(/ item-display/, '')
+      }
+
+    }
+  </script>
+</body>
+</html>

@@ -254,10 +254,13 @@ const score = 59
 const result = `${name}${score > 60?'的考试成绩及格'：'的考试成绩不及格'}`
 ```
 
-#### 对象的简化写法
+### 对象的扩展
+
+#### 简化写法
+
+1）允许在大括号里面直接写入变量和函数，作为对象的属性和方法
 
 ```js
-1) 允许在大括号里面直接写入变量和函数，作为对象的属性和人方法
 let name = 'chen'
 let change = function(){
 	console.log('Hello World')
@@ -265,13 +268,40 @@ let change = function(){
 
 const OBJ = {
 	name, //相当于name : name的简化写法
-	change
+	change,
 	inprove(){ //也可以直接这种写发 替代 :function
 		
 	}
 }
 console.log(OBJ) // {name: 'chen', change: f, inprove: f}
 ```
+
+2）打印对象的写法
+
+```
+let user = {
+	name; 'test'
+}
+
+let foo = {
+	bar: 'baz'
+}
+
+console.log(user, foo)
+console.log({user, foo})
+```
+
+3）简写的对象方法不能用作构造函数，会报错
+
+#### 属性名表达式
+
+在`es5`中，字面量对象只能用属性标识符作属性名
+
+```
+
+```
+
+
 
 #### 箭头函数
 

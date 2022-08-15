@@ -1416,6 +1416,23 @@ https://github.com/Allshadow/mobile-demo
 
 ### 功能
 
+#### 将方法暴露到`window`
+
+```
+mounted() {
+	// 将方法赋值给window
+	window.chosenMap = this.chosenMap;    
+}
+
+methods: {
+	choseMap(){
+		
+	}
+}
+```
+
+
+
 #### 行内使用背景图片
 
 ```

@@ -260,6 +260,12 @@ require('@/assets/images/demo.png')
 
 #### 样式引入
 
+##### 在`scss`中引入
+
+```
+@import './'
+```
+
 ##### 引入全局样式
 
 ```script

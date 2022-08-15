@@ -1,12 +1,10 @@
-### 基本
+### 安装
 
-#### 安装
-
-##### 选择安装
+#### 选择安装
 
 `vue-cli` 如需要使用 `vuex`，在创建时选择选项即可。
 
-##### 手动安装
+#### 手动安装
 
 1） `yarn`
 
@@ -21,7 +19,82 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
+
+
+new Vue({
+	el: '#app',
+	store
+})
 ```
+
+### 
+
+### 基本
+
+#### `dispatch`
+
+```
+// 第一个参数动作类型， 第二个参数值 
+dispatch(‘xx’, 2)
+
+actions：{
+	xx: function(context, payload){
+		// 调用 commit
+		commit('xx', 2)
+	}
+}
+```
+
+#### `mutations`
+
+```
+mutations: {
+	xx; function(state, payload){
+		 
+	}
+}
+```
+
+#### `getters`
+
+```
+getters; {
+	xxx(state){
+		let n = ''
+		// 返回处理后的值
+		return  n
+	}
+}
+
+$store.getters.xx
+```
+
+#### 命名空间
+
+`namespace`
+
+```
+// 在 vuex 中默认命名空间 为 false
+
+// 在辅助函数中使用
+// 必须需要在 module 中的配置项加上 namespace
+// 参数    分类名, state变量
+...mapState('xxx', {} || [])
+读取多个，可以重复 ...mapState()
+```
+
+```
+// xxx 为 module 配置的值
+$store.state.xxx.
+
+this.$store.commit('xxx/muta', newVal)
+
+this.$store.dispatch(‘xx/action’, 2)
+
+this.$store.getters['xxxx/get']
+```
+
+
 
 ### 应用
 
@@ -48,15 +121,6 @@ content.commit('permission/reset', false {root: true})
 
 // 使用 actions 
 ontext.dispatch(‘模块名/actions方法名’, 传参, { root: true})
-```
-
-#### 命名空间使用
-
-使用 `mutations`
-
-```
-// ‘teacher/SET_DATA_LIST’ teacher 是命名空间名称， SET_DATA_LIST 是 mutations 中方法
-this.$store.commit('teacher/SET_DATA_LIST', newVal)
 ```
 
 #### 基础语法
@@ -118,9 +182,11 @@ new Vue({
 
 ##### 获取状态值
 
-使用计算属性获取 state 中的某个状态
-
 ```
+// 取 state 值
+$store.state.count
+
+// 使用计算属性获取 state 中的某个状态
 computed:{
 	count(){
 		return this.$store.state.count
@@ -130,11 +196,26 @@ computed:{
 
 ##### `mapState` 辅助函数
 
-使用 mapState 辅助函数简化取值
+使用 `mapState` 辅助函数简化取值
 
 ```
 import { mapState } from 'vuex'
 
+// 若计算属性方法名称与定义的state参数名称不一致，则使用对象写法，若一致，可使用数组写法
+
+// 对象写法
+computed: {
+	// mapState 的参数对象的键值对为
+	// {'计算属性方法名称': 'store中 state 的 key值'}
+	...mapState({count: 'count', xx: 'num'})
+}
+
+// 数组写法
+computed: {
+	...mapState(['count', 'xxx'])
+}
+
+// 基本语法
 computed: mapState({
 	// 箭头函数可使代码更简练
 	count: state => state.count,
@@ -151,31 +232,6 @@ computed: mapState({
       return state.count + this.localCount
     }
 })
-```
-
-使用字符串数组
-
-```
-computed: mapState([
-	// 映射 this.count 为 store.state.count
-	'count'
-])
-```
-
-##### `...mapState` （推荐）
-
-使用 `...mapState ` 对象展开符，可以将 mapState 与局部计算属性一同使用
-
-mapState 辅助函数中的方法都可以应用
-
-```
-computed: {
-  localComputed () { /* ... */ },
-  // 使用对象展开运算符将此对象混入到外部对象中
-  ...mapState({
-    // ...
-  })
-}
 ```
 
 #### Getter
@@ -466,6 +522,33 @@ store.dispatch({
 ```
 import { mapActions } from 'vuex'
 
+// 给 actions 传参
+// incre(1) 参数为 1
+<button @lick="incre()"></button>
+
+或者
+// 一般不写这样
+methods: {
+	doIncre(){
+		this.incre(1)
+	}
+}
+
+// 对象写法
+eport default {
+	methods: {
+		...mapMutations({incre: 'jia'})
+	}
+}
+
+// 数组写法
+eport default {
+	methods: {
+		...mapMutations(['jia'])
+	}
+}
+
+
 export default {
   // ...
   methods: {
@@ -688,7 +771,7 @@ doGetter () {
 ##### 辅助函数
 
 ```
-// 实用 mapstate 辅助函数
+// 使用 mapstate 辅助函数
 import { mapState } from 'vuex';
 
 computed: {// info 为 info.js 文件下的 vuex state
