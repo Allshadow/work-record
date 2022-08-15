@@ -851,7 +851,7 @@ this.$refs['singleTable'].clearSelection();
 遍历 `<el-table>`情况下，删除中间某个数组值，底部选中的数据会被清空
 
 ```
-demo/关于elementui/el-table/02-处理遍历表格的删除
+../demo/element/el-table/02-处理遍历表格的删除
 ```
 
 ###### 多列排序
@@ -861,7 +861,7 @@ demo/关于elementui/el-table/02-处理遍历表格的删除
 百度脑图-前端-vue2.x-框架-表格多列排序
 
 // 参考 demo
-demo/关于elementui/el-table/03-多列排序
+../demo/element/el-table/03-多列排序
 ```
 
 ###### 设置某行不能选择
@@ -884,7 +884,7 @@ checkSelect(row, index) {
 },
 
 Demo:
-demo/关于elementui/el-table/01-设置某行不能选择.html
+../demo/关于elementui/el-table/01-设置某行不能选择.html
 ```
 
 ###### 单选表格
@@ -894,7 +894,7 @@ demo/关于elementui/el-table/01-设置某行不能选择.html
 ![](element-ui.assets/image-20210618160611077.png)
 
 ```
-demo/关于elementui/el-table/04-单选表格
+../demo/element/el-table/04-单选表格
 ```
 
 ###### 解决布局错乱
@@ -934,7 +934,7 @@ methods: {
 ###### 校验表格中必填项
 
 ```
-demo/关于elementui/el-table/05-校验表格中必填项
+../demo/element/el-table/05-校验表格中必填项
 ```
 
 #### `el-tree`
