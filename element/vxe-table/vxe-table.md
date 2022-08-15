@@ -76,7 +76,7 @@ module.exports = {
 
 ```
 // vxeTabel.js 源码
-./demo/vxe-table/vxeTabel.js
+../demo/vxe-table/vxeTabel.js
 
 // main.js 引入
 import {useTable} from './assets/vxeTable'

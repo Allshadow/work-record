@@ -1,3 +1,11 @@
+`demo`
+
+```
+../demo/echarts
+```
+
+
+
 ### 整体
 
 #### `legend`
@@ -27,8 +35,6 @@ option ={
   }    
 }
 ```
-
-#### 
 
 #### `tooltip`
 
