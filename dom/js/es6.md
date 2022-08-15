@@ -527,7 +527,7 @@ circle.area = function () {};
 
 控制台打印出来的结果
 
-![image-20210806094952589](ES6.assets/image-20210806094952589.png)
+![image-20210806094952589](es6.assets/image-20210806094952589.png)
 
 初始化
 
