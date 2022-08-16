@@ -298,10 +298,22 @@ console.log({user, foo})
 在`es5`中，字面量对象只能用属性标识符作属性名
 
 ```
-
+var obj = {
+	abc: '123',
+}
 ```
 
+`es6`，支持将变量作为对象的键名
 
+```
+let a = 'hello'
+
+const obj = {
+	[a]: 'world'
+}
+```
+
+#### 
 
 #### 箭头函数
 

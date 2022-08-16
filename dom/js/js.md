@@ -143,6 +143,38 @@ let type = isNaN(Number(a)) // true 非数字， false 数字
 undefined / null / 0 （包含 -0 和 +0）/ NaN / ''
 ```
 
+### 对象
+
+#### 创建对象
+
+##### 键名
+
+对象所有的键名都是字符串。
+
+键名不符合标识名的条件（比如第一个字符为数字，或者含有空格或运算符），且也不是数字，则必须加上引号，否则会报错。
+
+##### 定义对象的属性
+
+定义对象的属性
+
+```
+obj.foo = true
+
+obj['a'+ 'abc'] = 'aaa'
+```
+
+字面量定义对象的属性
+
+```
+var obj = {
+	abc: 'foo',
+	['a' + 'abc']: true,  // 这种写法 es5 是不支持的
+	a b: 'aaa' // 这个是错误写法，要加上引号
+}
+```
+
+
+
 ### 数组综合
 
 #### 累加
@@ -495,6 +527,10 @@ webpack 打包工具对 commonJS 的支持和转换，前端应用在编译之�
 
 #### `es module`
 
+##### 简述
+
+`export`命令用于规定模块的对外接口，`import`命令用于输入其他模块提供的功能。
+
 ##### `export`
 
 ```
@@ -567,9 +603,79 @@ import 'module'
 const promise = import('module')
 ```
 
+### 表单
+
+#### `input`
+
+##### 只能输入正整数
+
+实现代码
+
+```
+<el-input 
+	v-model="formData.studyTime" 
+	@input="handleTime"
+>
+</el-input>
+
+# 省略...
+
+handleTime(val){
+	this.formData.studyTime = val.replace(/[^\d]/g,'')
+},
+```
+
+参考链接
+
+```
+https://blog.csdn.net/zxl1990_ok/article/details/105437735
+```
+
+
+
+1）当 type = number 时，浏览器右侧出现箭头
+
+使用以下样式，去掉箭头
+
+```
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+ 
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+```
+
+2）当 type = number 时，禁止输入 e 和 ...
+
+```
+<input 
+    type="number" 
+    autocomplete="off" 
+    onkeypress="return (/[\d]/.test(String.fromCharCode(event.keyCode)))" 
+    style="ime-mode:Disabled"
+>
+```
+
 
 
 ### 校验
+
+#### 邮箱校验
+
+```
+// ,/lib/common.js
+// checkEmail()
+```
+
+#### 手机号
+
+```
+// ./lib/common.js
+// checkPhone() 方法
+```
 
 #### 身份证
 
@@ -595,24 +701,6 @@ function isCardNo(card) {
 
 
 ### 其他
-
-#### 将变量作为对象的key
-
-```
-let a = 'hello'
-
-const obj = {
-	[a]: 'world'
-}
-```
-
-#### 邮箱校验
-
-```
-let reg = /^\w+@[a-z0-9]+\.[a-z]{2,4}$/
-let val = 1111
-let isEmail = reg.test(val) // true 正确 false 错误
-```
 
 #### video 获取视频时长
 
