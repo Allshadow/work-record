@@ -529,6 +529,10 @@ circle.foo = 'hello';
 circle.area = function () {};
 ```
 
+
+
+### `set` 和 `map`数据结构
+
 #### set
 
 1）Set 本身是一个构造函数，用来生成 Set 数据结构
@@ -565,7 +569,7 @@ console.log('setArr', setArr)
 //setArr (2) ["陈", "王"]
 ```
 
-#### Map
+#### `Map`
 
 1) Map 与 Object(对象)的区别
 

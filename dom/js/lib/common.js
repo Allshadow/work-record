@@ -99,6 +99,16 @@ const checkPhone = (value) => {
 }
 
 /**
+ * 封装 校验邮箱
+ * @param {*} value
+ * @returns
+ */
+const checkEmail = (value) => {
+    let reg = /^\w+@[a-z0-9]+\.[a-z]{2,4}$/
+    return reg.test(value) // true 正确 false 错误
+}
+
+/**
  * 封装兼容性事件处理函数
  * @param {*} ele 
  * @param {*} type 

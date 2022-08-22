@@ -12,6 +12,8 @@ yarn global remove vue-cli
 
 #### 安装
 
+##### 全局安装
+
 使用如下命令安装新的包：
 
 ```npm
@@ -20,12 +22,30 @@ npm install -g @vue/cli
 yarn global add @vue/cli
 ```
 
-####  检查
-
 检查是否安装成功
 
 ```
 vue --version
+```
+
+
+
+##### 局部安装
+
+```
+// 初始化 package.json
+npm init -y
+
+// 安装 vue-cli
+yarn add -D @vue/cli
+or
+npm i -D @vue/cli
+
+// 查看是否安装成功
+npx vue -V
+
+// 创建项目
+npx winpty vue.cmd create project-one
 ```
 
 

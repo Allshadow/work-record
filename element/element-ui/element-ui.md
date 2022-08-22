@@ -495,6 +495,10 @@ label-position="left/right/top"
 ![image-20220518104953348](element-ui.assets/image-20220518104953348.png)
 
 ```
+推荐：
+
+<el-form :hide-required-asterisk='true'></el-form>
+
 // 方法一 设置 rules 的 require
 rules: {
 	idCard: [{required: true}], // required false 或者 没填 都不会显示
