@@ -1,0 +1,79 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper{
+  width: 700px;
+  margin: 0 auto;
+}
+
+.wrapper .barrage-case{
+  position: relative;
+  margin: 100px 0 50px;
+  width: 700px;
+  height: 500px;
+  border: 2px solid #FFF0F5;
+  overflow: hidden;
+}
+
+.wrapper .barrage-case .barrage-bullet{
+  width: 30px;
+  height: 20px;
+}
+
+.wrapper .barrage-submit{
+  width: 402px;
+  margin: 0 auto;
+}
+
+.wrapper .barrage-submit .box{
+  float: left;
+  width: 200px;
+  height: 30px;
+  border: 1px solid #000;
+}
+
+.wrapper .barrage-submit .box input{
+  border: none;
+  display: inline-block;
+  width: 160px;
+  height: 20px;
+  margin-top: 5px;
+  margin-left: 5px;
+  padding-right: 20px;
+  outline: none;
+  background-color: transparent;   
+}
+
+.wrapper .barrage-submit .btn{
+  float: left;
+  width: 80px;
+  height: 30px;
+  background-color: #3385ff;
+  padding: 1px 0;
+  margin-left: 20px;
+}
+
+.wrapper .barrage-submit .btn button{
+  display: block;
+  text-align: center;
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  color: #fff;
+}
+
+.clerarfix::after{
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.clearfix{
+  zoom: 1;
+}
