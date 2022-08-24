@@ -11,7 +11,7 @@
   <div id="infoModel" class="info-model">
     <ul class="info-wrap">
       <li class="info-item">
-        <div class="item-title" onclick="showDetail(event, this)">
+        <div class="item-title" onclick="showDetail(this)">
           <div>一致性</div>
           <img src="./img/arrow.png" alt="" class="arrow">
         </div>
@@ -43,26 +43,12 @@
     ]
 
     // 点击事件
-    function showDetail(e, obj){
-       let target = e.target != obj ? e.target.parentNode : e.target
+    function showDetail(e){
+      let arrowDom = e.getElementsByClassName('arrow')[0];
+      let boDom = e.nextElementSibling
 
-      // 箭头样式
-      let arrowDom = target.getElementsByClassName('arrow')[0]
-      // 兄弟元素
-      let boDom = target.nextElementSibling
-
-      if(arrowDom.className.indexOf('arrow-rotate') == -1){
-        arrowDom.className = arrowDom.className + ' arrow-rotate'
-      }else{
-        arrowDom.className = arrowDom.className.replace(/ arrow-rotate/, '')
-      }
-
-      if(boDom.className.indexOf('item-display') == -1){
-        boDom.className = boDom.className + ' item-display'
-      }else{
-        boDom.className = boDom.className.replace(/ item-display/, '')
-      }
-
+      arrowDom.classList.toggle('arrow-rotate')
+      boDom.classList.toggle('item-display')
     }
   </script>
 </body>

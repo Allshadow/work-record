@@ -1,36 +1,32 @@
 ### `vue-cli`
 
-#### 卸载旧版
-
-如果有全局安装了旧版本`vue-cli`(`1.x`或者 `2.x`)，使用以下命令卸载：
+#### 全局安装
 
 ```
+// 如果有全局安装了旧版本vue-cli(1.x或者 2.x)
+// 使用以下命令卸载旧版本：
 npm uninstall vue-cli -g
 # OR
 yarn global remove vue-cli
-```
 
-#### 安装
-
-##### 全局安装
-
-使用如下命令安装新的包：
-
-```npm
+// 安装
 npm install -g @vue/cli
 # OR
 yarn global add @vue/cli
-```
 
-检查是否安装成功
-
-```
+// 查看是否安装成功
 vue --version
+
+// 创建项目
+// Windows 上通过 minTTY 使用 Git Bash，交互提示符并不工作
+$ winpty vue.cmd create [项目名称]
+OR
+$ vue create [项目名称]
 ```
 
 
 
-##### 局部安装
+#### 局部安装
 
 ```
 // 初始化 package.json
@@ -50,18 +46,7 @@ npx winpty vue.cmd create project-one
 
 
 
-### `vue`项目
-
 #### 创建项目
-
-##### `vue create`
-
-```
-//Windows 上通过 minTTY 使用 Git Bash，交互提示符并不工作
-$ winpty vue.cmd create [项目名称]
-OR
-$ vue create [项目名称]
-```
 
 ##### 预设选择
 
@@ -105,6 +90,7 @@ https://juejin.im/post/5bd02f98e51d457a944b634f
 module.exports = {
   devServer: {
     open: true,  //自动开启浏览器
+    host: 'loacalhost' // vue-cli 5 需要加上这个
     port: 8099 //配置端口号
   }
 }
