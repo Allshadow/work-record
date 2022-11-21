@@ -9,6 +9,114 @@ https://uniapp.dcloud.net.cn/api/router.html
 uni.navigateTo()
 ```
 
+### 功能
+
+#### `getApp()`
+
+`getApp()`方法用来获取`App()`实例
+
+##### 操作全局变量
+
+使用`uniapp`开发的微信小程序中操作全局变量
+
+1）定义全局变量
+
+在`App.vue`中定义变量
+
+```
+export default {
+	// 定义全局变量
+	globalData: {
+    openid:""
+  },
+  
+  onLaunch: function(){
+  	// ...
+  }
+}
+```
+
+2） 其他组件中使用全局变量
+
+```
+// 赋值
+getApp().globalData.openid = 1
+
+// 取值
+const openid = getApp().globalData.openid
+```
+
+#### 文档预览
+
+`uni.openDocument(OBJECT)`支持在新页面打开文档
+
+支持格式：`doc, xls, ppt, pdf, docx, xlsx, pptx`
+
+在开发者工具上会打开对应的预览文件，手机端才能看到真实效果
+
+```
+wx.downloadFile({
+	url: 'http://xxx', // 文档的原地址
+  success: function (res) {
+  	const filePath = res.tempFilePath
+    wx.openDocument({
+        filePath: filePath,
+        success: function (res) {
+          console.log('打开文档成功')
+        }
+    })
+   },
+})
+```
+
+##### 头部显示文件名称
+
+由于微信默认存储文件位置是文件的临时路径，所以，新页面文件的头部名称会是一个字符串
+
+![image-20221013153938222](wechat.assets/image-20221013153938222.png)
+
+为了解决上述问题，需要定义，文件的下载路径：
+
+```
+wx.downloadFile({
+	url: 'http://xxx',
+	// 定义文件名称
+	filePath: wx.env.USER_DATA_PATH + '/' + 'xx.doc',
+  success: function (res) {
+  	// 更换此处取值，不是用微信默认的 tempFilePath
+  	const filePath = res.filePath
+    wx.openDocument({
+        filePath: filePath,
+        success: function (res) {
+          console.log('打开文档成功')
+        }
+    })
+   },
+})
+```
+
+效果展示：
+
+1）有个不足之处，头部没法不展示后缀
+
+![image-20221013154725527](wechat.assets/image-20221013154725527.png)
+
+#### 自定义底部导航
+
+`uniapp` 官方推荐使用微信小程序的自定义底部`tab`，所以语法都要按小程序的来。不能是`uniapp` 语法
+
+将小程序文档中的自定义导航`demo`复制到`uniapp`项目中
+
+```
+// 小程序 tabbar文档地址
+https://developers.weixin.qq.com/miniprogram/dev/framework/ability/custom-tabbar.html
+// 将 custom-tab-bar 目录复制
+// 若uniapp 项目中存在 src 目录，则拷贝到src目录下， 若不存在，直接放在根目录,切组件名称不能变
+
+// demo
+../demo/uniapp/tabbar/custom-tab-bar
+```
+
 
 
 ### 报错

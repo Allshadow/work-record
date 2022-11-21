@@ -1,3 +1,63 @@
+### 布局
+
+#### `flex`
+
+```
+// flex 是由 flex-grow flex-shrink flex-basis 缩写
+flex: 1; // flex: 1 1 auto;
+```
+
+### 属性
+
+#### `background`
+
+根据容器的宽度自适应背景图
+
+```
+../demo/css/background/01_根据宽度自适应.html
+```
+
+
+
+#### 水平居中
+
+##### `text-align`
+
+块级元素
+
+```
+// 1. 块级元素的文本居中
+<div class="main">我会居中</div>
+
+.main{
+	text-align: center;
+}
+
+// 2. 块级元素的子元素为行级块元素或者行内元素时
+
+
+
+// inline-block
+<span class="main"></span>
+
+.main{
+	/** span 是 inline */
+	display: inline-block; 
+	text-align: center;
+	/** 需要加上宽度才看的明显 */
+	width: 100px; 
+}
+```
+
+##### `margin`
+
+```
+// 定宽元素
+
+```
+
+
+
 #### @font-face
 
 ##### 简介
@@ -49,7 +109,19 @@
 font-family:  'YourWebFontName'
 ```
 
+
+
+
+
+
+
 #### 常见问题
+
+##### `marin`
+
+```
+margin： 0 auto; // 需要设置width
+```
 
 ##### 图文排列不居中
 
@@ -200,6 +272,21 @@ outline:0px;
 }
 ```
 
+##### 画半圆
+
+```
+.left-round{
+	// 根据哪个半圆定义长宽
+	width: 14rpx;
+	height: 28rpx;
+	background: #F4F5F9;
+	// 根据圆角修改 border-radius
+	border-radius: 0 28rpx 28rpx 0;
+}
+```
+
+
+
 ##### 样式穿透
 
 ```
@@ -219,6 +306,9 @@ outline:0px;
 
 //3、vue 中样式使用
 ::v-deep .el-dialog{}
+
+// vue3中使用
+:deep(.el-dialog){}
 ```
 
 #### 样式初始化

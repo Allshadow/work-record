@@ -1356,6 +1356,52 @@ this.$message({
 
 ### 问题集合
 
+#### `element`按需引入
+
+安装 `babel`插件
+
+```
+yarn add babel-plugin-component -D
+```
+
+配置`.babelrc`
+
+```
+// 拷贝 ‘plugins’ 配置就好，改完配置要重启电脑
+{
+	"plugins": [
+    [
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-chalk"
+      }
+    ]
+  ]
+}
+```
+
+新建文件`element.js`
+
+```
+// 项目代码如下
+import Vue from 'vue'
+
+import { Button, MessageBox } from 'element-ui'
+
+Vue.use(Button)
+
+Vue.prototype.$msgbox = MessageBox;
+```
+
+在 `main.js`中引入
+
+```
+import '@/plugins/element.js'
+```
+
+
+
 #### `refs`
 
 使用`this.$refs.xxx`调用弹窗时，有时候`dom`未被识别，可使用

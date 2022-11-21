@@ -26,7 +26,7 @@ tar -zxvf nginx-1.20.2.tar.gz
 
 ```
 cd nginx-1.20.2
-./configure --prefix=/usr/local/nginx // 安装指定目录
+./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module // 安装指定目录
 make && make install
 ```
 
@@ -47,6 +47,38 @@ make && make install
 ```
  /usr/local/nginx/sbin/nginx -s stop
 ```
+
+### 升级
+
+#### 预备
+
+需要下载新的`nginx`安装包，替换`/sbin/nginx`文件
+
+```
+// 下载包
+wget http://nginx.org/download/nginx-1.22.0.tar.gz
+
+// 解压
+tar -zxvf nginx-1.20.0.tar.gz
+
+cd nginx-1.22.0
+./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module // 安装指定目录
+make // 注意不要 make install(会覆盖)
+```
+
+#### 替换
+
+```
+// 备份原来的
+cp /usr/local/nginx/sbin/nginx /usr/local/nginx/sbin/nginx.bak
+
+// 复制 nginx 到 sbin 下，要将nginx 关掉
+cp ./objs/nginx /usr/local/nginx/sbin/
+
+// 启动
+```
+
+
 
 ### 启动设置
 

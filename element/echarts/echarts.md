@@ -379,3 +379,12 @@ https://blog.csdn.net/Dan1374219106/article/details/115864750
 https://segmentfault.com/a/1190000023022232
 ```
 
+### 功能
+
+`echarts` 实现中国地图
+
+```
+// 与 workfile 同级目录
+code/source-20221016-china-map
+```
+

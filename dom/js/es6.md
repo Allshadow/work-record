@@ -533,11 +533,20 @@ circle.area = function () {};
 
 ### `set` 和 `map`数据结构
 
-#### set
+#### `set`
 
 1）Set 本身是一个构造函数，用来生成 Set 数据结构
 
 2）Set 结构不会添加重复的值
+
+3）两个对象总是不相等
+
+```
+const arr = [{name: 1}, {name: 1}, {name: 1}]
+const arrSet = new Set(arr)
+
+// 这个会打印出 3 个值
+```
 
 ##### 基本用法
 

@@ -376,6 +376,22 @@ https://www.npmjs.com/package/vue-signature
 
 ### 其他
 
+#### `Font Awesome`
+
+字体图标库
+
+```
+yarn add font-awesome
+
+// main.js 引入
+import 'font-awesome/css/font-awesome.min.css'
+
+// 使用
+<i class='fa fa-address-book'></i>
+```
+
+
+
 #### `monent.js`
 
 时间转化

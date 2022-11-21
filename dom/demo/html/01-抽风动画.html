@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>抽风动画</title>
+  <style>
+    #Myline{
+        stroke-width: 20px;
+        stroke: red;
+        stroke-dasharray: 500px; /* 值只要足够大即可*/
+        stroke-dashoffset: 0px;
+        animation: move 1s linear alternate infinite;
+    }
+
+    @keyframes move{
+        0% {
+            stroke-dashoffset: 0px;
+        }
+
+        100% {
+            stroke-dashoffset: 500px;
+        }
+    }
+</style>
+</head>
+<body>
+  <svg width="500" height="500">
+    <path id="Myline" d="M 0 100 L 500 100"></path>
+  </svg>
+</body>
+</html>

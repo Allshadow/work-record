@@ -1,3 +1,5 @@
+
+
 ### 基本类型
 
 #### `Number`
@@ -26,14 +28,46 @@ function localeStr(num) {
 
 ##### 判断是否是数字
 
-1）`typeOf`
+1）简单业务
+
+```
+// 可以使用
+let boolean = +val || 0 
+```
+
+2）检验是否是有穷数
+
+`Number.isFinite()`方法只有数值类型的值，并且是有穷的`finite`才返回 `true`
+
+```
+Number.isFinite(Infinity);  // false
+Number.isFinite(NaN);       // false
+Number.isFinite(-Infinity); // false
+
+Number.isFinite(0);         // true
+Number.isFinite(2e64);      // true
+
+Number.isFinite('0');       // false, would've been true with
+                            // global isFinite('0')
+Number.isFinite(null);      // false, would've been true with
+                            // global isFinite(null)
+```
+
+3）`typeOf`
 
 ```
 let a = 123
 let type = typeof a == 'number' ? true : false
 ```
 
-2）正则表达式（包含正负整数，0，以及正负浮点数）
+4）检测值是否为`NaN`
+
+```
+Number.isNaN(NaN);        // true
+Number.isNaN("NaN");      // false， 字符串 "NaN" 不会被隐式转换成数字 NaN。
+```
+
+5）正则表达式（包含正负整数，0，以及正负浮点数）
 
 ```
 /**
@@ -43,10 +77,9 @@ function isNumber(val){
 	var regPos = /^[0-9]+.?[0-9]*/; //判断是否是数字。
 	return regPos.test(val)
 }
-
 ```
 
-3）校验正数负数
+6）校验正数负数
 
 ```
 /**
@@ -126,12 +159,7 @@ NP.round(0.105, 2);
 
 ##### 判断字符串是否是数字
 
-1）先将字符串转为数字类型，在用`isNaN`判断
-
-```
-let a = '213'  // 对于浮点数也是可以判断
-let type = isNaN(Number(a)) // true 非数字， false 数字
-```
+1）先将字符串转为数字类型，再用`Number`值来判断
 
 #### `Boolean`
 
@@ -142,6 +170,80 @@ let type = isNaN(Number(a)) // true 非数字， false 数字
 ```
 undefined / null / 0 （包含 -0 和 +0）/ NaN / ''
 ```
+
+##### 用法
+
+```
+// 字符串 0 转布尔值
+Boolean('0') // true
+
+// Number 0 转布尔值
+Boolean(0)  // false
+```
+
+### 条件语句
+
+#### `switch...case`
+
+##### 基本结构
+
+```
+let fruit = 'banana'
+// switch 也可以写表达式
+// switch 与 case 没有强制类型转化
+switch(fruit){
+	case "banana":
+		// ...
+		break;
+	case "apple":
+	case "orange":
+		// ...
+		break;
+	default: 
+		// ...
+}
+```
+
+##### 替代`switch...case`
+
+```
+//switch 语句将返回给定普通宠物的品种
+const getBreeds = pet =>{
+  switch (pet){
+    case 'dog':
+   		return ['Husky', 'Poodle', 'Shiba'];
+    case 'cat':
+    	return ['Korat', 'Donskoy'];
+    case 'bird':
+    	return ['Parakeets', 'Canaries'];
+    default:
+    	return [];
+  }
+}
+
+// 使用以下方法替代
+const breeds = {
+ 	dog: ["Husky", "Poodle", "Shiba"],
+ 	cat: ["Korat", "Donskoy"],
+ 	bird: ["Parakeets", "Canaries"],
+};
+const getBreeds = (pet) => {
+ 	return breeds[pet] || [];
+};
+
+const dogBreeds = getBreeds("cat");
+```
+
+#### 三元运算符
+
+##### 判断奇偶数
+
+```
+let n = 5
+let num = n % 2 === 0 ? '偶数' : '奇数'
+```
+
+
 
 ### 对象
 
@@ -258,6 +360,45 @@ const trueNum = arr.filter(Boolean)
 ```
 _arr = _arr.filter(ele => ele && ele.trim())
 ```
+
+#### 将对象转化为数组
+
+##### `传统写法`
+
+将类数组转化为数组
+
+```
+var arrLike = {
+	'0': 'a',
+	'1': 'b',
+	'2': 'c',
+	length: 3
+}
+
+var arr = [].slice.call(arrLike)
+```
+
+##### `Array.from (es6)`
+
+将两类对象转为数组：
+
+1.类数组的对象
+
+2.可遍历`(iterable)`的对象（包括`Set`和'Map'数据解构）
+
+```
+let arr = Array.from(arrLike)
+```
+
+##### `...(es6)`
+
+转化有`iterable`的对象，普通类数组不能转换
+
+```
+let arr = [...arrLike]
+```
+
+
 
 #### 位置
 
@@ -489,6 +630,89 @@ console.log('aaa', arr)
 
 
 
+### `indexedDB`
+
+`indexedDB`用于在客户端存储大量的结构化数据。
+
+##### 基本模式
+
+1）打开数据库
+
+```
+// open 接受两个参数
+// 1.数据库名称
+// 2.数据库版本号，数据库版本号要设置正整数，默认为 1
+var request = window.indexedDB.open("myDB", 1)
+```
+
+2）创建一个对象仓库
+
+创建或更新数据库是通过监听 `onupgradeneeded` 方式来触发，数据库库不存在，则自动创建，若数据库存在并且增加了初始版本号，通过``onupgradeneeded` `来改变
+
+```
+request.onupgradeneeded = function(event) {
+  // 保存 IDBDataBase 接口
+  var db = event.target.result;
+
+  // 为该数据库创建一个对象仓库
+  // 1.参数名称
+  // 2.参数配置项
+  var objectStore = db.createObjectStore("name", { 
+  	// 键的位置
+  	keyPath: "myKey"，
+  	// 是否自增
+  	autoIncrement： true
+  });
+};
+```
+
+3）创建事务，操作数据库
+
+事务的三种模式
+
+```
+readonly // 只读
+readwrite // 读和写
+versionchange // 这个有兼容问题，后面再研究
+```
+
+
+
+##### `vue`使用`indexDBwrapper`
+
+下载
+
+```
+yarn add indexdbwrapper
+
+// 引入
+import IndexDBWrapper from "indexdbwrapper";
+
+export default {
+	data(){
+		indexedDB: null
+	}，
+	
+	mounted(){
+		// 初始化数据
+		this.indexedDB = new IndexDBWrapper('plantData', 1, {
+    	onupgradeneeded: (e) =>{
+    		const db = e.target.result;
+    		const objStore = db.createObjectStore("plantList",{
+    			autoIncrement: true,
+    			keyPath: "id"
+    		});
+    	}
+    })
+		// 打开数据库，这样浏览器就可以看到了
+		this.indexedDB.open()
+	}
+}
+
+```
+
+![image-20221025110115032](js.assets/image-20221025110115032.png)
+
 ### 模块化
 
 #### 简介
@@ -662,6 +886,15 @@ input[type="number"] {
 
 
 ### 校验
+
+#### 密码
+
+```
+// 6-12 位密码，需要包含大小写字母和数字以及特殊字符
+
+```
+
+
 
 #### 邮箱校验
 
@@ -916,38 +1149,6 @@ downLoad(url){
 `typeof` 判断数据类型（数组跟对象都返回Object）
 
 #### `instanceof`
-
-### 代码优化
-
-#### 替代`switch...case`
-
-```
-//switch 语句将返回给定普通宠物的品种
-const getBreeds = pet =>{
-  switch (pet){
-    case 'dog':
-   		return ['Husky', 'Poodle', 'Shiba'];
-    case 'cat':
-    	return ['Korat', 'Donskoy'];
-    case 'bird':
-    	return ['Parakeets', 'Canaries'];
-    default:
-    	return [];
-  }
-}
-
-// 使用以下方法替代
-const breeds = {
- 	dog: ["Husky", "Poodle", "Shiba"],
- 	cat: ["Korat", "Donskoy"],
- 	bird: ["Parakeets", "Canaries"],
-};
-const getBreeds = (pet) => {
- 	return breeds[pet] || [];
-};
-
-const dogBreeds = getBreeds("cat");
-```
 
 ### 异常处理
 

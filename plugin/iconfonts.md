@@ -1,3 +1,17 @@
+#### 普通引用
+
+```
+<i class="iconfont icon-sousuo"></i>  //icon-xxxx  为图标名称
+
+字体图标一般用<i>标签包围，修改字体及颜色:
+i {
+	font-size: 12px;
+	color: #fff;
+}
+```
+
+
+
 #### symbol 引用
 
 目前使用 iconfont 的官方推荐版本 symbol 引用

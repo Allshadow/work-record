@@ -47,6 +47,22 @@ Vue.use(VueRouter)
 <router-view />
 ```
 
+#### 路由懒加载
+
+```
+const routes = [
+{
+	path: '/about',
+	// es6
+	component: () => import('@/components/Home')
+	// 异步组件的写法
+	component: resolve => (['@/components/Home'], resolve)
+}
+]
+```
+
+
+
 #### 嵌套路由
 
 ```
@@ -217,8 +233,7 @@ this.$router.replace({
 
 ```
 let url = this.$router.resolve({
-	path: '/videoPlayer',
-	url: ''
+	path: '/videoPlayer'
 })
 window.open(url.href, '_blank');
 ```

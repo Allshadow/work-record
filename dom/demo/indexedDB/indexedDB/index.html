@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>indexedDB</title>
+  </head>
+  <body>
+    <script>
+      const indexedDB = window.indexedDB.open("test", 1);
+      indexedDB.onupgradeneeded = function (event) {
+        // console.log(event.target.result == indexedDB.result);  返回 true
+        db = event.target.result;
+        var objectStore;
+        
+        objectStore = db.createObjectStore("table", { autoIncrement: true });
+
+        // 创建索引
+        objectStore.createIndex('year', 'year', { unique: false })
+      };
+
+      indexedDB.onsuccess = function (event) {
+        const db = event.target.result;
+        // 创建事务
+        // transaction 接收两个参数 1. 要操作的 objectStore 名称 2. mode 操作的模式
+        // 1. objectStore 名称接受字符串与数组
+        // 2. mode 有 readonly | readwrite 两种模式
+        // objectStore 接收一个参数 objectStore 名称
+        const transaction = db.transaction('table', 'readwrite').objectStore('table')
+
+        // 新增数据
+        const arr = [
+          {name: '李四', year: 2022, sex: '男'},
+          {name: '张三', year: 2022, sex: '女'},
+          {name: '王五', year: 2021, sex: '男'},
+          {name: '赵六', year: 2020, sex: '男'}
+        ]
+
+        arr.forEach(ele => {
+          // 使用事务的add方法
+          transaction.add(ele)
+        })
+
+        // 查询
+        // 使用主键值查询
+        // let res = transaction.get(2)
+
+        // res.onerror = function(event) {
+        //   console.log('事务失败');
+        // };
+
+        // res.onsuccess = function(event) {
+        //   let result = event.target.result || res.result;
+        //   if (result) {
+        //       console.log('res: ' + JSON.stringify(result));
+        //     } else {
+        //       console.log('未获得数据记录');
+        //     }
+        // };
+
+        // 使用指针遍历所有的数据
+        // transaction.openCursor().onsuccess = function (event) {
+        //   var cursor = event.target.result;
+
+        //   if (cursor) {
+        //     console.log('Id: ' + cursor.key);
+        //     console.log('value', JSON.stringify(cursor.value))
+        //     cursor.continue();
+        //   } else {
+        //     console.log('没有更多数据了！');
+        //   }
+        // };
+
+        // 使用索引
+        // const index = transaction.index('year');
+        // const request = index.get(2021);
+
+        // console.log('request', request);
+        // request.onsuccess = function (e) {
+        //   var result = e.target.result;
+        //   if (result) {
+        //     console.log('result', result)
+        //   } else {
+        //     console.log('没有更多数据了！');
+        //   }
+        // }
+
+        // index.openCursor().onsuccess = function (event) {
+        //   let cursor = event.target.result;
+        //   if (cursor) {
+        //     console.log('Id: ' + cursor.key);
+        //     console.log('value', JSON.stringify(cursor.value))
+        //     cursor.continue();
+        //   } else {
+        //     console.log('没有更多数据了！');
+        //   }
+        // }
+
+        // 更新功能
+        // let res = transaction.get(2)
+
+        // res.onsuccess = function(event) {
+        //   let result = event.target.result || res.result;
+        //   if (result) {
+        //     console.log('res: ' + JSON.stringify(result))
+        //     result.name = '老頔'
+        //     // 如果主键为递增必须要第二个参数，不然会变为新增
+        //     transaction.put(result, 2)
+        //   } else {
+        //     console.log('未获得数据记录');
+        //   }
+        // };
+
+        // 删除数据
+        // 1）清除全部数据
+        // transaction.clear()
+
+
+        // 2）清除当前主键数据
+        // let request = transaction.delete(1)
+
+        // request.onsuccess = function (event) {
+        //   console.log('数据删除成功');
+        // };
+
+        // 3) 遍历数据删除
+        // transaction.openCursor().onsuccess =  (event) => {
+        //   let cursor = event.target.result;
+        //   if (cursor) {
+        //     if(cursor.value.name == '李四'){
+        //         cursor.delete()
+        //     }
+        //     cursor.continue();
+        //   }else{
+        //     console.log('没有更多数据了！')
+        //   }
+        // }
+      }
+
+    </script>
+  </body>
+</html>
