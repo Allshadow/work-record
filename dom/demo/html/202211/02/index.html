@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/index.css">
+    <title>根据底部文字大小缩放底部的划线</title>
+  </head>
+  <body>
+    <div id="app">
+      <ul class="tab-wrap">
+        <li 
+          v-for="(item, index) in tabList"
+          :key="item.value"
+          :class="{'active': index == tabIndex}"
+          @click="handleChange(item, index)"
+        >{{item.label}}</li>
+      </ul>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            tabIndex: 0,
+            tabList: [
+              {
+                label: '用户',
+                value: 0
+              },
+              {
+                label: '数据统计',
+                value: 1
+              },
+              {
+                label: '用户组',
+                value: 2
+              },
+            ]
+          };
+        },
+        methods:{
+          handleChange(item, index){
+            this.tabIndex = index
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

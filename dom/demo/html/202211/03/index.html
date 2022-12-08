@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        ul{
+            display: flex;
+            width: 630px;
+            border: 1px solid red;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px 20px 0;
+            margin: 10px;
+        }
+        li{
+            list-style: none;
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+            margin-bottom: 20px;
+        }
+
+        ul:after{
+            content: '';
+            display: block;
+            width: 200px;
+        }
+
+    </style>
+</head>
+<body>
+    <ul>
+        <li class="temp"></li>
+        <li class="temp"></li>
+        <!-- <li class="temp"></li> -->
+        <!-- <li class="temp"></li>
+        <li class="temp"></li>
+        <li class="temp"></li>
+        <li class="temp"></li>
+        <li class="temp"></li>
+        <li class="temp"></li> -->
+    </ul>
+</body>
+</html>

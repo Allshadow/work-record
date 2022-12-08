@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>transform</title>
+    <style>
+        .wrapper{
+            width: 300px;
+            height: 300px;
+            margin: 100px auto;
+        }
+
+        .wrapper img{
+            transition: 2s;
+            width: 100px;
+            height: 100px;
+        }
+
+        .wrapper img:hover{
+            transform: translateY(200px) rotateZ(90deg) scale(2);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <img src="./img/apple.jpg" alt="">
+    </div>
+</body>
+</html>

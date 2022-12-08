@@ -2,7 +2,7 @@
 
 #### 安装
 
-```bash
+```
 npm i yarn -g
 ```
 
@@ -46,6 +46,9 @@ yarn run dev || yarn dev
 
 // 清除缓存
 yarn cache clean
+
+// 查看缓存目录
+yarn cache dir
 ```
 
 #### 问题解决

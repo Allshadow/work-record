@@ -73,3 +73,11 @@ tools/pdfViewer/PDFXVwer.zip
 https://www.tracker-software.com/product/pdf-xchange-viewer
 ```
 
+#### `EVPlayer`
+
+##### 下载
+
+```
+// 百度网盘
+tools/EVPlayer
+```

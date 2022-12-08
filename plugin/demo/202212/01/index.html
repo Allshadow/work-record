@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cryptoJs</title>
+  </head>
+  <body>
+    <script src="./js/crypto-js.min@4.0.0.js"></script>
+    <script>
+      var encryption = {
+        init: function (randomKey) {
+          if(!randomKey){
+            randomKey = this.generateRandom(32)
+          }
+          console.log('randomKey', randomKey)
+          var timestamp, random, sign, md5Text;
+          timestamp =  new Date().getTime();
+          console.log('timestamp', timestamp)
+          random = this.generateRandom(6);
+          console.log('random', random)
+          md5Text = CryptoJS.MD5(timestamp + "#" + random).toString();
+          console.log('md5', md5Text)
+          sign = this.encryptByDES(md5Text, randomKey + randomKey.substr(0, 16));
+          console.log('sign', sign)
+          return {
+            timestamp: timestamp,
+            random: random,
+            sign: sign,
+            randomKey: randomKey
+          };
+        },
+        // 获取随机数
+        generateRandom: function (n) {
+          var chars = [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z",
+          ];
+          var res = "";
+          for (var i = 0; i < n; i++) {
+            var id = Math.ceil(Math.random() * 35);
+            res += chars[id];
+          }
+          return res;
+        },
+
+        encryptByDES: function (message, key) {
+          message = CryptoJS.enc.Hex.parse(message);
+          key = CryptoJS.enc.Hex.parse(key);
+          var encrypted = CryptoJS.AES.encrypt(message, key, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+          });
+          return encrypted.toString();
+          },
+      };
+    </script>
+    <script>
+      // encryption.init()
+      console.log("params", JSON.stringify(encryption.init()));
+    </script>
+  </body>
+</html>

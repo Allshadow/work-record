@@ -36,7 +36,44 @@ option ={
 }
 ```
 
+##### 修改图例的图标
+
+```
+var option = {
+	legend: {
+		icon: 'circle'
+	}
+}
+```
+
+结果如下图所示：
+
+![image-20221205101931317](echarts.assets/image-20221205101931317.png)
+
 #### `tooltip`
+
+##### 自定义 `tooltip`
+
+![image-20221206093756140](echarts.assets/image-20221206093756140.png)
+
+```
+let option = {
+	tooltip:{
+    trigger: "axis",
+    formatter: function (params) {
+    	let str = params[0].name;
+    	params.forEach((ele) => {
+    		str += `
+    			<li style='border-radius:35px;color:#000;list-style:none;'>
+    				${ele.marker + ele.seriesName + ":" + ele.data}
+    			</li>
+    		`;
+    	});
+			return str;
+		},
+  }
+}
+```
 
 ##### 自定义 `tooltip`
 
@@ -61,8 +98,6 @@ tooltip: {
 }
 ```
 
-
-
 ##### `tooltip.trigger`
 
 ```
@@ -79,6 +114,51 @@ setTimeout(function (){
     subjectChart.resize();
   }
 },200)
+```
+
+#### `x,y`坐标轴
+
+##### 网格线配置
+
+![image-20221206090152637](echarts.assets/image-20221206090152637.png)
+
+```
+xAxis/yAxis: {
+  splitLine: { // 网格线配置
+    show: true, // 显示或隐藏网格线
+    lineStyle:{ // 网格线样式
+      color: ["#EAEDF1"],
+      width: 1,
+      type: "dashed",
+    }
+  }
+}
+```
+
+##### 坐标轴配置
+
+```
+// 不展示坐标
+xAxis/yAxis:{
+	axisTick: false,
+}
+```
+
+##### 标题与轴线距离
+
+```
+xAxis/yAxis:{
+	nameGap: 30, 
+}
+```
+
+##### 设置标题位置
+
+```
+xAxis/yAxis: {
+	name: this.xName,
+	nameLocation: 'center'
+},
 ```
 
 #### x轴
@@ -120,64 +200,7 @@ var myChart = echarts.init(document.getElementById('main'))
 myChart.dispose();  // 销毁实例
 ```
 
-
-
 ### 散点图
-
-#### `x`轴
-
-##### 设置`x`轴标题在底部
-
-```
-xAxis: {
-	name: this.xName,
-	nameLocation: 'center'
-},
-```
-
-##### 标题与轴线的距离
-
-```
- xAxis: {
- 	nameGap: 30 
- }
-```
-
-#### `y`轴
-
-##### 设置`y`轴标题在左侧
-
-```
-yAxis: {
-	name: this.yName,
-	nameLocation: 'center'
-}
-```
-
-##### 标题与轴线的距离
-
-```
- yAxis: {
- 	nameGap: 30 
- }
-```
-
-#### `x,y`轴通用
-
-##### 设置网格线样式
-
-```
-xAxis/yAxis: {
-  splitLine: { // 网格线配置
-    show: true, // 显示或隐藏网格线
-    lineStyle:{ // 网格线样式
-      color: ['#315070'],
-      width: 1,
-      type: 'solid'
-    }
-  }
-}
-```
 
 #### 散点样式
 
@@ -345,6 +368,54 @@ option ={
 }
 ```
 
+#### `hover`特殊效果
+
+##### 需求
+
+正常的饼图鼠标移入时都会往一外放大，现在需要中间放大
+
+
+
+源码
+
+### 柱状图
+
+#### 重叠柱状图
+
+```
+// 重叠柱状图
+barGap: "-100%",
+```
+
+##### 需求
+
+![image-20221206143749047](echarts.assets/image-20221206143749047.png)
+
+##### 源码
+
+```
+element/demo/echarts/202212/01
+```
+
+#### 堆叠柱状图
+
+在`series`类目周中添加相同的`stack`值，就可以形成堆叠效果
+
+```
+var option = {
+	series: [
+		{
+			name: '',
+			stack: 'aaa'
+		},
+		{
+			name: '',
+			stack: 'aaa'
+		}
+	]
+}
+```
+
 ### 地区图
 
 #### 点击时取消默认样式
@@ -381,10 +452,10 @@ https://segmentfault.com/a/1190000023022232
 
 ### 功能
 
-`echarts` 实现中国地图
+#### 实现中国地图
 
 ```
 // 与 workfile 同级目录
-code/source-20221016-china-map
+code/02_project/20221016-china-map
 ```
 

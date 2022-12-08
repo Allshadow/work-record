@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>重叠柱状图</title>
+  </head>
+  <body>
+    <div id="main" style="width: 100%; height: 400px"></div>
+    <script src="./js/echarts.js"></script>
+    <script>
+      let xData = [
+        "11/01",
+        "11/02",
+        "11/03",
+        "11/04",
+        "11/05",
+        "11/06",
+        "11/07",
+        "11/08",
+        "11/09",
+        "11/10",
+        "11/11",
+        "11/12",
+      ];
+      function initEcharts() {
+        let Data1 = [20, 30, 15, 23, 41];
+        let Data2 = Data1.map((item) => (item += 30));
+        let Data3 = Data2.map((item) => (item += 10));
+        let sep = 10;
+        const dom = document.getElementById('main')
+        var myChart = echarts.init(dom); // 初始化 echarts
+        let option = {
+          tooltip: {
+            trigger: "axis",
+            formatter: function (params) {
+              let str = params[0].name;
+              params.forEach((ele) => {
+                str += `
+                  <li style='border-radius:35px;color:#000;list-style:none;'>
+                    ${ele.marker + ele.seriesName + ":" + ele.data}
+                  </li>
+                `;
+              });
+
+              return str;
+            },
+          },
+          legend: {
+            icon: "circle",
+            left: "18%",
+            textStyle: {
+              fontSize: 14,
+              height: 10,
+              rich: {
+                a: {
+                  verticalAlign: "middle",
+                },
+              },
+            },
+          },
+          grid: {
+            left: "3%",
+            right: "4%",
+            bottom: "3%",
+            top: "18%",
+            containLabel: true,
+          },
+          xAxis: [
+            {
+              type: "category",
+              data: xData,
+              axisLine: {
+                show: false,
+              },
+              axisTick: false,
+              nameTextStyle: {
+                fontSize: 14,
+                color: "#858585",
+              },
+            },
+          ],
+          yAxis: [
+            {
+              type: "value",
+              splitLine: {
+                show: true,
+                lineStyle: {
+                  color: ["#EAEDF1"],
+                  width: 1,
+                  type: "dashed",
+                },
+              },
+              nameTextStyle: {
+                fontSize: 14,
+                color: "#858585",
+              },
+            },
+          ],
+          series: [
+            {
+              name: "已完成",
+              type: "bar",
+              barWidth: 12,
+              barGap: "-100%",
+              itemStyle: {
+                // 图形的形状
+                barBorderRadius: [12, 12, 12, 12],
+                borderWidth: 2,
+                borderColor: "#fff",
+                color: "#046BC4",
+              },
+              z: '2',
+              data: Data1,
+            },
+            {
+              name: "未完成",
+              type: "bar",
+              barWidth: 12,
+              itemStyle: {
+                // 图形的形状
+                barBorderRadius: [12, 12, 12, 12],
+                borderWidth: 2,
+                borderColor: "#fff",
+                color: "#0191F9",
+              },
+              z: '1',
+              data: Data3,
+            },
+          ],
+        };
+        option && myChart.setOption(option);
+      }
+
+      initEcharts();
+    </script>
+  </body>
+</html>
