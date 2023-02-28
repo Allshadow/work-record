@@ -86,7 +86,100 @@ https://juejin.im/post/5bd02f98e51d457a944b634f
 
 ### `vue.config.js`
 
-以下为 `vue-cli` 配置
+#### 开启`Gzip`
+
+下载`compression-webpack-plugin`
+
+```
+yarn add -D compression-webpack-plugin@5.0.0
+```
+
+`vue.config.js`下添加配置
+
+```
+const CompressionPlugin = require("compression-webpack-plugin");
+const env = process.env.NODE_ENV !== 'development';
+
+module.exports = {
+	// ..
+	configureWebpack: (config) =>{
+    if (env) {
+      //gzip压缩
+      const productionGzipExtensions = ['html', 'js', 'css']
+      config.plugins.push(
+          new CompressionPlugin({
+              test: new RegExp(
+                  '\\.(' + productionGzipExtensions.join('|') + ')$'
+              ),
+              threshold: 10240, // 只有大小大于该值的资源会被处理 10240
+              minRatio: 0.8, // 只有压缩率小于这个值的资源才会被处理
+              deleteOriginalAssets: false // 删除原文件
+          })
+      )
+    }
+  },
+}
+```
+
+##### 参考文档
+
+```
+https://blog.csdn.net/gegegegege12/article/details/122668040
+https://zhuanlan.zhihu.com/p/81570108
+https://blog.csdn.net/duanhy_love/article/details/125069009
+```
+
+
+
+##### 报错
+
+```
+ERROR TypeError: Cannot read property 'tapPromise' of undefined
+
+// 直接使用 yarn add -D compression-webpack-plugin 时版本过高
+// 需要使用 yarn add -D compression-webpack-plugin@5.0.0
+```
+
+
+
+#### 强制清除浏览器缓存
+
+更新版本的时候，有时需要手动清除浏览器缓存。以下是代码清除缓存的方式：
+
+##### 打包时给文件加上`hash`值
+
+在`vue-config.js`中给文件加上版本号，或者时间戳等信息
+
+```
+const timeStamp = new Date().getTime()
+
+module.exports = {
+	// ...
+	configureWebpack:{
+    output:{
+      filename: `js/[name].${timeStamp}.js`,
+      chunkFilename: `js/[name].${timeStamp}.js`
+    }
+  },
+  css: {
+    extract: {
+      filename: `css/[name].${timeStamp}.css`,
+      chunkFilename: `css/[name].${timeStamp}.css`
+    },
+  },
+}
+```
+
+##### 参考链接
+
+```
+// 1.vue-cli打包增加版本号、时间戳等自定义参数
+https://blog.csdn.net/hy3528/article/details/127963584
+// 2.vue 强制清除浏览器缓存
+https://javaforall.cn/161108.html
+```
+
+
 
 #### `devServer`
 
@@ -135,12 +228,15 @@ module.exports = {
 </script>
 ```
 
-#### `source map`
+#### `sourceMap`
 
 ```
 module.exports = {
   // 不需要生产环境的 source map
   productionSourceMap: false,
+  css: {
+  	sourceMap: false
+  }
 }
 ```
 
@@ -180,6 +276,28 @@ module.exports = {
 
 ### 模式和环境变量
 
+#### `process.env.NODE_ENV`
+
+##### 概述
+
+在`node.js`中，`process`表示当前的`node`进程。
+
+`process.env`包含了系统环境等信息，比如版本信息等，但是不存在`process.env.NODE_ENV`。
+
+`NODE_ENV`是用户自定义的变量，`webpack`中它用来判断生产环境或开发环境。
+
+##### `vue-cli`中的环境变量
+
+`vue-cli`的版本中，已经使用`DefinePlugin`方式配置好了`process.env.NODE_ENV`。
+
+##### 获取当前环境
+
+```
+// NODE_ENV 决定运行的模式
+// main.js 中打印
+console.log('env', process.env.NODE_ENV)
+```
+
 #### `vue-cli` 默认模式
 
 ##### 三个默认模式
@@ -196,7 +314,6 @@ production 模式用于 vue-cli-service build 和 vue-cli-service test:e2e
 
 ```
 // 使用 --mode 选项修改模式
-
 vue-cli-service build --mode development
 ```
 
@@ -213,12 +330,31 @@ vue-cli-service build --mode development
 // 2.  若 .env.[mode] 文件中没有设置 NODE_ENV=XXX, 则 NODE_ENV 默认值为 [mode]
 ```
 
-#### 获取当前环境
+##### 配置环境变量
+
+当运行`vue-cli-service`命令时，所有环境变量都从对应的环境文件中载入。
+
+在根目录新建如下规则文件
 
 ```
-// NODE_ENV 决定运行的模式
-// main.js 中打印
-console.log('env', process.env.NODE_ENV)
+.env                # 在所有的环境中被载入
+.env.local          # 在所有的环境中被载入，但会被 git 忽略
+.env.[mode]         # 只在指定的模式中被载入
+.env.[mode].local   # 只在指定的模式中被载入，但会被 git 忽略
+```
+
+例如开发环境，根目录新建一个 `.env.development`文件：
+
+```
+VUE_APP_BASE_URL= "http;//..."
+```
+
+当运行`vue-cli-service`时，即会加载此文件中的配置
+
+##### `vue`组件中获取
+
+```
+process.env.VUE_APP_BASE_URL
 ```
 
 ### 静态资源
@@ -335,9 +471,72 @@ axios.get("/620000_level_3.json")
 
 
 
-### 错误
+### 兼容 `ie`
 
-#### 兼容 `ie`
+#### 使用`polyfill`
+
+以下这个方法只能兼容到`ie10`:
+
+1）安装
+
+```
+yarn add @babel/polyfill
+```
+
+2）在`main.js`顶部引入`@babel/polyfill`
+
+```
+import '@babel/polyfill'
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+```
+
+3）修改`babel.config.js`
+
+```
+module.exports = {
+  presets: [
+    [
+      '@vue/app',
+      {
+        useBuiltIns: 'entry',
+      }
+    ]
+  ]
+}
+```
+
+4）修改`.browserslist`
+
+```
+> 1%
+last 2 versions
+not ie <= 8
+```
+
+5）修改`vue.config.js`
+
+```
+module.exports = {
+	transpileDependencies:['*'] //最开始这里的值为 true,查到的改成 * , 
+}
+```
+
+##### 参考文档
+
+```
+https://blog.csdn.net/weixin_43749669/article/details/128343229
+```
+
+注意：
+
+```
+!!! 路由不能使用 history 需要用 hash
+```
+
+
+
+#### 报错
 
 新建的 `vue-cli4`项目用`ie`打开报语法错误，如下图所示:
 

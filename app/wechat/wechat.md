@@ -11,6 +11,12 @@ https://blog.csdn.net/yuan_618859/article/details/123145918
 wx.getUserProfile 只能手动触发
 ```
 
+#### 实现左滑删除
+
+```
+./demo/01-左滑删除
+```
+
 ### 语法
 
 #### 取值

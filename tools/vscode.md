@@ -1,4 +1,4 @@
-### 实用
+### 功能
 
 #### 折叠代码
 
@@ -11,6 +11,43 @@
 	....
 */
 #endregion
+```
+
+#### 配置用户代码片段
+
+配置`vscode`位置
+
+```
+1. 点击菜单栏 【文件】列表中存在 【首选项】
+2. 鼠标移入 【首选项】子列表中存在 【配置用户代码片段】
+3. 点击 【配置用户代码片段】会弹出操作选择 -- 新建... -输入片段名
+```
+
+目前配置的`json`
+
+```
+"Print to console": {
+"prefix": "vue3",
+"body": [
+  "<script setup>",
+  "import { ref, reactive, onMounted} from 'vue';",
+  "",
+  "const data = reactive({})",
+  "",
+  "onMounted(() => {",
+  "})",
+  "",
+  "</script>",
+  "",
+  "<template>",
+  "  <div $1></div>",
+  "</template>",
+  "",
+  "<style scoped lang='scss'>",
+  "</style>"
+  ],
+  "description": "vue3 code snippets"
+}
 ```
 
 

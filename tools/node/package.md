@@ -109,8 +109,17 @@ npm init -y || npm init
 // 安装所有依赖
 npm i || npm install
 
+// 安装生产依赖
+npm install xxx || npm install xxx --save || npm install xxx -S
+
+// 安装开发依赖
+npm install xxx -D || npm install --save-dev xxx
+
 // 查看当前使用 npm 源
-npm get registry
+npm config get registry
+
+// 设置源地址 1. xxx 为地址
+npm config set registry xxx
 ```
 
 #### 操作

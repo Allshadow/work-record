@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>封装获取url中?后面拼接的参数</title>
+</head>
+<body>
+  <script>
+    //?encryptData=sj4ASlZU11cBX3S6qAOa0Q0yrAgau8oHdUK05pRvGRqt1aX3dXRtuoBLLCj017l4Ec33ulhwVfp%2Fsjh7St5betytNq%2BkS5PxVlP3kZuwRff5t8%2F6QlfQuGThMz1puiOMIMXcZPxtOPBomfUllhPBfUErq2F95WOQfetHH8w11JebLxb9OJsHrNIIwnWGnTsA4beDCC2ED8gRYw%2FseRaAKZuv9pMEBO8i0OcLfOFu8BzqAApGYiUiqLCUMmt%2FVHDSH1Q0QWdXmuvqkxdkJgKdXgBuXpXZmrmZJkGAUpfq0Kkca3CcRKowW2mlecgng56EVxWq7Kq3DGUTN7zhnnWXvZAzbmLQXnbZQzqXVrX515Nd91k1PNLqp6W%2F%2BXLfEI4cE9ua8OQ7mSjsemOheuALqrRFrR5ShAqolk4jlNtJoPBOp%2FMLn%2B0YRFLfaJiGpnQ02teD2LJbHrWPR1%2FddIAn%2BnIxB49Y9JYenCF8%2BxHFwlv4yeyiR1oJi6jE2DzTTlSxv2z95MncOIXLzMJ8725LtkznCUeZ7%2BNGdrBeu%2BD%2FI%2Bl2ccxQMH6rNPK6s15ecUyybJovhHcuS7W1jahFSx2s36q%2B%2FBhC2LSpC7jBZeOGSZMNGJY1fki7CrOkfp3YD1Ix5c9EZwYq3rdv83QATm8vkBwLMZj8xRy64MJcN4Sl6STTyh%2FKyDJOhotHyRSdbFd%2F0EqVkXud%2FFaGYJ%2B0V4No40LXlAy6WIeewxpPQIOQF3YQoBn8hxqZ%2F1mZV8DtfjK5foW6k6SoejNTkycsoLALHH4kmzUOmPQVyzPCDuxIV3ECSlOwqCWYvtkHZRoRWZQkeNGKbtnos9GNdgl%2B4KbcUWTcvrb4qEQJ4lV%2FpWS9vS%2FOJeLoPU%2Fe8x02nJO7HFRN3Ypwv9zgqZdxX%2FEQ2Q6evGOYDs%2BByWqwzOh8F%2BLa%2B%2B3QwzuMA5cuN2rUzySQCr1IT5Qs33wC0SRD0gJuCpUPDkEaKT9VcWxHdEtvP8weZULwvWdxpUKsHr1ideiuq9nKDuAZ7IJEp5xIGW9QID8Y9WKySpd2nCCcZK7b3Wws2dQSqeT7jYVFYZ%2BBrfl0Mseincq%2FzOBs%2F7kKKobc068TnA2fsCVQmZShOoevYWQ2jCFWrOoawsMz3TlFGc%2B%2FgwSmRsmddtBhmVoMxUrYIEe12eVuTpMkJCx0Td148Ov2d%2Fw%3D&projectId=115
+
+    function getQueryParams(str, name){
+      const obj = {}
+      const searchArr = str.substr(1).split('&')
+      searchArr.forEach(v => {
+        const index = v.indexOf('=')
+        if (index !== -1) {
+          const name = v.substring(0, index)
+          const val = v.substring(index + 1, v.length)
+          obj[name] = val
+        }
+      })
+      return obj[name] ? unescape(obj[name]) : null
+    }
+
+    console.log('window', window.location.search)
+    let params = getQueryParams(window.location.search, 'encryptData')
+    console.log('params', params)
+  </script>
+</body>
+</html>

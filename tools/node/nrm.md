@@ -20,7 +20,13 @@ nrm use [源名称]
 // 例如
 nrm use taobao
 
+// 查看源地址速度
+nrm test
+
 // 查看当前源，若前面有 * 则表示当前使用的是此源地址，若无请使用 npm get registry 查看
 nrm ls
+
+// 移除源 nrm del taobao
+nrm del <name> 
 ```
 

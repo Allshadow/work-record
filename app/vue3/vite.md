@@ -15,8 +15,8 @@
 使用以下命令创建，并安装依赖
 
 ```
-// 选择 yes/no 时使用键盘左右键
-npm init vue@latest
+// 选择 yes/no 时使用键盘左右键，输入后需要输入项目名称等信息
+npm init vue@latest 
 
 // 安装依赖
 yarn
@@ -79,6 +79,19 @@ server: {
 		strict: false
 	}
 },
+```
+
+### `vite.config.js`配置
+
+#### 热更
+
+```
+export default defineConfig({
+  server: {
+  	// 设置 hmr true 允许热更新
+    hmr: true
+  }
+})
 ```
 
 ### 整理

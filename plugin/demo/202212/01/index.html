@@ -11,19 +11,15 @@
     <script>
       var encryption = {
         init: function (randomKey) {
+          randomKey = 'E77F5313162CF39FD329B8454CA3CFBA'
           if(!randomKey){
-            randomKey = this.generateRandom(32)
+            randomKey = this.generateRandom(32, true)
           }
-          console.log('randomKey', randomKey)
           var timestamp, random, sign, md5Text;
-          timestamp =  new Date().getTime();
-          console.log('timestamp', timestamp)
-          random = this.generateRandom(6);
-          console.log('random', random)
+          timestamp = 1671672967514 || new Date().getTime();
+          random = '3N272N' || this.generateRandom(6);
           md5Text = CryptoJS.MD5(timestamp + "#" + random).toString();
-          console.log('md5', md5Text)
           sign = this.encryptByDES(md5Text, randomKey + randomKey.substr(0, 16));
-          console.log('sign', sign)
           return {
             timestamp: timestamp,
             random: random,
@@ -32,7 +28,7 @@
           };
         },
         // 获取随机数
-        generateRandom: function (n) {
+        generateRandom: function (n, type) {
           var chars = [
             "0",
             "1",
@@ -71,9 +67,14 @@
             "Y",
             "Z",
           ];
+
+          // 存在 type 时，只能在 0123456789ABCDEF 区间
+          chars = type ? chars.slice(0, 16) : chars
+
+          len = chars.length - 1
           var res = "";
           for (var i = 0; i < n; i++) {
-            var id = Math.ceil(Math.random() * 35);
+            var id = Math.ceil(Math.random() * len);
             res += chars[id];
           }
           return res;
@@ -82,12 +83,10 @@
         encryptByDES: function (message, key) {
           message = CryptoJS.enc.Hex.parse(message);
           key = CryptoJS.enc.Hex.parse(key);
-          var encrypted = CryptoJS.AES.encrypt(message, key, {
-            mode: CryptoJS.mode.ECB,
-            padding: CryptoJS.pad.Pkcs7
-          });
-          return encrypted.toString();
-          },
+          var option = { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.NoPadding };
+          var encrypted = CryptoJS.TripleDES.encrypt(message, key, option);
+          return encrypted.ciphertext.toString();
+        },
       };
     </script>
     <script>

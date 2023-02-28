@@ -11,6 +11,47 @@ uni.navigateTo()
 
 ### 功能
 
+#### 下拉刷新
+
+页面基础下拉刷新要配置两个地方：
+
+1）`pages.json`中的`pages`配置
+
+```
+// pages.json
+{
+	"pages": [
+		{
+			"path"： "pages/start/start",
+			"style": {
+				"navigationBarTitleText": "标题"，
+				"enablePullDownRefresh": true  // 是否开启下拉刷新 1. true 是 2. false 否
+			}
+		}
+	]
+}
+```
+
+2）页面中写入对应功能
+
+```
+export default {
+	onPullDownRefresh(){
+		// 异步方法执行完，要执行停止下拉刷新，否则可能出现问题
+		try{
+			// ...
+    }catch(e){
+    	console.log(e.message)
+    }finally{
+    	if(type){
+    		// 停止下拉刷新的方法
+    		uni.stopPullDownRefresh()
+   	 	}
+    }
+	}
+}
+```
+
 #### `getApp()`
 
 `getApp()`方法用来获取`App()`实例

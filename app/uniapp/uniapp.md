@@ -1,3 +1,22 @@
+### 生命周期
+
+```
+<script>
+export default {
+	// 初始化载入
+	onLoad(){},
+	// 进入页面
+	onShow(){},
+	// 滚动到底部
+	onReachBottom(){},
+	// 下拉刷新
+	onPullDownRefresh(){}
+}
+</script>
+```
+
+
+
 ### 组件
 
 #### 基础

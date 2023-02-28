@@ -193,26 +193,6 @@ https://blog.csdn.net/ZYS10000/article/details/122480733
 <div @touchend.prevent=""></div>
 ```
 
-
-
-### 命名规则
-
-1）目录名称
-
-```
-使用小写，多个单词用 - 隔开
-例如： my-project
-```
-
-2）组件名称
-
-```
-// 使用大驼峰式命名
-例如：StuedentLive.vue
-```
-
-
-
 ### 修饰符
 
 #### `.sync` 

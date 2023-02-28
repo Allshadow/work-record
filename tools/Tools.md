@@ -1,3 +1,22 @@
+### windows系统
+
+#### 快捷键
+
+```
+// 锁屏
+win + l
+```
+
+
+
+### `snipaste`
+
+```
+https://docs.snipaste.com/zh-cn
+```
+
+
+
 ### `webstorm`
 
 #### 安装包位置

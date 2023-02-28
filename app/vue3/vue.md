@@ -8,6 +8,8 @@
 <span>Message: {{ msg }}</span>
 ```
 
+### 指令
+
 #### `v-bind`
 
 ##### `:class`

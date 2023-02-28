@@ -204,36 +204,6 @@ switch(fruit){
 }
 ```
 
-##### 替代`switch...case`
-
-```
-//switch 语句将返回给定普通宠物的品种
-const getBreeds = pet =>{
-  switch (pet){
-    case 'dog':
-   		return ['Husky', 'Poodle', 'Shiba'];
-    case 'cat':
-    	return ['Korat', 'Donskoy'];
-    case 'bird':
-    	return ['Parakeets', 'Canaries'];
-    default:
-    	return [];
-  }
-}
-
-// 使用以下方法替代
-const breeds = {
- 	dog: ["Husky", "Poodle", "Shiba"],
- 	cat: ["Korat", "Donskoy"],
- 	bird: ["Parakeets", "Canaries"],
-};
-const getBreeds = (pet) => {
- 	return breeds[pet] || [];
-};
-
-const dogBreeds = getBreeds("cat");
-```
-
 #### 三元运算符
 
 ##### 判断奇偶数
@@ -630,89 +600,6 @@ console.log('aaa', arr)
 
 
 
-### `indexedDB`
-
-`indexedDB`用于在客户端存储大量的结构化数据。
-
-##### 基本模式
-
-1）打开数据库
-
-```
-// open 接受两个参数
-// 1.数据库名称
-// 2.数据库版本号，数据库版本号要设置正整数，默认为 1
-var request = window.indexedDB.open("myDB", 1)
-```
-
-2）创建一个对象仓库
-
-创建或更新数据库是通过监听 `onupgradeneeded` 方式来触发，数据库库不存在，则自动创建，若数据库存在并且增加了初始版本号，通过``onupgradeneeded` `来改变
-
-```
-request.onupgradeneeded = function(event) {
-  // 保存 IDBDataBase 接口
-  var db = event.target.result;
-
-  // 为该数据库创建一个对象仓库
-  // 1.参数名称
-  // 2.参数配置项
-  var objectStore = db.createObjectStore("name", { 
-  	// 键的位置
-  	keyPath: "myKey"，
-  	// 是否自增
-  	autoIncrement： true
-  });
-};
-```
-
-3）创建事务，操作数据库
-
-事务的三种模式
-
-```
-readonly // 只读
-readwrite // 读和写
-versionchange // 这个有兼容问题，后面再研究
-```
-
-
-
-##### `vue`使用`indexDBwrapper`
-
-下载
-
-```
-yarn add indexdbwrapper
-
-// 引入
-import IndexDBWrapper from "indexdbwrapper";
-
-export default {
-	data(){
-		indexedDB: null
-	}，
-	
-	mounted(){
-		// 初始化数据
-		this.indexedDB = new IndexDBWrapper('plantData', 1, {
-    	onupgradeneeded: (e) =>{
-    		const db = e.target.result;
-    		const objStore = db.createObjectStore("plantList",{
-    			autoIncrement: true,
-    			keyPath: "id"
-    		});
-    	}
-    })
-		// 打开数据库，这样浏览器就可以看到了
-		this.indexedDB.open()
-	}
-}
-
-```
-
-![image-20221025110115032](js.assets/image-20221025110115032.png)
-
 ### 模块化
 
 #### 简介
@@ -934,6 +821,37 @@ function isCardNo(card) {
 
 
 ### 其他
+
+#### 封装获取`url`中参数的方法
+
+##### 代码
+
+```
+/**
+ * 封装获取 url 参数的方法
+ * @param {*} str 字符串
+ * @param {*} name 获取参数名称
+ */
+export function getQueryParams(str, name){
+  const obj = {}
+  const searchArr = str.substr(1).split('&')
+  searchArr.forEach(v => {
+  	const index = v.indexOf('=')
+  	if (index !== -1) {
+  		const name = v.substring(0, index)
+  		const val = v.substring(index + 1, v.length)
+ 			obj[name] = val
+  	}
+  })
+  return obj[name] ? unescape(obj[name]) : null
+}
+```
+
+##### `demo`
+
+```
+/dom/demo/202301/01
+```
 
 #### video 获取视频时长
 

@@ -104,6 +104,15 @@ npm install --save-dev style-loader css-loader
 npm install --save-dev file-loader
 ```
 
+## 环境变量
+
+### 配置环境变量
+
+```
+// 参考文档
+https://www.jianshu.com/p/f4638f5df1c7
+```
+
 ## 插件
 
 #### 清理 /dist 文件夹
